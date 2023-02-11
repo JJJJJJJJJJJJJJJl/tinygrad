@@ -11,8 +11,11 @@ class Node:
     if ops is None: ops = render_python
     if self.min == self.max and type(self) != NumNode: return NumNode(self.min).render(ops, ctx)
     return ops[type(self)](self, ops, ctx)
-  def __add__(self, b:int): return Variable.sum([self, Variable.num(b)])
+  def __add__(self, b:int): 
+    print("Node:__add__ ", b, self.min, self.max)
+    return Variable.sum([self, Variable.num(b)])
   def __mul__(self, b:int):
+    print("Node:__mul__")
     if b == 0: return NumNode(0)
     elif b == 1: return self
     return MulNode(self, b)
@@ -86,6 +89,7 @@ class Node:
 
 class Variable(Node):
   def __init__(self, expr:str, nmin:int, nmax:int):
+    print("Variable:__init__ ", expr, nmin, nmax)
     self.expr, self.min, self.max = expr, nmin, nmax
 
 class NumNode(Node):
@@ -95,6 +99,7 @@ class NumNode(Node):
 class OpNode(Node):
   def __init__(self, a:Node, b:int):
     self.a, self.b = a, b
+    print("OpNode:__init__ ", a, b)
     self.min, self.max = self.minmax(a,b)
   minmax = staticmethod(lambda a,b: (1//0, 1//0))
 

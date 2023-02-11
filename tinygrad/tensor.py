@@ -7,6 +7,8 @@ from typing import List, Tuple, Callable, Optional, ClassVar, Type, Union
 from tinygrad.lazy import Device, LazyBuffer
 from tinygrad.ops import DEBUG
 
+import traceback
+
 # An instantiation of the Function is the Context
 class Function:
   def __init__(self, device:str, *tensors:Tensor):
@@ -39,6 +41,8 @@ class Tensor:
   no_grad : ClassVar[bool] = False
 
   def __init__(self, data, device=Device.DEFAULT, requires_grad:Optional[bool]=None):
+    traceback.print_stack()
+    print("Tensor:__init__")
     if isinstance(data, list):
       data = np.array(data, dtype=np.float32)
     elif isinstance(data, LazyBuffer) and data.device != device:
