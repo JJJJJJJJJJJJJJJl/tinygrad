@@ -1,0 +1,105 @@
+AST:  
+<class 'tinygrad.ops.LazyOp'>  
+  <->  
+LazyOp(
+  op=<BinaryOps.SUB: 2>, 
+  src=(
+    <LB (1, 3) op:realized>, 
+    LazyOp(
+      op=<BinaryOps.MUL: 3>, 
+      src=(
+        LazyOp(
+          op=<BinaryOps.ADD: 1>, 
+          src=(
+            LazyOp(
+              op=<BinaryOps.ADD: 1>, 
+              src=(
+                LazyOp(
+                  op=<BinaryOps.ADD: 1>, 
+                  src=(
+                    LazyOp(
+                      op=<BinaryOps.ADD: 1>, 
+                      src=(
+                        LazyOp(
+                          op=<BinaryOps.ADD: 1>, 
+                          src=(
+                            LazyOp(
+                              op=<BinaryOps.ADD: 1>, 
+                              src=(
+                                LazyOp(
+                                  op=<BinaryOps.ADD: 1>, 
+                                  src=(
+                                    LazyOp(
+                                      op=<BinaryOps.ADD: 1>, 
+                                      src=(
+                                        LazyOp(
+                                          op=<BinaryOps.ADD: 1>, 
+                                          src=(
+                                            LazyOp(
+                                              op=<BinaryOps.ADD: 1>, 
+                                              src=(
+                                                LazyOp(
+                                                  op=<BinaryOps.ADD: 1>, 
+                                                  src=(
+                                                    LazyOp(
+                                                      op=<BinaryOps.ADD: 1>, 
+                                                      src=(
+                                                        LazyOp(
+                                                          op=<BinaryOps.ADD: 1>, 
+                                                          src=(
+                                                            LazyOp(
+                                                              op=<BinaryOps.ADD: 1>, 
+                                                              src=(
+                                                                LazyOp(
+                                                                  op=<BinaryOps.ADD: 1>, 
+                                                                  src=(
+                                                                    LazyOp(
+                                                                      op=<BinaryOps.ADD: 1>, 
+                                                                      src=(
+                                                                        LazyOp(
+                                                                          op=<BinaryOps.ADD: 1>, 
+                                                                          src=(
+                                                                            LazyOp(
+                                                                              op=<BinaryOps.ADD: 1>, 
+                                                                              src=(
+                                                                                LazyOp(
+                                                                                  op=<BinaryOps.ADD: 1>, 
+                                                                                  src=(
+                                                                                    LazyOp(
+                                                                                      op=<BinaryOps.ADD: 1>, 
+                                                                                      src=(
+                                                                                        LazyOp(
+                                                                                          op=<BinaryOps.ADD: 1>, 
+                                                                                          src=(
+                                                                                            LazyOp(
+                                                                                              op=<BinaryOps.ADD: 1>, 
+                                                                                              src=(
+                                                                                                LazyOp(
+                                                                                                  op=<BinaryOps.ADD: 1>, 
+                                                                                                  src=(
+                                                                                                    LazyOp(
+                                                                                                      op=<BinaryOps.ADD: 1>, 
+                                                                                                      src=(
+                                                                                                        LazyOp(
+                                                                                                          op=<BinaryOps.ADD: 1>, 
+                                                                                                          src=(
+                                                                                                            LazyOp(
+                                                                                                              op=<BinaryOps.ADD: 1>, 
+                                                                                                              src=(
+                                                                                                                LazyOp(
+                                                                                                                  op=<BinaryOps.ADD: 1>, 
+                                                                                                                  src=(<LB (1, 3) op:realized>, <LB (1, 3) op:realized>), 
+                                                                                                                  arg=None
+                                                                                                                ), 
+                                                                                                                <LB (1, 3) op:realized>
+                                                                                                              ), 
+                                                                                                              arg=None
+                                                                                                            ), 
+                                                                                                            <LB (1, 3) op:realized>), 
+                                                                                                          arg=None), 
+                                                                                                          <LB (1, 3) op:realized>), 
+                                                                                                        arg=None), 
+                                                                                                        <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:realized>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), 
+  arg=None)  
+  
+# LEN:   3

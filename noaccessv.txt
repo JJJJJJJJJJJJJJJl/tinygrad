@@ -1,0 +1,2318 @@
+ops_triton not available No module named 'pycuda'
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (3, 3) op:LoadOps.FROMCPU>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (1,) op:LoadOps.FROMCPU>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<0>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (3, 3) op:LoadOps.FROMCPU>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (3, 3) op:LoadOps.FROMCPU>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (3, 3) op:LoadOps.FROMCPU>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (1,) op:LoadOps.FROMCPU>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<1>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (3, 3) op:LoadOps.FROMCPU>
+create <LB (1, 3) op:LoadOps.FROMCPU>
+create <LB (3, 3) op:LoadOps.FROMCPU>
+0
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:UnaryOps.RELU>
+create <LB (1, 1) op:ReduceOps.MAX>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:UnaryOps.EXP>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:UnaryOps.LOG>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1,) op:MovementOps.RESHAPE>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:BinaryOps.CMPEQ>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.GT0>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:UnaryOps.GT0>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.DIV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:UnaryOps.GT0>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.DIV>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (1, 1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<2>
+BEFORE optim |  True  | self.m[0].data [[0. 0. 0.]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:UnaryOps.RECIPROCAL>
+create <LB (1,) op:BinaryOps.MUL>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:UnaryOps.RELU>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<3>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<3> -> (1, 3, 1, 1)-<4>
+[<LoadOps.FROMCPU: 1>] :  -> (3, 3)-<5>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<5> -> (3, 3)-<6>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<6> -> (3, 3, 1, 1)-<7>
+[<MovementOps.RESHAPE: 1>, <UnaryOps.RELU: 3>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<4>, (3, 3, 1, 1)-<7> -> (1, 3)-<8>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<8> -> (1, 3, 1, 1)-<9>
+[<ReduceOps.MAX: 2>] : (1, 3)-<8> -> (1, 1)-<10>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<10> -> (1, 3)-<11>
+[<BinaryOps.CMPEQ: 6>] : (1, 3)-<8>, (1, 3)-<11> -> (1, 3)-<12>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<12> -> (1, 3, 1, 1)-<13>
+[<ReduceOps.SUM: 1>] : (1, 3)-<12> -> (1, 1)-<14>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<14> -> (1, 3)-<15>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<15> -> (1, 3, 1, 1)-<16>
+[<UnaryOps.EXP: 4>, <BinaryOps.SUB: 2>] : (1, 3)-<8>, (1, 3)-<11> -> (1, 3)-<17>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:BinaryOps.DIV>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:UnaryOps.LOG>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:UnaryOps.LOG>
+x <LB (1, 1) op:BinaryOps.DIV>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<18>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<19>
+[<MovementOps.RESHAPE: 1>] : (1,)-<19> -> (1, 1)-<20>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<20> -> (1, 3)-<21>
+[<ReduceOps.SUM: 1>] : (1, 3)-<17> -> (1, 1)-<22>
+[<BinaryOps.DIV: 4>, <ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.MUL: 3>] : (1, 3)-<18>, (1, 3)-<21>, (1, 1)-<22> -> (1, 1)-<23>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<23> -> (1, 3)-<24>
+[<ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<17>, (1, 3)-<24>, (1, 3)-<18>, (1, 3)-<21> -> (1, 1)-<25>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<25> -> (1, 3)-<26>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<26> -> (1, 3, 1, 1)-<27>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<17> -> (1, 3, 1, 1)-<28>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<24> -> (1, 3, 1, 1)-<29>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<18> -> (1, 3, 1, 1)-<30>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<21> -> (1, 3, 1, 1)-<31>
+[<BinaryOps.MUL: 3>, <UnaryOps.GT0: 6>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.DIV: 4>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<9>, (1, 3, 1, 1)-<13>, (1, 3, 1, 1)-<16>, (1, 3, 1, 1)-<27>, (1, 3, 1, 1)-<28>, (1, 3, 1, 1)-<29>, (1, 3, 1, 1)-<30>, (1, 3, 1, 1)-<31> -> (1, 3, 1, 1)-<32>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<5> -> (3, 3, 1, 1)-<33>
+[<ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<32>, (3, 3, 1, 1)-<33> -> (1, 3, 1, 1)-<34>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<34> -> (1, 3)-<35>
+t.grad:  [[1.334759   0.75527155 0.        ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:LoadOps.FROMCPU> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.SUB>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.SUB>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<3> -> (3, 1, 1, 1)-<36>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<32> -> (3, 1, 1, 1)-<37>
+[<ProcessingOps.CONV: 1>] : (3, 1, 1, 1)-<36>, (3, 1, 1, 1)-<37> -> (3, 3, 1, 1)-<38>
+[<MovementOps.RESHAPE: 1>] : (3, 3, 1, 1)-<38> -> (3, 3)-<39>
+t.grad:  [[ 2.669518    1.5105431   0.        ]
+ [ 1.334759    0.75527155  0.        ]
+ [-2.669518   -1.5105431   0.        ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:LoadOps.FROMCPU> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:LoadOps.FROMCPU> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.SUB>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<40>
+[<MovementOps.RESHAPE: 1>] : (1,)-<40> -> (1, 1)-<41>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<41> -> (1, 3)-<42>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<43>
+[<MovementOps.RESHAPE: 1>] : (1,)-<43> -> (1, 1)-<44>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<44> -> (1, 3)-<45>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<42>, (1, 3)-<2>, (1, 3)-<45>, (1, 3)-<35> -> (1, 3)-<2>
+AFTER optim |  True  | self.m[0].data [[0.1334759  0.07552715 0.        ]]
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<46>
+[<BinaryOps.ADD: 1>] : (1,)-<0>, (1,)-<46> -> (1,)-<47>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<48>
+[<MovementOps.RESHAPE: 1>] : (1,)-<48> -> (1, 1)-<49>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<49> -> (3, 3)-<50>
+[<LoadOps.FROMCPU: 1>] :  -> (3, 3)-<51>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<52>
+[<MovementOps.RESHAPE: 1>] : (1,)-<52> -> (1, 1)-<53>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<53> -> (3, 3)-<54>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<50>, (3, 3)-<51>, (3, 3)-<54>, (3, 3)-<39> -> (3, 3)-<55>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<56>
+[<MovementOps.RESHAPE: 1>] : (1,)-<56> -> (1, 1)-<57>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<57> -> (1, 3)-<58>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<59>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<60>
+[<MovementOps.RESHAPE: 1>] : (1,)-<60> -> (1, 1)-<61>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<61> -> (1, 3)-<62>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<58>, (1, 3)-<59>, (1, 3)-<62>, (1, 3)-<35>, (1, 3)-<35> -> (1, 3)-<63>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<64>
+[<MovementOps.RESHAPE: 1>] : (1,)-<64> -> (1, 1)-<65>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<65> -> (3, 3)-<66>
+[<LoadOps.FROMCPU: 1>] :  -> (3, 3)-<67>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<68>
+[<MovementOps.RESHAPE: 1>] : (1,)-<68> -> (1, 1)-<69>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<69> -> (3, 3)-<70>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<66>, (3, 3)-<67>, (3, 3)-<70>, (3, 3)-<39>, (3, 3)-<39> -> (3, 3)-<71>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<72>
+[<MovementOps.RESHAPE: 1>] : (1,)-<72> -> (1, 1)-<73>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<74>
+[<MovementOps.RESHAPE: 1>] : (1,)-<74> -> (1, 1)-<75>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<76>
+[<MovementOps.RESHAPE: 1>] : (1,)-<76> -> (1, 1)-<77>
+[<MovementOps.RESHAPE: 1>] : (1,)-<0> -> (1, 1)-<78>
+[<MovementOps.RESHAPE: 1>] : (1,)-<46> -> (1, 1)-<79>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<80>
+[<MovementOps.RESHAPE: 1>] : (1,)-<80> -> (1, 1)-<81>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<82>
+[<MovementOps.RESHAPE: 1>] : (1,)-<82> -> (1, 1)-<83>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<84>
+[<MovementOps.RESHAPE: 1>] : (1,)-<84> -> (1, 1)-<85>
+[<BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.POW: 5>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>] : (1, 1)-<73>, (1, 1)-<75>, (1, 1)-<77>, (1, 1)-<78>, (1, 1)-<79>, (1, 1)-<81>, (1, 1)-<83>, (1, 1)-<85>, (1, 1)-<78>, (1, 1)-<79> -> (1, 1)-<86>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<86> -> (1, 3)-<87>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<88>
+[<MovementOps.RESHAPE: 1>] : (1,)-<88> -> (1, 1)-<89>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<89> -> (1, 3)-<90>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<91>
+[<MovementOps.RESHAPE: 1>] : (1,)-<91> -> (1, 1)-<92>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<92> -> (1, 3)-<93>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<3>, (1, 3)-<87>, (1, 3)-<42>, (1, 3)-<2>, (1, 3)-<45>, (1, 3)-<35>, (1, 3)-<58>, (1, 3)-<59>, (1, 3)-<62>, (1, 3)-<35>, (1, 3)-<35>, (1, 3)-<90>, (1, 3)-<93> -> (1, 3)-<3>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<86> -> (3, 3)-<94>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<95>
+[<MovementOps.RESHAPE: 1>] : (1,)-<95> -> (1, 1)-<96>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<96> -> (3, 3)-<97>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<98>
+[<MovementOps.RESHAPE: 1>] : (1,)-<98> -> (1, 1)-<99>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<99> -> (3, 3)-<100>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<5>, (3, 3)-<94>, (3, 3)-<50>, (3, 3)-<51>, (3, 3)-<54>, (3, 3)-<39>, (3, 3)-<66>, (3, 3)-<67>, (3, 3)-<70>, (3, 3)-<39>, (3, 3)-<39>, (3, 3)-<97>, (3, 3)-<100> -> (3, 3)-<5>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:UnaryOps.RELU>
+create <LB (1, 1) op:ReduceOps.MAX>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:UnaryOps.EXP>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:UnaryOps.LOG>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1,) op:MovementOps.RESHAPE>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:BinaryOps.CMPEQ>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.GT0>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:UnaryOps.GT0>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.DIV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:UnaryOps.GT0>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.DIV>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (1, 1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<101>
+BEFORE optim |  False  | self.m[0].data [[0. 0. 0.]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:UnaryOps.RECIPROCAL>
+create <LB (1,) op:BinaryOps.MUL>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:UnaryOps.RELU>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<102>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<102> -> (1, 3, 1, 1)-<103>
+[<LoadOps.FROMCPU: 1>] :  -> (3, 3)-<104>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<104> -> (3, 3)-<105>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<105> -> (3, 3, 1, 1)-<106>
+[<MovementOps.RESHAPE: 1>, <UnaryOps.RELU: 3>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<103>, (3, 3, 1, 1)-<106> -> (1, 3)-<107>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<107> -> (1, 3, 1, 1)-<108>
+[<ReduceOps.MAX: 2>] : (1, 3)-<107> -> (1, 1)-<109>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<109> -> (1, 3)-<110>
+[<BinaryOps.CMPEQ: 6>] : (1, 3)-<107>, (1, 3)-<110> -> (1, 3)-<111>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<111> -> (1, 3, 1, 1)-<112>
+[<ReduceOps.SUM: 1>] : (1, 3)-<111> -> (1, 1)-<113>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<113> -> (1, 3)-<114>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<114> -> (1, 3, 1, 1)-<115>
+[<UnaryOps.EXP: 4>, <BinaryOps.SUB: 2>] : (1, 3)-<107>, (1, 3)-<110> -> (1, 3)-<116>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:BinaryOps.DIV>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:UnaryOps.LOG>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:UnaryOps.LOG>
+x <LB (1, 1) op:BinaryOps.DIV>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<117>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<118>
+[<MovementOps.RESHAPE: 1>] : (1,)-<118> -> (1, 1)-<119>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<119> -> (1, 3)-<120>
+[<ReduceOps.SUM: 1>] : (1, 3)-<116> -> (1, 1)-<121>
+[<BinaryOps.DIV: 4>, <ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.MUL: 3>] : (1, 3)-<117>, (1, 3)-<120>, (1, 1)-<121> -> (1, 1)-<122>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<122> -> (1, 3)-<123>
+[<ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<116>, (1, 3)-<123>, (1, 3)-<117>, (1, 3)-<120> -> (1, 1)-<124>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<124> -> (1, 3)-<125>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<125> -> (1, 3, 1, 1)-<126>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<116> -> (1, 3, 1, 1)-<127>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<123> -> (1, 3, 1, 1)-<128>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<117> -> (1, 3, 1, 1)-<129>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<120> -> (1, 3, 1, 1)-<130>
+[<BinaryOps.MUL: 3>, <UnaryOps.GT0: 6>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.DIV: 4>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<108>, (1, 3, 1, 1)-<112>, (1, 3, 1, 1)-<115>, (1, 3, 1, 1)-<126>, (1, 3, 1, 1)-<127>, (1, 3, 1, 1)-<128>, (1, 3, 1, 1)-<129>, (1, 3, 1, 1)-<130> -> (1, 3, 1, 1)-<131>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<104> -> (3, 3, 1, 1)-<132>
+[<ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<131>, (3, 3, 1, 1)-<132> -> (1, 3, 1, 1)-<133>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<133> -> (1, 3)-<134>
+t.grad:  [[1.334759   0.75527155 0.        ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:LoadOps.FROMCPU> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.SUB>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.SUB>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<102> -> (3, 1, 1, 1)-<135>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<131> -> (3, 1, 1, 1)-<136>
+[<ProcessingOps.CONV: 1>] : (3, 1, 1, 1)-<135>, (3, 1, 1, 1)-<136> -> (3, 3, 1, 1)-<137>
+[<MovementOps.RESHAPE: 1>] : (3, 3, 1, 1)-<137> -> (3, 3)-<138>
+t.grad:  [[ 2.669518    1.5105431   0.        ]
+ [ 1.334759    0.75527155  0.        ]
+ [-2.669518   -1.5105431   0.        ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:LoadOps.FROMCPU> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:LoadOps.FROMCPU> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.SUB>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<139>
+[<MovementOps.RESHAPE: 1>] : (1,)-<139> -> (1, 1)-<140>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<140> -> (1, 3)-<141>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<142>
+[<MovementOps.RESHAPE: 1>] : (1,)-<142> -> (1, 1)-<143>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<143> -> (1, 3)-<144>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<141>, (1, 3)-<101>, (1, 3)-<144>, (1, 3)-<134> -> (1, 3)-<101>
+AFTER optim |  False  | self.m[0].data [[0.1334759  0.07552715 0.        ]]
+########################################
+1
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:UnaryOps.RELU>
+create <LB (1, 1) op:ReduceOps.MAX>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:UnaryOps.EXP>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:UnaryOps.LOG>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1,) op:MovementOps.RESHAPE>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:BinaryOps.CMPEQ>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.GT0>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:UnaryOps.GT0>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.DIV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:UnaryOps.GT0>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.DIV>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (1, 1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:BinaryOps.ADD>
+BEFORE optim |  True  | self.m[0].data [[0.1334759  0.07552715 0.        ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:UnaryOps.RECIPROCAL>
+create <LB (1,) op:BinaryOps.MUL>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:BinaryOps.ADD>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<35> -> (1, 3, 1, 1)-<145>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:UnaryOps.RELU>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<3> -> (1, 3, 1, 1)-<146>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<5> -> (3, 3)-<147>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<147> -> (3, 3, 1, 1)-<148>
+[<MovementOps.RESHAPE: 1>, <UnaryOps.RELU: 3>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<146>, (3, 3, 1, 1)-<148> -> (1, 3)-<149>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<149> -> (1, 3, 1, 1)-<150>
+[<ReduceOps.MAX: 2>] : (1, 3)-<149> -> (1, 1)-<151>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<151> -> (1, 3)-<152>
+[<BinaryOps.CMPEQ: 6>] : (1, 3)-<149>, (1, 3)-<152> -> (1, 3)-<153>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<153> -> (1, 3, 1, 1)-<154>
+[<ReduceOps.SUM: 1>] : (1, 3)-<153> -> (1, 1)-<155>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<155> -> (1, 3)-<156>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<156> -> (1, 3, 1, 1)-<157>
+[<UnaryOps.EXP: 4>, <BinaryOps.SUB: 2>] : (1, 3)-<149>, (1, 3)-<152> -> (1, 3)-<158>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:BinaryOps.DIV>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+k <LB (1, 1) op:UnaryOps.LOG>
+x <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:UnaryOps.LOG>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<159>
+[<MovementOps.RESHAPE: 1>] : (1,)-<159> -> (1, 1)-<160>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<160> -> (1, 3)-<161>
+[<ReduceOps.SUM: 1>] : (1, 3)-<158> -> (1, 1)-<162>
+[<BinaryOps.DIV: 4>, <ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.MUL: 3>] : (1, 3)-<18>, (1, 3)-<161>, (1, 1)-<162> -> (1, 1)-<163>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<163> -> (1, 3)-<164>
+[<ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<158>, (1, 3)-<164>, (1, 3)-<18>, (1, 3)-<161> -> (1, 1)-<165>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<165> -> (1, 3)-<166>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<166> -> (1, 3, 1, 1)-<167>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<158> -> (1, 3, 1, 1)-<168>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<164> -> (1, 3, 1, 1)-<169>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<18> -> (1, 3, 1, 1)-<170>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<161> -> (1, 3, 1, 1)-<171>
+[<BinaryOps.MUL: 3>, <UnaryOps.GT0: 6>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.DIV: 4>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<150>, (1, 3, 1, 1)-<154>, (1, 3, 1, 1)-<157>, (1, 3, 1, 1)-<167>, (1, 3, 1, 1)-<168>, (1, 3, 1, 1)-<169>, (1, 3, 1, 1)-<170>, (1, 3, 1, 1)-<171> -> (1, 3, 1, 1)-<172>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<5> -> (3, 3, 1, 1)-<173>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<145>, (1, 3, 1, 1)-<172>, (3, 3, 1, 1)-<173> -> (1, 3)-<174>
+t.grad:  [[2.6678417e+00 1.5086049e+00 2.0905831e-03]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.SUB>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.SUB>
+
+HIT <LB (3, 3) op:MovementOps.RESHAPE> <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (3, 3) op:BinaryOps.ADD>
+x <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<39> -> (3, 3, 1, 1)-<175>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<3> -> (3, 1, 1, 1)-<176>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<172> -> (3, 1, 1, 1)-<177>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (3, 3, 1, 1)-<175>, (3, 1, 1, 1)-<176>, (3, 1, 1, 1)-<177> -> (3, 3)-<178>
+t.grad:  [[ 5.337328   3.0199556  0.       ]
+ [ 2.6673956  1.5092602  0.       ]
+ [-5.3398647 -3.021391   0.       ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.SUB>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<179>
+[<MovementOps.RESHAPE: 1>] : (1,)-<179> -> (1, 1)-<180>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<180> -> (1, 3)-<181>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<182>
+[<MovementOps.RESHAPE: 1>] : (1,)-<182> -> (1, 1)-<183>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<183> -> (1, 3)-<184>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<181>, (1, 3)-<2>, (1, 3)-<184>, (1, 3)-<174> -> (1, 3)-<2>
+AFTER optim |  True  | self.m[0].data [[3.8691247e-01 2.1883492e-01 2.0905831e-04]]
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<185>
+[<BinaryOps.ADD: 1>] : (1,)-<47>, (1,)-<185> -> (1,)-<186>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<187>
+[<MovementOps.RESHAPE: 1>] : (1,)-<187> -> (1, 1)-<188>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<188> -> (3, 3)-<189>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<190>
+[<MovementOps.RESHAPE: 1>] : (1,)-<190> -> (1, 1)-<191>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<191> -> (3, 3)-<192>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<189>, (3, 3)-<55>, (3, 3)-<192>, (3, 3)-<178> -> (3, 3)-<55>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<193>
+[<MovementOps.RESHAPE: 1>] : (1,)-<193> -> (1, 1)-<194>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<194> -> (1, 3)-<195>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<196>
+[<MovementOps.RESHAPE: 1>] : (1,)-<196> -> (1, 1)-<197>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<197> -> (1, 3)-<198>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<195>, (1, 3)-<63>, (1, 3)-<198>, (1, 3)-<174>, (1, 3)-<174> -> (1, 3)-<63>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<199>
+[<MovementOps.RESHAPE: 1>] : (1,)-<199> -> (1, 1)-<200>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<200> -> (3, 3)-<201>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<202>
+[<MovementOps.RESHAPE: 1>] : (1,)-<202> -> (1, 1)-<203>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<203> -> (3, 3)-<204>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<201>, (3, 3)-<71>, (3, 3)-<204>, (3, 3)-<178>, (3, 3)-<178> -> (3, 3)-<71>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<205>
+[<MovementOps.RESHAPE: 1>] : (1,)-<205> -> (1, 1)-<206>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<207>
+[<MovementOps.RESHAPE: 1>] : (1,)-<207> -> (1, 1)-<208>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<209>
+[<MovementOps.RESHAPE: 1>] : (1,)-<209> -> (1, 1)-<210>
+[<MovementOps.RESHAPE: 1>] : (1,)-<47> -> (1, 1)-<211>
+[<MovementOps.RESHAPE: 1>] : (1,)-<185> -> (1, 1)-<212>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<213>
+[<MovementOps.RESHAPE: 1>] : (1,)-<213> -> (1, 1)-<214>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<215>
+[<MovementOps.RESHAPE: 1>] : (1,)-<215> -> (1, 1)-<216>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<217>
+[<MovementOps.RESHAPE: 1>] : (1,)-<217> -> (1, 1)-<218>
+[<BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.POW: 5>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>] : (1, 1)-<206>, (1, 1)-<208>, (1, 1)-<210>, (1, 1)-<211>, (1, 1)-<212>, (1, 1)-<214>, (1, 1)-<216>, (1, 1)-<218>, (1, 1)-<211>, (1, 1)-<212> -> (1, 1)-<219>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<219> -> (1, 3)-<220>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<221>
+[<MovementOps.RESHAPE: 1>] : (1,)-<221> -> (1, 1)-<222>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<222> -> (1, 3)-<223>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<224>
+[<MovementOps.RESHAPE: 1>] : (1,)-<224> -> (1, 1)-<225>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<225> -> (1, 3)-<226>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<3>, (1, 3)-<220>, (1, 3)-<181>, (1, 3)-<2>, (1, 3)-<184>, (1, 3)-<174>, (1, 3)-<195>, (1, 3)-<63>, (1, 3)-<198>, (1, 3)-<174>, (1, 3)-<174>, (1, 3)-<223>, (1, 3)-<226> -> (1, 3)-<3>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<219> -> (3, 3)-<227>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<228>
+[<MovementOps.RESHAPE: 1>] : (1,)-<228> -> (1, 1)-<229>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<229> -> (3, 3)-<230>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<231>
+[<MovementOps.RESHAPE: 1>] : (1,)-<231> -> (1, 1)-<232>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<232> -> (3, 3)-<233>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<5>, (3, 3)-<227>, (3, 3)-<189>, (3, 3)-<55>, (3, 3)-<192>, (3, 3)-<178>, (3, 3)-<201>, (3, 3)-<71>, (3, 3)-<204>, (3, 3)-<178>, (3, 3)-<178>, (3, 3)-<230>, (3, 3)-<233> -> (3, 3)-<5>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.POW>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.SUB>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.POW>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.SUB>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.POW>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.SUB>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:UnaryOps.RELU>
+create <LB (1, 1) op:ReduceOps.MAX>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:UnaryOps.EXP>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:UnaryOps.LOG>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1,) op:MovementOps.RESHAPE>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:BinaryOps.CMPEQ>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.GT0>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:UnaryOps.GT0>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.DIV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:UnaryOps.GT0>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.DIV>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (1, 1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:BinaryOps.ADD>
+BEFORE optim |  False  | self.m[0].data [[0.1334759  0.07552715 0.        ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:UnaryOps.RECIPROCAL>
+create <LB (1,) op:BinaryOps.MUL>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:BinaryOps.ADD>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<134> -> (1, 3, 1, 1)-<234>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:UnaryOps.RELU>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<102> -> (1, 3, 1, 1)-<235>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<236>
+[<MovementOps.RESHAPE: 1>] : (1,)-<236> -> (1, 1)-<237>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<238>
+[<MovementOps.RESHAPE: 1>] : (1,)-<238> -> (1, 1)-<239>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<240>
+[<MovementOps.RESHAPE: 1>] : (1,)-<240> -> (1, 1)-<241>
+[<MovementOps.RESHAPE: 1>] : (1,)-<1> -> (1, 1)-<242>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<243>
+[<MovementOps.RESHAPE: 1>] : (1,)-<243> -> (1, 1)-<244>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<245>
+[<MovementOps.RESHAPE: 1>] : (1,)-<245> -> (1, 1)-<246>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<247>
+[<MovementOps.RESHAPE: 1>] : (1,)-<247> -> (1, 1)-<248>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<249>
+[<MovementOps.RESHAPE: 1>] : (1,)-<249> -> (1, 1)-<250>
+[<BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.POW: 5>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>] : (1, 1)-<237>, (1, 1)-<239>, (1, 1)-<241>, (1, 1)-<242>, (1, 1)-<244>, (1, 1)-<246>, (1, 1)-<248>, (1, 1)-<250>, (1, 1)-<242>, (1, 1)-<244> -> (1, 1)-<251>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<251> -> (1, 3)-<252>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<252> -> (1, 3, 1, 1)-<253>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<141> -> (1, 3, 1, 1)-<254>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<101> -> (1, 3, 1, 1)-<255>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<144> -> (1, 3, 1, 1)-<256>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<257>
+[<MovementOps.RESHAPE: 1>] : (1,)-<257> -> (1, 1)-<258>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<258> -> (1, 3)-<259>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<259> -> (1, 3, 1, 1)-<260>
+[<LoadOps.FROMCPU: 1>] :  -> (1, 3)-<261>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<261> -> (1, 3, 1, 1)-<262>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<263>
+[<MovementOps.RESHAPE: 1>] : (1,)-<263> -> (1, 1)-<264>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<264> -> (1, 3)-<265>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<265> -> (1, 3, 1, 1)-<266>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<267>
+[<MovementOps.RESHAPE: 1>] : (1,)-<267> -> (1, 1)-<268>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<268> -> (1, 3)-<269>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<269> -> (1, 3, 1, 1)-<270>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<271>
+[<MovementOps.RESHAPE: 1>] : (1,)-<271> -> (1, 1)-<272>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<272> -> (1, 3)-<273>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<273> -> (1, 3, 1, 1)-<274>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<235>, (1, 3, 1, 1)-<253>, (1, 3, 1, 1)-<254>, (1, 3, 1, 1)-<255>, (1, 3, 1, 1)-<256>, (1, 3, 1, 1)-<234>, (1, 3, 1, 1)-<260>, (1, 3, 1, 1)-<262>, (1, 3, 1, 1)-<266>, (1, 3, 1, 1)-<234>, (1, 3, 1, 1)-<234>, (1, 3, 1, 1)-<270>, (1, 3, 1, 1)-<274> -> (1, 3, 1, 1)-<275>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<104> -> (3, 3)-<276>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<276> -> (3, 3, 1, 1)-<277>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<251> -> (3, 3)-<278>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<278> -> (3, 3)-<279>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<279> -> (3, 3, 1, 1)-<280>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<281>
+[<MovementOps.RESHAPE: 1>] : (1,)-<281> -> (1, 1)-<282>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<282> -> (3, 3)-<283>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<283> -> (3, 3)-<284>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<284> -> (3, 3, 1, 1)-<285>
+[<LoadOps.FROMCPU: 1>] :  -> (3, 3)-<286>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<286> -> (3, 3)-<287>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<287> -> (3, 3, 1, 1)-<288>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<289>
+[<MovementOps.RESHAPE: 1>] : (1,)-<289> -> (1, 1)-<290>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<290> -> (3, 3)-<291>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<291> -> (3, 3)-<292>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<292> -> (3, 3, 1, 1)-<293>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<138> -> (3, 3)-<294>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<294> -> (3, 3, 1, 1)-<295>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<296>
+[<MovementOps.RESHAPE: 1>] : (1,)-<296> -> (1, 1)-<297>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<297> -> (3, 3)-<298>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<298> -> (3, 3)-<299>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<299> -> (3, 3, 1, 1)-<300>
+[<LoadOps.FROMCPU: 1>] :  -> (3, 3)-<301>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<301> -> (3, 3)-<302>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<302> -> (3, 3, 1, 1)-<303>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<304>
+[<MovementOps.RESHAPE: 1>] : (1,)-<304> -> (1, 1)-<305>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<305> -> (3, 3)-<306>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<306> -> (3, 3)-<307>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<307> -> (3, 3, 1, 1)-<308>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<309>
+[<MovementOps.RESHAPE: 1>] : (1,)-<309> -> (1, 1)-<310>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<310> -> (3, 3)-<311>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<311> -> (3, 3)-<312>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<312> -> (3, 3, 1, 1)-<313>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<314>
+[<MovementOps.RESHAPE: 1>] : (1,)-<314> -> (1, 1)-<315>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<315> -> (3, 3)-<316>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<316> -> (3, 3)-<317>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<317> -> (3, 3, 1, 1)-<318>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3, 1, 1)-<277>, (3, 3, 1, 1)-<280>, (3, 3, 1, 1)-<285>, (3, 3, 1, 1)-<288>, (3, 3, 1, 1)-<293>, (3, 3, 1, 1)-<295>, (3, 3, 1, 1)-<300>, (3, 3, 1, 1)-<303>, (3, 3, 1, 1)-<308>, (3, 3, 1, 1)-<295>, (3, 3, 1, 1)-<295>, (3, 3, 1, 1)-<313>, (3, 3, 1, 1)-<318> -> (3, 3, 1, 1)-<319>
+[<MovementOps.RESHAPE: 1>, <UnaryOps.RELU: 3>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<275>, (3, 3, 1, 1)-<319> -> (1, 3)-<320>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<320> -> (1, 3, 1, 1)-<321>
+[<ReduceOps.MAX: 2>] : (1, 3)-<320> -> (1, 1)-<322>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<322> -> (1, 3)-<323>
+[<BinaryOps.CMPEQ: 6>] : (1, 3)-<320>, (1, 3)-<323> -> (1, 3)-<324>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<324> -> (1, 3, 1, 1)-<325>
+[<ReduceOps.SUM: 1>] : (1, 3)-<324> -> (1, 1)-<326>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<326> -> (1, 3)-<327>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<327> -> (1, 3, 1, 1)-<328>
+[<UnaryOps.EXP: 4>, <BinaryOps.SUB: 2>] : (1, 3)-<320>, (1, 3)-<323> -> (1, 3)-<329>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:BinaryOps.DIV>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:UnaryOps.LOG>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:UnaryOps.LOG>
+x <LB (1, 1) op:BinaryOps.DIV>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<330>
+[<MovementOps.RESHAPE: 1>] : (1,)-<330> -> (1, 1)-<331>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<331> -> (1, 3)-<332>
+[<ReduceOps.SUM: 1>] : (1, 3)-<329> -> (1, 1)-<333>
+[<BinaryOps.DIV: 4>, <ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.MUL: 3>] : (1, 3)-<117>, (1, 3)-<332>, (1, 1)-<333> -> (1, 1)-<334>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<334> -> (1, 3)-<335>
+[<ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<329>, (1, 3)-<335>, (1, 3)-<117>, (1, 3)-<332> -> (1, 1)-<336>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<336> -> (1, 3)-<337>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<337> -> (1, 3, 1, 1)-<338>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<329> -> (1, 3, 1, 1)-<339>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<335> -> (1, 3, 1, 1)-<340>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<117> -> (1, 3, 1, 1)-<341>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<332> -> (1, 3, 1, 1)-<342>
+[<BinaryOps.MUL: 3>, <UnaryOps.GT0: 6>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.DIV: 4>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<321>, (1, 3, 1, 1)-<325>, (1, 3, 1, 1)-<328>, (1, 3, 1, 1)-<338>, (1, 3, 1, 1)-<339>, (1, 3, 1, 1)-<340>, (1, 3, 1, 1)-<341>, (1, 3, 1, 1)-<342> -> (1, 3, 1, 1)-<343>
+[<MovementOps.RESHAPE: 1>] : (3, 3, 1, 1)-<319> -> (1, 3, 3, 1, 1)-<344>
+[<MovementOps.PERMUTE: 2>] : (1, 3, 3, 1, 1)-<344> -> (1, 3, 3, 1, 1)-<345>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 3, 1, 1)-<345> -> (3, 3, 1, 1)-<346>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<234>, (1, 3, 1, 1)-<343>, (3, 3, 1, 1)-<346> -> (1, 3)-<347>
+t.grad:  [[2.6678417e+00 1.5086049e+00 2.0905831e-03]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:BinaryOps.ADD> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.SUB>
+assign <LB (1, 3) op:BinaryOps.SUB> <- <LB (1, 3) op:BinaryOps.SUB>
+
+HIT <LB (3, 3) op:MovementOps.RESHAPE> <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (3, 3) op:BinaryOps.ADD>
+x <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<138> -> (3, 3, 1, 1)-<348>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<275> -> (3, 1, 1, 1)-<349>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<343> -> (3, 1, 1, 1)-<350>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (3, 3, 1, 1)-<348>, (3, 1, 1, 1)-<349>, (3, 1, 1, 1)-<350> -> (3, 3)-<351>
+t.grad:  [[ 5.337328   3.0199556  0.       ]
+ [ 2.6673956  1.5092602  0.       ]
+ [-5.3398647 -3.021391   0.       ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:BinaryOps.ADD> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:BinaryOps.ADD> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+assign <LB (3, 3) op:BinaryOps.SUB> <- <LB (3, 3) op:BinaryOps.SUB>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<352>
+[<MovementOps.RESHAPE: 1>] : (1,)-<352> -> (1, 1)-<353>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<353> -> (1, 3)-<354>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<355>
+[<MovementOps.RESHAPE: 1>] : (1,)-<355> -> (1, 1)-<356>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<356> -> (1, 3)-<357>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<354>, (1, 3)-<101>, (1, 3)-<357>, (1, 3)-<347> -> (1, 3)-<101>
+AFTER optim |  False  | self.m[0].data [[3.8691247e-01 2.1883492e-01 2.0905831e-04]]
+########################################
+2
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:UnaryOps.RELU>
+create <LB (1, 1) op:ReduceOps.MAX>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:UnaryOps.EXP>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:UnaryOps.LOG>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1,) op:MovementOps.RESHAPE>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:BinaryOps.CMPEQ>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.GT0>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:UnaryOps.GT0>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.DIV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:UnaryOps.GT0>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.DIV>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (1, 1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:BinaryOps.ADD>
+BEFORE optim |  True  | self.m[0].data [[3.8691247e-01 2.1883492e-01 2.0905831e-04]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:UnaryOps.RECIPROCAL>
+create <LB (1,) op:BinaryOps.MUL>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:BinaryOps.ADD>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<174> -> (1, 3, 1, 1)-<358>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:UnaryOps.RELU>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<3> -> (1, 3, 1, 1)-<359>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<5> -> (3, 3)-<360>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<360> -> (3, 3, 1, 1)-<361>
+[<MovementOps.RESHAPE: 1>, <UnaryOps.RELU: 3>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<359>, (3, 3, 1, 1)-<361> -> (1, 3)-<362>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<362> -> (1, 3, 1, 1)-<363>
+[<ReduceOps.MAX: 2>] : (1, 3)-<362> -> (1, 1)-<364>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<364> -> (1, 3)-<365>
+[<BinaryOps.CMPEQ: 6>] : (1, 3)-<362>, (1, 3)-<365> -> (1, 3)-<366>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<366> -> (1, 3, 1, 1)-<367>
+[<ReduceOps.SUM: 1>] : (1, 3)-<366> -> (1, 1)-<368>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<368> -> (1, 3)-<369>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<369> -> (1, 3, 1, 1)-<370>
+[<UnaryOps.EXP: 4>, <BinaryOps.SUB: 2>] : (1, 3)-<362>, (1, 3)-<365> -> (1, 3)-<371>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:BinaryOps.DIV>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:UnaryOps.LOG>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:UnaryOps.LOG>
+x <LB (1, 1) op:BinaryOps.DIV>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<372>
+[<MovementOps.RESHAPE: 1>] : (1,)-<372> -> (1, 1)-<373>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<373> -> (1, 3)-<374>
+[<ReduceOps.SUM: 1>] : (1, 3)-<371> -> (1, 1)-<375>
+[<BinaryOps.DIV: 4>, <ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.MUL: 3>] : (1, 3)-<18>, (1, 3)-<374>, (1, 1)-<375> -> (1, 1)-<376>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<376> -> (1, 3)-<377>
+[<ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<371>, (1, 3)-<377>, (1, 3)-<18>, (1, 3)-<374> -> (1, 1)-<378>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<378> -> (1, 3)-<379>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<379> -> (1, 3, 1, 1)-<380>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<371> -> (1, 3, 1, 1)-<381>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<377> -> (1, 3, 1, 1)-<382>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<18> -> (1, 3, 1, 1)-<383>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<374> -> (1, 3, 1, 1)-<384>
+[<BinaryOps.MUL: 3>, <UnaryOps.GT0: 6>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.DIV: 4>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<363>, (1, 3, 1, 1)-<367>, (1, 3, 1, 1)-<370>, (1, 3, 1, 1)-<380>, (1, 3, 1, 1)-<381>, (1, 3, 1, 1)-<382>, (1, 3, 1, 1)-<383>, (1, 3, 1, 1)-<384> -> (1, 3, 1, 1)-<385>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<5> -> (3, 3, 1, 1)-<386>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<358>, (1, 3, 1, 1)-<385>, (3, 3, 1, 1)-<386> -> (1, 3)-<387>
+t.grad:  [[3.9989457  2.259698   0.00657371]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.SUB>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.SUB>
+
+HIT <LB (3, 3) op:MovementOps.RESHAPE> <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (3, 3) op:BinaryOps.ADD>
+x <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<178> -> (3, 3, 1, 1)-<388>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<3> -> (3, 1, 1, 1)-<389>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<385> -> (3, 1, 1, 1)-<390>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (3, 3, 1, 1)-<388>, (3, 1, 1, 1)-<389>, (3, 1, 1, 1)-<390> -> (3, 3)-<391>
+t.grad:  [[ 8.004437   4.528808   0.       ]
+ [ 3.9989176  2.2625365  0.       ]
+ [-8.012375  -4.533299   0.       ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+assign <LB (3, 3) op:realized> <- <LB (3, 3) op:BinaryOps.SUB>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<392>
+[<MovementOps.RESHAPE: 1>] : (1,)-<392> -> (1, 1)-<393>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<393> -> (1, 3)-<394>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<395>
+[<MovementOps.RESHAPE: 1>] : (1,)-<395> -> (1, 1)-<396>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<396> -> (1, 3)-<397>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<394>, (1, 3)-<2>, (1, 3)-<397>, (1, 3)-<387> -> (1, 3)-<2>
+AFTER optim |  True  | self.m[0].data [[0.7481158  0.4229212  0.00084552]]
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<398>
+[<BinaryOps.ADD: 1>] : (1,)-<186>, (1,)-<398> -> (1,)-<399>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<400>
+[<MovementOps.RESHAPE: 1>] : (1,)-<400> -> (1, 1)-<401>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<401> -> (3, 3)-<402>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<403>
+[<MovementOps.RESHAPE: 1>] : (1,)-<403> -> (1, 1)-<404>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<404> -> (3, 3)-<405>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<402>, (3, 3)-<55>, (3, 3)-<405>, (3, 3)-<391> -> (3, 3)-<55>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<406>
+[<MovementOps.RESHAPE: 1>] : (1,)-<406> -> (1, 1)-<407>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<407> -> (1, 3)-<408>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<409>
+[<MovementOps.RESHAPE: 1>] : (1,)-<409> -> (1, 1)-<410>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<410> -> (1, 3)-<411>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<408>, (1, 3)-<63>, (1, 3)-<411>, (1, 3)-<387>, (1, 3)-<387> -> (1, 3)-<63>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<412>
+[<MovementOps.RESHAPE: 1>] : (1,)-<412> -> (1, 1)-<413>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<413> -> (3, 3)-<414>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<415>
+[<MovementOps.RESHAPE: 1>] : (1,)-<415> -> (1, 1)-<416>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<416> -> (3, 3)-<417>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<414>, (3, 3)-<71>, (3, 3)-<417>, (3, 3)-<391>, (3, 3)-<391> -> (3, 3)-<71>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<418>
+[<MovementOps.RESHAPE: 1>] : (1,)-<418> -> (1, 1)-<419>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<420>
+[<MovementOps.RESHAPE: 1>] : (1,)-<420> -> (1, 1)-<421>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<422>
+[<MovementOps.RESHAPE: 1>] : (1,)-<422> -> (1, 1)-<423>
+[<MovementOps.RESHAPE: 1>] : (1,)-<186> -> (1, 1)-<424>
+[<MovementOps.RESHAPE: 1>] : (1,)-<398> -> (1, 1)-<425>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<426>
+[<MovementOps.RESHAPE: 1>] : (1,)-<426> -> (1, 1)-<427>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<428>
+[<MovementOps.RESHAPE: 1>] : (1,)-<428> -> (1, 1)-<429>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<430>
+[<MovementOps.RESHAPE: 1>] : (1,)-<430> -> (1, 1)-<431>
+[<BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.POW: 5>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>] : (1, 1)-<419>, (1, 1)-<421>, (1, 1)-<423>, (1, 1)-<424>, (1, 1)-<425>, (1, 1)-<427>, (1, 1)-<429>, (1, 1)-<431>, (1, 1)-<424>, (1, 1)-<425> -> (1, 1)-<432>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<432> -> (1, 3)-<433>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<434>
+[<MovementOps.RESHAPE: 1>] : (1,)-<434> -> (1, 1)-<435>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<435> -> (1, 3)-<436>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<437>
+[<MovementOps.RESHAPE: 1>] : (1,)-<437> -> (1, 1)-<438>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<438> -> (1, 3)-<439>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<3>, (1, 3)-<433>, (1, 3)-<394>, (1, 3)-<2>, (1, 3)-<397>, (1, 3)-<387>, (1, 3)-<408>, (1, 3)-<63>, (1, 3)-<411>, (1, 3)-<387>, (1, 3)-<387>, (1, 3)-<436>, (1, 3)-<439> -> (1, 3)-<3>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<432> -> (3, 3)-<440>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<441>
+[<MovementOps.RESHAPE: 1>] : (1,)-<441> -> (1, 1)-<442>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<442> -> (3, 3)-<443>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<444>
+[<MovementOps.RESHAPE: 1>] : (1,)-<444> -> (1, 1)-<445>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<445> -> (3, 3)-<446>
+[<BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3)-<5>, (3, 3)-<440>, (3, 3)-<402>, (3, 3)-<55>, (3, 3)-<405>, (3, 3)-<391>, (3, 3)-<414>, (3, 3)-<71>, (3, 3)-<417>, (3, 3)-<391>, (3, 3)-<391>, (3, 3)-<443>, (3, 3)-<446> -> (3, 3)-<5>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.POW>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.SUB>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.POW>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.SUB>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.POW>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.SUB>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.POW>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.SUB>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.POW>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.SUB>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.POW>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (3, 3, 1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (3, 3, 1, 1) op:BinaryOps.SUB>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:UnaryOps.RELU>
+create <LB (1, 1) op:ReduceOps.MAX>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:UnaryOps.EXP>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:UnaryOps.LOG>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.SUB>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1,) op:MovementOps.RESHAPE>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 1) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.NEG>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:BinaryOps.CMPEQ>
+create <LB (1, 1) op:ReduceOps.SUM>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.DIV>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.GT0>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:UnaryOps.GT0>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.DIV>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.ADD>
+create <LB (3, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:UnaryOps.GT0>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.DIV>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.ADD>
+create <LB (1, 3, 1, 1) op:BinaryOps.MUL>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (1, 1, 3, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+create <LB (3, 3, 1, 1) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.PERMUTE>
+create <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:BinaryOps.ADD>
+BEFORE optim |  False  | self.m[0].data [[3.8691247e-01 2.1883492e-01 2.0905831e-04]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1,) op:BinaryOps.SUB>
+create <LB (1,) op:UnaryOps.RECIPROCAL>
+create <LB (1,) op:BinaryOps.MUL>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:BinaryOps.ADD>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<347> -> (1, 3, 1, 1)-<447>
+
+HIT <LB (1, 3) op:MovementOps.RESHAPE> <LB (1, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (1, 3) op:UnaryOps.RELU>
+x <LB (1, 3) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<102> -> (1, 3, 1, 1)-<448>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<252> -> (1, 3, 1, 1)-<449>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<141> -> (1, 3, 1, 1)-<450>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<101> -> (1, 3, 1, 1)-<451>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<144> -> (1, 3, 1, 1)-<452>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<134> -> (1, 3, 1, 1)-<453>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<259> -> (1, 3, 1, 1)-<454>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<261> -> (1, 3, 1, 1)-<455>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<265> -> (1, 3, 1, 1)-<456>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<269> -> (1, 3, 1, 1)-<457>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<273> -> (1, 3, 1, 1)-<458>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<459>
+[<MovementOps.RESHAPE: 1>] : (1,)-<459> -> (1, 1)-<460>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<461>
+[<MovementOps.RESHAPE: 1>] : (1,)-<461> -> (1, 1)-<462>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<463>
+[<MovementOps.RESHAPE: 1>] : (1,)-<463> -> (1, 1)-<464>
+[<MovementOps.RESHAPE: 1>] : (1,)-<1> -> (1, 1)-<465>
+[<MovementOps.RESHAPE: 1>] : (1,)-<243> -> (1, 1)-<466>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<467>
+[<MovementOps.RESHAPE: 1>] : (1,)-<467> -> (1, 1)-<468>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<469>
+[<MovementOps.RESHAPE: 1>] : (1,)-<469> -> (1, 1)-<470>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<471>
+[<MovementOps.RESHAPE: 1>] : (1,)-<471> -> (1, 1)-<472>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<473>
+[<MovementOps.RESHAPE: 1>] : (1,)-<473> -> (1, 1)-<474>
+[<BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.POW: 5>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.ADD: 1>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.SUB: 2>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.ADD: 1>] : (1, 1)-<460>, (1, 1)-<462>, (1, 1)-<464>, (1, 1)-<465>, (1, 1)-<466>, (1, 1)-<468>, (1, 1)-<470>, (1, 1)-<472>, (1, 1)-<474>, (1, 1)-<465>, (1, 1)-<466>, (1, 1)-<468> -> (1, 1)-<475>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<475> -> (1, 3)-<476>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<476> -> (1, 3, 1, 1)-<477>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<354> -> (1, 3, 1, 1)-<478>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<101> -> (1, 3, 1, 1)-<479>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<357> -> (1, 3, 1, 1)-<480>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<481>
+[<MovementOps.RESHAPE: 1>] : (1,)-<481> -> (1, 1)-<482>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<482> -> (1, 3)-<483>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<483> -> (1, 3, 1, 1)-<484>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<485>
+[<MovementOps.RESHAPE: 1>] : (1,)-<485> -> (1, 1)-<486>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<486> -> (1, 3)-<487>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<487> -> (1, 3, 1, 1)-<488>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<489>
+[<MovementOps.RESHAPE: 1>] : (1,)-<489> -> (1, 1)-<490>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<490> -> (1, 3)-<491>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<491> -> (1, 3, 1, 1)-<492>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<493>
+[<MovementOps.RESHAPE: 1>] : (1,)-<493> -> (1, 1)-<494>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<494> -> (1, 3)-<495>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<495> -> (1, 3, 1, 1)-<496>
+[<BinaryOps.SUB: 2>, <BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<448>, (1, 3, 1, 1)-<449>, (1, 3, 1, 1)-<450>, (1, 3, 1, 1)-<451>, (1, 3, 1, 1)-<452>, (1, 3, 1, 1)-<453>, (1, 3, 1, 1)-<454>, (1, 3, 1, 1)-<455>, (1, 3, 1, 1)-<456>, (1, 3, 1, 1)-<453>, (1, 3, 1, 1)-<453>, (1, 3, 1, 1)-<457>, (1, 3, 1, 1)-<458>, (1, 3, 1, 1)-<477>, (1, 3, 1, 1)-<478>, (1, 3, 1, 1)-<479>, (1, 3, 1, 1)-<480>, (1, 3, 1, 1)-<447>, (1, 3, 1, 1)-<484>, (1, 3, 1, 1)-<454>, (1, 3, 1, 1)-<455>, (1, 3, 1, 1)-<456>, (1, 3, 1, 1)-<453>, (1, 3, 1, 1)-<453>, (1, 3, 1, 1)-<488>, (1, 3, 1, 1)-<447>, (1, 3, 1, 1)-<447>, (1, 3, 1, 1)-<492>, (1, 3, 1, 1)-<496> -> (1, 3, 1, 1)-<497>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<104> -> (3, 3)-<498>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<498> -> (3, 3, 1, 1)-<499>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<278> -> (3, 3)-<500>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<500> -> (3, 3, 1, 1)-<501>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<283> -> (3, 3)-<502>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<502> -> (3, 3, 1, 1)-<503>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<286> -> (3, 3)-<504>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<504> -> (3, 3, 1, 1)-<505>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<291> -> (3, 3)-<506>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<506> -> (3, 3, 1, 1)-<507>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<138> -> (3, 3)-<508>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<508> -> (3, 3, 1, 1)-<509>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<298> -> (3, 3)-<510>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<510> -> (3, 3, 1, 1)-<511>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<301> -> (3, 3)-<512>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<512> -> (3, 3, 1, 1)-<513>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<306> -> (3, 3)-<514>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<514> -> (3, 3, 1, 1)-<515>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<311> -> (3, 3)-<516>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<516> -> (3, 3, 1, 1)-<517>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<316> -> (3, 3)-<518>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<518> -> (3, 3, 1, 1)-<519>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<475> -> (3, 3)-<520>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<520> -> (3, 3)-<521>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<521> -> (3, 3, 1, 1)-<522>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<523>
+[<MovementOps.RESHAPE: 1>] : (1,)-<523> -> (1, 1)-<524>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<524> -> (3, 3)-<525>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<525> -> (3, 3)-<526>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<526> -> (3, 3, 1, 1)-<527>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<528>
+[<MovementOps.RESHAPE: 1>] : (1,)-<528> -> (1, 1)-<529>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<529> -> (3, 3)-<530>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<530> -> (3, 3)-<531>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<531> -> (3, 3, 1, 1)-<532>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<351> -> (3, 3)-<533>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<533> -> (3, 3, 1, 1)-<534>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<535>
+[<MovementOps.RESHAPE: 1>] : (1,)-<535> -> (1, 1)-<536>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<536> -> (3, 3)-<537>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<537> -> (3, 3)-<538>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<538> -> (3, 3, 1, 1)-<539>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<540>
+[<MovementOps.RESHAPE: 1>] : (1,)-<540> -> (1, 1)-<541>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<541> -> (3, 3)-<542>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<542> -> (3, 3)-<543>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<543> -> (3, 3, 1, 1)-<544>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<545>
+[<MovementOps.RESHAPE: 1>] : (1,)-<545> -> (1, 1)-<546>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<546> -> (3, 3)-<547>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<547> -> (3, 3)-<548>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<548> -> (3, 3, 1, 1)-<549>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<550>
+[<MovementOps.RESHAPE: 1>] : (1,)-<550> -> (1, 1)-<551>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<551> -> (3, 3)-<552>
+[<MovementOps.PERMUTE: 2>] : (3, 3)-<552> -> (3, 3)-<553>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<553> -> (3, 3, 1, 1)-<554>
+[<BinaryOps.SUB: 2>, <BinaryOps.SUB: 2>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <UnaryOps.RECIPROCAL: 7>, <BinaryOps.ADD: 1>, <BinaryOps.POW: 5>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (3, 3, 1, 1)-<499>, (3, 3, 1, 1)-<501>, (3, 3, 1, 1)-<503>, (3, 3, 1, 1)-<505>, (3, 3, 1, 1)-<507>, (3, 3, 1, 1)-<509>, (3, 3, 1, 1)-<511>, (3, 3, 1, 1)-<513>, (3, 3, 1, 1)-<515>, (3, 3, 1, 1)-<509>, (3, 3, 1, 1)-<509>, (3, 3, 1, 1)-<517>, (3, 3, 1, 1)-<519>, (3, 3, 1, 1)-<522>, (3, 3, 1, 1)-<527>, (3, 3, 1, 1)-<503>, (3, 3, 1, 1)-<505>, (3, 3, 1, 1)-<507>, (3, 3, 1, 1)-<509>, (3, 3, 1, 1)-<532>, (3, 3, 1, 1)-<534>, (3, 3, 1, 1)-<539>, (3, 3, 1, 1)-<511>, (3, 3, 1, 1)-<513>, (3, 3, 1, 1)-<515>, (3, 3, 1, 1)-<509>, (3, 3, 1, 1)-<509>, (3, 3, 1, 1)-<544>, (3, 3, 1, 1)-<534>, (3, 3, 1, 1)-<534>, (3, 3, 1, 1)-<549>, (3, 3, 1, 1)-<554> -> (3, 3, 1, 1)-<555>
+[<MovementOps.RESHAPE: 1>, <UnaryOps.RELU: 3>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<497>, (3, 3, 1, 1)-<555> -> (1, 3)-<556>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<556> -> (1, 3, 1, 1)-<557>
+[<ReduceOps.MAX: 2>] : (1, 3)-<556> -> (1, 1)-<558>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<558> -> (1, 3)-<559>
+[<BinaryOps.CMPEQ: 6>] : (1, 3)-<556>, (1, 3)-<559> -> (1, 3)-<560>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<560> -> (1, 3, 1, 1)-<561>
+[<ReduceOps.SUM: 1>] : (1, 3)-<560> -> (1, 1)-<562>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<562> -> (1, 3)-<563>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<563> -> (1, 3, 1, 1)-<564>
+[<UnaryOps.EXP: 4>, <BinaryOps.SUB: 2>] : (1, 3)-<556>, (1, 3)-<559> -> (1, 3)-<565>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:BinaryOps.DIV>
+
+HIT <LB (1, 1) op:ReduceOps.SUM> <LB (1, 1) op:ReduceOps.SUM>
+k <LB (1, 1) op:UnaryOps.LOG>
+k <LB (1, 1) op:BinaryOps.DIV>
+x <LB (1, 1) op:UnaryOps.LOG>
+x <LB (1, 1) op:BinaryOps.DIV>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<566>
+[<MovementOps.RESHAPE: 1>] : (1,)-<566> -> (1, 1)-<567>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<567> -> (1, 3)-<568>
+[<ReduceOps.SUM: 1>] : (1, 3)-<565> -> (1, 1)-<569>
+[<BinaryOps.DIV: 4>, <ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.MUL: 3>] : (1, 3)-<117>, (1, 3)-<568>, (1, 1)-<569> -> (1, 1)-<570>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<570> -> (1, 3)-<571>
+[<ReduceOps.SUM: 1>, <UnaryOps.NEG: 2>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<565>, (1, 3)-<571>, (1, 3)-<117>, (1, 3)-<568> -> (1, 1)-<572>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<572> -> (1, 3)-<573>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<573> -> (1, 3, 1, 1)-<574>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<565> -> (1, 3, 1, 1)-<575>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<571> -> (1, 3, 1, 1)-<576>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<117> -> (1, 3, 1, 1)-<577>
+[<MovementOps.RESHAPE: 1>] : (1, 3)-<568> -> (1, 3, 1, 1)-<578>
+[<BinaryOps.MUL: 3>, <UnaryOps.GT0: 6>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.DIV: 4>, <BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3, 1, 1)-<557>, (1, 3, 1, 1)-<561>, (1, 3, 1, 1)-<564>, (1, 3, 1, 1)-<574>, (1, 3, 1, 1)-<575>, (1, 3, 1, 1)-<576>, (1, 3, 1, 1)-<577>, (1, 3, 1, 1)-<578> -> (1, 3, 1, 1)-<579>
+[<MovementOps.RESHAPE: 1>] : (3, 3, 1, 1)-<555> -> (1, 3, 3, 1, 1)-<580>
+[<MovementOps.PERMUTE: 2>] : (1, 3, 3, 1, 1)-<580> -> (1, 3, 3, 1, 1)-<581>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 3, 1, 1)-<581> -> (3, 3, 1, 1)-<582>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (1, 3, 1, 1)-<447>, (1, 3, 1, 1)-<579>, (3, 3, 1, 1)-<582> -> (1, 3)-<583>
+t.grad:  [[4.0001025  2.2603579  0.00620215]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:realized> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.ADD>
+assign <LB (1, 3) op:BinaryOps.ADD> <- <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.ADD>
+create <LB (1, 3) op:UnaryOps.RECIPROCAL>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 3) op:MovementOps.EXPAND>
+create <LB (1, 3) op:BinaryOps.MUL>
+create <LB (1, 3) op:BinaryOps.SUB>
+assign <LB (1, 3) op:BinaryOps.SUB> <- <LB (1, 3) op:BinaryOps.SUB>
+
+HIT <LB (3, 3) op:MovementOps.RESHAPE> <LB (3, 3, 1, 1) op:ProcessingOps.CONV>
+k <LB (3, 3) op:BinaryOps.ADD>
+x <LB (3, 3) op:MovementOps.RESHAPE>
+create <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>
+[<MovementOps.RESHAPE: 1>] : (3, 3)-<351> -> (3, 3, 1, 1)-<584>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<497> -> (3, 1, 1, 1)-<585>
+[<MovementOps.RESHAPE: 1>] : (1, 3, 1, 1)-<579> -> (3, 1, 1, 1)-<586>
+[<MovementOps.RESHAPE: 1>, <BinaryOps.ADD: 1>, <ProcessingOps.CONV: 1>] : (3, 3, 1, 1)-<584>, (3, 1, 1, 1)-<585>, (3, 1, 1, 1)-<586> -> (3, 3)-<587>
+t.grad:  [[  8.0032      4.5277977   0.       ]
+ [  3.9968967   2.2612383   0.       ]
+ [-15.9657345  -9.031483    0.       ]]
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:BinaryOps.ADD> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.ADD>
+assign <LB (3, 3) op:BinaryOps.ADD> <- <LB (3, 3) op:BinaryOps.ADD>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.POW>
+create <LB (1,) op:LoadOps.FROMCPU>
+create <LB (1, 1) op:MovementOps.RESHAPE>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.ADD>
+create <LB (3, 3) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.MUL>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.ADD>
+create <LB (1, 1) op:BinaryOps.POW>
+create <LB (1, 1) op:BinaryOps.SUB>
+create <LB (1, 1) op:UnaryOps.RECIPROCAL>
+create <LB (3, 3) op:MovementOps.EXPAND>
+create <LB (3, 3) op:BinaryOps.MUL>
+create <LB (3, 3) op:BinaryOps.SUB>
+assign <LB (3, 3) op:BinaryOps.SUB> <- <LB (3, 3) op:BinaryOps.SUB>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<588>
+[<MovementOps.RESHAPE: 1>] : (1,)-<588> -> (1, 1)-<589>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<589> -> (1, 3)-<590>
+[<LoadOps.FROMCPU: 1>] :  -> (1,)-<591>
+[<MovementOps.RESHAPE: 1>] : (1,)-<591> -> (1, 1)-<592>
+[<MovementOps.EXPAND: 3>] : (1, 1)-<592> -> (1, 3)-<593>
+[<BinaryOps.ADD: 1>, <BinaryOps.MUL: 3>, <BinaryOps.MUL: 3>] : (1, 3)-<590>, (1, 3)-<101>, (1, 3)-<593>, (1, 3)-<583> -> (1, 3)-<101>
+AFTER optim |  False  | self.m[0].data [[0.7482315  0.42298722 0.00080837]]
+########################################

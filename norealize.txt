@@ -1,0 +1,596 @@
+ops_triton not available No module named 'pycuda'
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3) op:LoadOps.FROMCPU>, LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:MovementOps.RESHAPE>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3) op:MovementOps.RESHAPE>, <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3) op:MovementOps.RESHAPE>, <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3) op:MovementOps.RESHAPE>, <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3) op:MovementOps.RESHAPE>, <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.MUL>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<UnaryOps.GT0: 6>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>,), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(LazyOp(op=<UnaryOps.RELU: 3>, src=(LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1))),), arg=None),), arg=(1, 3))  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bf4f0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127357940>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273552d0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127357580>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.CMPEQ: 6>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.MAX: 2>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273fea10>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127355c30>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127355ff0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734fdf0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:UnaryOps.EXP>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:LoadOps.FROMCPU>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<UnaryOps.EXP: 4>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:realized>), arg=None),), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 1) op:ReduceOps.SUM>, <LB (1, 1) op:ReduceOps.SUM>), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:LoadOps.FROMCPU>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127354ee0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127356560>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734ec20>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734ec20>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734fc40>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127356530>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734fb80>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734e650>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734eec0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x127357940>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734e110>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734fe20>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734fc40>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.MUL>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<UnaryOps.GT0: 6>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>,), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(LazyOp(op=<UnaryOps.RELU: 3>, src=(LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.SUB>, <LB (3, 3, 1, 1) op:BinaryOps.SUB>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1))),), arg=None),), arg=(1, 3))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734e1d0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (3, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (3, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (3, 1, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=1, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=3, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(3, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bf4f0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734d6c0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f6d0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f670>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732fdf0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734ce80>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734ded0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f6a0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732fe20>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732fdc0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.CMPEQ: 6>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.MAX: 2>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12734dcf0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f070>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273a17b0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f070>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:UnaryOps.EXP>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<UnaryOps.EXP: 4>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:realized>), arg=None),), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 1) op:ReduceOps.SUM>, <LB (1, 1) op:ReduceOps.SUM>), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273a0f10>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273a01c0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f580>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273a1660>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f010>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f370>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f3a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273a0d60>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732ffa0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f130>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f430>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f010>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732fe20>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f130>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.MUL>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<UnaryOps.GT0: 6>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>,), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(LazyOp(op=<UnaryOps.RELU: 3>, src=(LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.SUB>, <LB (3, 3, 1, 1) op:BinaryOps.SUB>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1))),), arg=None),), arg=(1, 3))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:realized>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f3d0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (3, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3, 1, 1) op:realized>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (3, 1, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=1, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=3, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(3, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f550>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bc2b0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bc700>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f370>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f3a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bc700>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bcbe0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bc5e0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bca30>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f3a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.CMPEQ: 6>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.MAX: 2>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bcbe0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bd8a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bf400>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bdae0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:UnaryOps.EXP>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<UnaryOps.EXP: 4>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:realized>), arg=None),), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 1) op:ReduceOps.SUM>, <LB (1, 1) op:ReduceOps.SUM>), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273beb30>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bddb0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bf010>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bf100>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x12732f3a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bd930>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bc940>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273be980>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bd450>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd090>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dc070>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273ddb70>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcdf0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dca00>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.MUL>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<UnaryOps.GT0: 6>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>,), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(LazyOp(op=<UnaryOps.RELU: 3>, src=(LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.SUB>, <LB (3, 3, 1, 1) op:BinaryOps.SUB>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1))),), arg=None),), arg=(1, 3))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:realized>), arg=None), <LB (1, 3, 1, 1) op:realized>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcf10>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (3, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3, 1, 1) op:realized>, <LB (3, 3, 1, 1) op:realized>), arg=None), <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (3, 1, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=1, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=3, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(3, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273bd750>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dca30>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de380>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcf70>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd3f0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de4d0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df310>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x126cf9750>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df370>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd3f0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.CMPEQ: 6>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.MAX: 2>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df190>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df460>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df370>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfe80>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:UnaryOps.EXP>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<UnaryOps.EXP: 4>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:realized>), arg=None),), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 1) op:ReduceOps.SUM>, <LB (1, 1) op:ReduceOps.SUM>), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfac0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df460>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd3f0>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd660>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfe80>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfcd0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df430>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dc1f0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df820>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de4d0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd2a0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd2a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfdf0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de4d0>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.MUL>, <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<UnaryOps.GT0: 6>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>,), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.DIV: 4>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:MovementOps.RESHAPE>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(LazyOp(op=<UnaryOps.RELU: 3>, src=(LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (1, 3, 1, 1) op:BinaryOps.SUB>, <LB (3, 3, 1, 1) op:BinaryOps.SUB>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=3, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=1, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(1, 3, 1, 1))),), arg=None),), arg=(1, 3))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (1, 3, 1, 1) op:realized>, <LB (1, 3, 1, 1) op:realized>), arg=None), <LB (1, 3, 1, 1) op:realized>), arg=None), <LB (1, 3, 1, 1) op:realized>), arg=None), <LB (1, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd3c0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (3, 3, 1, 1) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3, 1, 1) op:realized>, <LB (3, 3, 1, 1) op:realized>), arg=None), <LB (3, 3, 1, 1) op:realized>), arg=None), <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None), <LB (3, 3, 1, 1) op:MovementOps.RESHAPE>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (3, 1, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=1, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=3, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(3, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273def80>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd1b0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd1b0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd270>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcfa0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df5b0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273def80>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df430>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcfa0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df820>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.CMPEQ: 6>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.MAX: 2>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df7f0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de230>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcfa0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df730>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:UnaryOps.EXP>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None)), arg=None),), arg=None),), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<UnaryOps.EXP: 4>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:realized>), arg=None),), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.DIV: 4>, src=(LazyOp(op=<ReduceOps.SUM: 1>, src=(LazyOp(op=<UnaryOps.NEG: 2>, src=(LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (1, 3) op:realized>, <LB (1, 3) op:MovementOps.EXPAND>), arg=None),), arg=None),), arg=(1, 1)), <LB (1, 1) op:ReduceOps.SUM>), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dce20>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df460>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ReduceOps.SUM: 1>, src=(<LB (1, 3) op:realized>,), arg=(1, 1))  # LEN:   3
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dd2a0>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de470>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df730>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273def80>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dec80>,), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273defb0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df1c0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.PERMUTE: 2>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273df790>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfcd0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfcd0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcfa0>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dfcd0>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(LazyOp(op=<BinaryOps.SUB: 2>, src=(<LB (3, 3) op:realized>, LazyOp(op=<BinaryOps.MUL: 3>, src=(<LB (3, 3) op:realized>, <LB (3, 3) op:realized>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3) op:realized>, <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3) op:realized>, <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3) op:realized>, <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None)), arg=None), LazyOp(op=<BinaryOps.MUL: 3>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(LazyOp(op=<BinaryOps.ADD: 1>, src=(<LB (3, 3) op:realized>, <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:realized>), arg=None), <LB (3, 3) op:MovementOps.RESHAPE>), arg=None), <LB (3, 3) op:MovementOps.EXPAND>), arg=None)), arg=None)  # LEN:   3
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  TRUE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<ProcessingOps.CONV: 1>, src=(<LB (3, 1, 1, 1) op:MovementOps.RESHAPE>, <LB (3, 1, 1, 1) op:MovementOps.RESHAPE>), arg=ConvArgs(H=1, W=1, groups=1, rcout=3, cin=1, oy=1, ox=1, iy=1, ix=1, sy=1, sx=1, bs=3, cout=3, py=0, py_=0, px=0, px_=0, dy=1, dx=1, out_shape=(3, 3, 1, 1)))  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcf40>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  TRUE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de410>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de410>,), arg=None)  # LEN:   3
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+IS_REALIZED:  FALSE
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<LoadOps.FROMCPU: 1>, src=(), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.RESHAPE: 1>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273dcf40>,), arg=None)  # LEN:   3
+AST:  <class 'tinygrad.ops.LazyOp'>  <->  LazyOp(op=<MovementOps.EXPAND: 3>, src=(<tinygrad.llops.ops_cpu.CPUBuffer object at 0x1273de410>,), arg=None)  # LEN:   3

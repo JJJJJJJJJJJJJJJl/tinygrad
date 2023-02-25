@@ -28,9 +28,10 @@ class Optimizer:
       p.realize()
 
 class SGD(Optimizer):
-  def __init__(self, params : List[Tensor], lr=0.001, momentum=0, nesterov=False):
+  def __init__(self, params : List[Tensor], lr=0.001, momentum=0, nesterov=False, realizebool=True):
     super().__init__(params)
     self.lr, self.momentum, self.nesterov = lr, momentum, nesterov
+    self.realizebool = realizebool
     self.b = [Tensor.zeros(*t.shape, device=params[0].device, requires_grad=False) for t in self.params] if self.momentum else []
 
   # https://pytorch.org/docs/stable/generated/torch.optim.SGD.html
@@ -42,7 +43,7 @@ class SGD(Optimizer):
         self.b[i].assign(self.momentum * self.b[i] + g)
         g = (g + self.momentum * self.b[i]) if self.nesterov else self.b[i]
       t.assign(t.detach() - g * self.lr)
-    #self.realize(self.b)
+    if self.realizebool: self.realize(self.b)
 
 class RMSprop(Optimizer):
   def __init__(self, params : List[Tensor], lr=0.001, decay=0.9, eps=1e-8):
@@ -56,11 +57,12 @@ class RMSprop(Optimizer):
       assert t.grad is not None
       self.v[i].assign(self.decay * self.v[i] + (1.0 - self.decay) * (t.grad * t.grad))
       t.assign(t.detach() - (t.grad * self.lr).div(self.v[i].sqrt() + self.eps))
-    #self.realize(self.v)
+    self.realize(self.v)
 
 class Adam(Optimizer):
-  def __init__(self, params : List[Tensor], lr=0.001, b1=0.9, b2=0.999, eps=1e-8):
+  def __init__(self, params : List[Tensor], lr=0.001, b1=0.9, b2=0.999, eps=1e-8, realizebool=True):
     super().__init__(params)
+    self.realizebool = realizebool
     # NOTE: self.t is a tensor so Adam can be jitted
     self.lr, self.b1, self.b2, self.eps, self.t = lr, b1, b2, eps, Tensor([0], requires_grad=False).realize()
 
@@ -68,14 +70,22 @@ class Adam(Optimizer):
     self.v = [Tensor.zeros(*t.shape, device=params[0].device, requires_grad=False) for t in self.params]
 
   def step(self) -> None:
+    print("BEFORE optim | ", self.realizebool, " | self.m[0].data", self.m[0].data, "self.v[0].data", self.v[0].data)
+    # print("BEFORE optim | ", self.realizebool, " | self.m[0].data", self.m[0].data)
     self.t = self.t + 1
     a = self.lr * ((1.0 - self.b2**self.t)**0.5) / (1.0 - self.b1**self.t)
     for i, t in enumerate(self.params):
+      # print("i: ", i, " - t: ", t)
+      print("t.grad: ", t.grad.data)
       assert t.grad is not None
       self.m[i].assign(self.b1 * self.m[i] + (1.0 - self.b1) * t.grad)
       self.v[i].assign(self.b2 * self.v[i] + (1.0 - self.b2) * (t.grad * t.grad))
+      if i== 0: print("MID optim | ", self.realizebool, " | self.m[0].data", self.m[0].data, "self.v[0].data", self.v[0].data)
+      # if i== 0: print("MID optim | ", self.realizebool, " | self.m[0].data", self.m[0].data)
       t.assign(t.detach() - a * self.m[i].div(self.v[i].sqrt() + self.eps))
-    #self.realize([self.t] + self.m + self.v)
+    # print("AFTER optim | ", self.realizebool, " | self.m[0].data", self.m[0].data)
+    print("AFTER optim | ", self.realizebool," | self.m[0].data", self.m[0].data, "self.v[0].data", self.v[0].data)
+    if self.realizebool: self.realize([self.t] + self.m + self.v)
 
 def get_parameters(obj) -> List[Tensor]:
   parameters : List[Tensor] = []

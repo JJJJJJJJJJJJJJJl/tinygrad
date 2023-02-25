@@ -7,6 +7,7 @@ from tinygrad.shape import ShapeTracker
 from tinygrad.ops import DeviceBuffer, UnaryOps, BinaryOps, ReduceOps, MovementOps, ProcessingOps, LoadOps, OpType, LazyOp, get_buffers, map_buffers, DEBUG, GenericExecAST
 from tinygrad.graph import log_op
 from tinygrad.helpers import getenv
+import traceback
 
 # lazy can recurse a lot
 sys.setrecursionlimit(10000)
@@ -123,6 +124,7 @@ class LazyBuffer:
 
   # this produces a device buffer
   def realize(self:LazyBuffer, required_device=None) -> DeviceBuffer:
+    #print("IS_REALIZED: ", "TRUE" if self.realized != None else "FALSE")
     if required_device is not None:
       assert required_device == self.device
     if self.realized is None:
@@ -149,7 +151,7 @@ class LazyBuffer:
       elif self.optype == ProcessingOps: ast = self.op   # no ast modifications for ProcessingOps
       elif self.optype == ReduceOps: ast = _ast_reduceops(self)
       elif self.optype == BinaryOps: ast = _ast_binaryops(self)
-
+      #print("AST: ", type(ast), " <-> ", ast, " # LEN:  ", len(ast))
       # no need to keep the op after realization
       del self.op
 
