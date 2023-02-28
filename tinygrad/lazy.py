@@ -1,10 +1,10 @@
 from __future__ import annotations
 from typing import Optional, Tuple, Union, List, Dict, Any, ClassVar, Type
-import sys, weakref, os, importlib, inspect
+import sys, weakref, importlib, inspect
 from weakref import WeakValueDictionary
-from tinygrad.helpers import ConvArgs, prod
+from tinygrad.helpers import ConvArgs, prod, DEBUG
 from tinygrad.shape import ShapeTracker
-from tinygrad.ops import DeviceBuffer, UnaryOps, BinaryOps, ReduceOps, MovementOps, ProcessingOps, LoadOps, OpType, LazyOp, get_buffers, map_buffers, DEBUG, GenericExecAST
+from tinygrad.ops import DeviceBuffer, UnaryOps, BinaryOps, ReduceOps, MovementOps, ProcessingOps, LoadOps, OpType, LazyOp, get_buffers, get_lazyops, map_buffers, GenericExecAST
 from tinygrad.graph import log_op
 from tinygrad.helpers import getenv
 
@@ -16,24 +16,27 @@ NOCONV = getenv("NOCONV", 0)
 IMAGE = getenv("IMAGE", 0)
 LAZY = getenv("LAZY", 1)
 
+def get_buffer(name, base='tinygrad.llops'):
+  try:
+    return (name.upper(), [cls for cname, cls in inspect.getmembers(importlib.import_module(f'{base}.ops_{name}'), inspect.isclass) if (cname.lower() == name + "buffer")][0])
+  except Exception as e:  # NOTE: this can't be put on one line due to mypy issue
+    print(name, "backend not available", e, file=sys.stderr)
+
 class _Device:
   def __init__(self) -> None:
+    self._buffers : Dict[str, Type[DeviceBuffer]] = {x[0]:x[1] for x in [
+      get_buffer('cpu'), get_buffer('gpu'), get_buffer('llvm'), get_buffer('torch'),
+      get_buffer('triton', 'accel.triton')] if x is not None}
     self.DEFAULT : str = "CPU"
-    self._buffers : Dict[str, Type[DeviceBuffer]] = {}
-    for op in [os.path.splitext(x)[0] for x in sorted(os.listdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "llops"))) if x.startswith("ops_")]:
-      name = op[len("ops_"):].upper()
-      if os.environ.get(name, 0) == "1": self.DEFAULT = name  # note: DEFAULT can be a Device that can't be imported. better than silent use of a different device
-      try:
-        self._buffers[name] = [cls for cname, cls in inspect.getmembers(importlib.import_module('tinygrad.llops.'+op), inspect.isclass) if (cname.upper() == name + "BUFFER")][0]
-        self.__setattr__(name, name)
-      except ImportError as e:  # NOTE: this can't be put on one line due to mypy issue
-        print(op, "not available", e)
+    for name in self._buffers:
+      if getenv(name) == 1: self.DEFAULT = name  # note: DEFAULT can be a Device that can't be imported. better than silent use of a different device
+      self.__setattr__(name, name)
 Device = _Device()
 
 # TODO: movement ops that only change shape are really nops. treat them as such
 REMOVE_MOVEMENT_NOPS, MERGE_UNARY_OPS, MERGE_ELEMENTWISE_INTO_REDUCE, SHUFFLE_MOVEMENT_OPS = OPT>=1, OPT>=1, OPT>=1, OPT>=1
 MERGE_ELEMENTWISE_OPS, MERGE_ONE_REDUCE_INTO_ELEMENTWISE = OPT>=2, OPT>=2
-SHUFFLE_PAD_OPS = OPT>=3  # NOTE: 0/0 is NaN if you pad, so this can change the output
+PUSH_PERMUTES, PUSH_CONTIGUOUS = OPT>=3, OPT>=3
 
 # **** realize functions ****
 def _ast_reduceops(self:LazyBuffer) -> LazyOp:
@@ -49,13 +52,14 @@ def _ast_binaryops(self:LazyBuffer) -> LazyOp:
   if DEBUG >= 3:
     for k,x in zip(real_srcs.keys(), map(get_movementroot_contiguous, real_srcs.keys())):
       if x.optype in [ProcessingOps,ReduceOps] and x.realized is None:
-        print("\nHIT", k,x)
+        print("\nHIT", k,x, "UNFOLDABLE" if len(k.children) > 1 or len(x.children) > 1 else "")
         for tk in k.children: print("k", tk)
         for tx in x.children: print("x", tx)
   # NOTE: contiguous does not always mean the same size with SHRINK. this is still mergeable but requires more thought how
   psrcs : List[Tuple[LazyBuffer, LazyBuffer]] = [(k,x) for k,x in zip(real_srcs.keys(), map(get_movementroot_contiguous, real_srcs.keys())) if x.optype in [ProcessingOps,ReduceOps] and x.realized is None and prod(k.shape) == prod(x.shape) and len(x.children) <= 1 and len(k.children) <= 1]
   intermediate_shape : Tuple[int, ...] = self.shape
   if len(psrcs) == 1 and MERGE_ONE_REDUCE_INTO_ELEMENTWISE:
+    if DEBUG >= 3: print("FOLDING", psrcs[0])
     if psrcs[0][1].optype == ProcessingOps:
       top = psrcs[0][1].op  # _ast_processingops
     elif psrcs[0][1].optype == ReduceOps:
@@ -80,8 +84,8 @@ def _ast_binaryops(self:LazyBuffer) -> LazyOp:
 
 def get_weakop(op:LazyOp) -> LazyOp: return LazyOp(op.op, tuple(get_weakop(x) if isinstance(x, LazyOp) else weakref.ref(x) for x in op.src), op.arg)
 def get_single_root(root:LazyBuffer) -> LazyBuffer: return get_single_root(root.op.src[0]) if getattr(root, 'op', None) and len(root.op.src) == 1 else root
-def get_movementroot(root:LazyBuffer) -> LazyBuffer: return get_movementroot(root.op.src[0]) if root.realized is None and (root.optype == MovementOps or (root.op.op == LoadOps.CONTIGUOUS and root.op.src[0].st.contiguous)) else root
-def get_movementroot_contiguous(x:LazyBuffer) -> LazyBuffer: return get_movementroot(x) if x.optype == MovementOps and x.st.contiguous else x
+def get_movementroot(root:LazyBuffer, allow_contiguous=False) -> LazyBuffer: return get_movementroot(root.op.src[0], allow_contiguous) if root.realized is None and (root.optype == MovementOps or (root.op.op == LoadOps.CONTIGUOUS and allow_contiguous and root.op.src[0].st.contiguous)) else root
+def get_movementroot_contiguous(x:LazyBuffer) -> LazyBuffer: return get_movementroot_contiguous(x.op.src[0]) if x.realized is None and x.op.op == LoadOps.CONTIGUOUS else (get_movementroot(x, True) if x.optype == MovementOps and x.st.contiguous else x)
 
 def replace_with_movement_op(y:Union[LazyOp, LazyBuffer], op:MovementOps, arg:Tuple[Any, ...]) -> LazyBuffer:
   if isinstance(y, LazyBuffer): return y.movement_op(op, arg)
@@ -111,6 +115,7 @@ class LazyBuffer:
     self.realized : Optional[DeviceBuffer] = None
     self.output_buffer : Optional[DeviceBuffer] = None
     self.device, self.dbuffer = device, Device._buffers[device]
+    # TODO: does children have to be a ref count instead of a set? can a Buffer be a double child?
     self.children : weakref.WeakSet[LazyBuffer] = weakref.WeakSet()
     # NOTE: op should be read only after construction of LazyBuffer
     for x in get_buffers(op):
@@ -199,26 +204,73 @@ class LazyBuffer:
       return self
 
     # two ops in a row is one op. merge them if unresolved
-    if self.realized is None and self.op.op == op:
+    if self.realized is None and self.op.op == op and op != MovementOps.STRIDED:
+      # TODO: why is deleting self from children needed? shouldn't GC do it?
+      self.op.src[0].children.discard(self)
       if op in [MovementOps.RESHAPE, MovementOps.EXPAND, MovementOps.SHRINK]:
         return self.op.src[0].movement_op(op, arg)
       if op == MovementOps.PERMUTE:
         return self.op.src[0].movement_op(op, tuple(self.op.arg[i] for i in arg))
       if op == MovementOps.PAD:
         return self.op.src[0].movement_op(op, tuple((b1+b2, e1+e2) for (b1,e1),(b2,e2) in zip(self.op.arg, arg)))
-      # TODO: MovementOps.FLIP / MovementOps.STRIDED?
+      if op == MovementOps.FLIP:
+        return self.op.src[0].movement_op(op, tuple(i for i in arg+self.op.arg if not (i in arg and i in self.op.arg)))
+
+    # push permutes before reduce ops
+    if op == MovementOps.PERMUTE and PUSH_PERMUTES and self.realized is None and self.optype == ReduceOps:
+      # reduceops have one buffer input, permute it
+      narg = tuple(self.op.arg[arg[i]] for i in range(len(arg)))
+      src, rop = self.op.src[0], self.op.op
+      src.children.discard(self)
+      del self  # TODO: why doesn't this delete remove it from the children
+      return src.movement_op(op, arg).reduce_op(rop, narg)
 
     # some permutes are actually just reshapes
     if op == MovementOps.PERMUTE and local_st.contiguous:
       return self.movement_op(MovementOps.RESHAPE, tuple(self.shape[i] for i in arg))
+
+    # move permutes before expands
+    if op == MovementOps.PERMUTE and PUSH_PERMUTES and self.realized is None and self.op.op == MovementOps.EXPAND:
+      self.op.src[0].children.discard(self)
+      return self.op.src[0].movement_op(MovementOps.PERMUTE, arg).movement_op(MovementOps.EXPAND, tuple(self.op.arg[a] for a in arg))
+
+    # move permutes before reshapes if we can
+    if op == MovementOps.PERMUTE and PUSH_PERMUTES and self.realized is None and self.op.op == MovementOps.RESHAPE and isinstance(self.op.src[0], LazyBuffer):
+      # is contract? if so, group the axis
+      def get_contraction(old_shape:Tuple[int, ...], new_shape:Tuple[int, ...]):
+        out : List[List[int]] = []
+        curr : List[int] = []
+        for t in old_shape:
+          if len(out) >= len(new_shape): break
+          if t*prod(curr) <= new_shape[len(out)]:
+            curr.append(t)
+          else:
+            out.append(curr)
+            curr = [t]
+        out.append(curr)
+        if len(new_shape) == len(out) and all(prod(i) == j and len(i) >= 1 for i,j in zip(out, new_shape)):
+          return out
+      contraction = get_contraction(self.op.src[0].shape, self.shape)
+      if contraction is not None:
+        numbered = []
+        start = 0
+        for c in contraction:
+          numbered.append(list(range(start, start+len(c))))
+          start += len(c)
+        new_arg = []
+        for p in arg:
+          new_arg += numbered[p]
+        self.op.src[0].children.discard(self)   # this changes nothing?
+        return self.op.src[0].movement_op(MovementOps.PERMUTE, tuple(new_arg)) \
+          .movement_op(MovementOps.RESHAPE, ShapeTracker(self.st).movement_op(op, arg).shape)
 
     # some strideds are actually just reshapes
     # NOTE: due to how strided works, we have to check the parent to be contiguous also
     if op == MovementOps.STRIDED and local_st.contiguous and self.st.contiguous:
       return self.movement_op(MovementOps.RESHAPE, tuple(i for i,_ in arg))
 
-    # if this MovementOp is being applied to a BinaryOp, apply the MovementOp to all the BinaryOp inputs instead
-    if SHUFFLE_MOVEMENT_OPS and self.optype == BinaryOps and self.realized is None and len(self.children) == 0 and (SHUFFLE_PAD_OPS or op != MovementOps.PAD) and op not in [MovementOps.EXPAND, MovementOps.STRIDED]:
+    # if this MovementOp is being applied to a BinaryOp, apply the MovementOp to all the BinaryOp inputs instead. NOTE: UnaryOps is never an OpType
+    if SHUFFLE_MOVEMENT_OPS and self.optype == BinaryOps and self.realized is None and len(self.children) == 0 and op not in [MovementOps.EXPAND, MovementOps.STRIDED] and (op != MovementOps.PAD or all(x.op != BinaryOps.DIV for x in get_lazyops(self.op))):
       return replace_with_movement_op(self.op, op, arg)
 
     # create the buffer
@@ -230,7 +282,7 @@ class LazyBuffer:
       # MovementOps aren't stacked any more, they each have one parent, find the root
       root = get_movementroot(self)
       if root.st.contiguous and root != self and prod(ret.st.shape) == prod(root.shape):
-        return root.movement_op(MovementOps.RESHAPE, ret.st.shape) if ret.st.shape != root.shape else root
+        return root.movement_op(MovementOps.RESHAPE, ret.st.shape)
 
     return ret
 
@@ -293,7 +345,9 @@ class LazyBuffer:
 
       # now do the conv in this space and force it to be an image
       ret = x.binary_op(BinaryOps.MUL, w).reduce_op(ReduceOps.SUM, (C.bs, C.oy, C.ox, C.cout//4, 4, 1, 1, 1, 1))
-      ret = ret.movement_op(MovementOps.RESHAPE, (C.bs*C.oy, C.ox*C.cout//4, 4)).contiguous()
+      ret = ret.movement_op(MovementOps.RESHAPE, (C.bs*C.oy, C.ox*C.cout//4, 4))
+      # NOTE: right now, this can't always be an image, because the tests fail when we try to access it if it was SHRINKed
+      if IMAGE >= 3: ret = ret.contiguous()  # but if IMAGE >= 3, you can do anything
 
       # undo hack for non multiples of 4 on C.rcout
       if added_output_channels != 0:
@@ -328,6 +382,17 @@ class LazyBuffer:
 
 def elementwise_op(op:Union[UnaryOps, BinaryOps], *srcs:LazyBuffer) -> LazyBuffer:
   out_device, out_shape = srcs[0].device, srcs[0].shape
+
+  # push all contiguous to the end of BinaryOps. kernels 198 -> 196
+  if PUSH_CONTIGUOUS and any(x.realized is None and x.op.op == LoadOps.CONTIGUOUS and len(x.op.src[0].children) <= 1 for x in srcs):
+    new_srcs = []
+    for x in srcs:
+      if x.realized is None and x.op.op == LoadOps.CONTIGUOUS and len(x.op.src[0].children) <= 1:
+        x.op.src[0].children.discard(x)
+        new_srcs.append(x.op.src[0])
+      else:
+        new_srcs.append(x)
+    return elementwise_op(op, *new_srcs).contiguous()
 
   if MERGE_ELEMENTWISE_OPS or (MERGE_UNARY_OPS and len(set(srcs)) == 1):
     # remove the buffers from any (childless) BinaryOps that feed into this

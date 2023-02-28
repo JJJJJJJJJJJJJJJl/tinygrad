@@ -41,10 +41,10 @@ class TestTinygrad(unittest.TestCase):
       W = Tensor(W_init, requires_grad=True)
       m = Tensor(m_init)
       out = x.dot(W).relu()
-      out = out.logsoftmax()
+      out = out.log_softmax()
       out = out.mul(m).add(m).sum()
       out.backward()
-      return out.cpu().data, x.grad.cpu().data, W.grad.cpu().data
+      return out.cpu().numpy(), x.grad.cpu().numpy(), W.grad.cpu().numpy()
 
     def test_pytorch():
       x = torch.tensor(x_init, requires_grad=True)
@@ -67,10 +67,10 @@ class TestTinygrad(unittest.TestCase):
       x = u.mul(v).relu()
       y = u.mul(w).relu()
       out = x.add(y).mul(y).relu()
-      out = out.logsoftmax()
+      out = out.log_softmax()
       out = out.sum()
       out.backward()
-      return out.cpu().data, u.cpu().grad.data, v.cpu().grad.data, w.cpu().grad.data
+      return out.cpu().numpy(), u.cpu().grad.numpy(), v.cpu().grad.numpy(), w.cpu().grad.numpy()
 
     def test_pytorch():
       u = torch.tensor(U_init, requires_grad=True)
@@ -106,7 +106,7 @@ class TestTinygrad(unittest.TestCase):
     Tensor.training = True
     n, rate = 1_000_000, 0.1
     w = Tensor.ones(n).dropout(rate)
-    non_zeros = np.count_nonzero(w.cpu().data)
+    non_zeros = np.count_nonzero(w.cpu().numpy())
     expected = n * (1 - rate)
     np.testing.assert_allclose(non_zeros, expected, rtol=1e-3)
 
@@ -123,7 +123,7 @@ class TestTinygrad(unittest.TestCase):
 
     tiny_x = Tensor(x)
     tiny_W = Tensor(W)
-    tiny_func = lambda x: x.dot(tiny_W).relu().logsoftmax()
+    tiny_func = lambda x: x.dot(tiny_W).relu().log_softmax()
     J = jacobian(tiny_func, tiny_x)
     NJ = numerical_jacobian(tiny_func, tiny_x)
 
@@ -138,12 +138,21 @@ class TestTinygrad(unittest.TestCase):
 
     tiny_x = Tensor(x)
     tiny_W = Tensor(W)
-    tiny_func = lambda x: x.dot(tiny_W).relu().logsoftmax()
+    tiny_func = lambda x: x.dot(tiny_W).relu().log_softmax()
 
     self.assertTrue(gradcheck(tiny_func, tiny_x))
 
     # coarse approx. since a "big" eps and the non-linearities of the model
     self.assertFalse(gradcheck(tiny_func, tiny_x, eps = 0.1))
+
+  def test_random_fns_are_deterministic_with_seed(self):
+    for random_fn in [Tensor.randn, Tensor.uniform, Tensor.scaled_uniform, Tensor.glorot_uniform]:
+      with self.subTest(msg=f"Tensor.{random_fn.__name__}"):
+        Tensor.manual_seed(1337)
+        a = random_fn(10,10)
+        Tensor.manual_seed(1337)
+        b = random_fn(10,10)
+        np.testing.assert_allclose(a.numpy(), b.numpy())
 
 if __name__ == '__main__':
   unittest.main()

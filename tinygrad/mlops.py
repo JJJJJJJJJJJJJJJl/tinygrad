@@ -1,4 +1,4 @@
-from tinygrad.helpers import prod, argsort, reduce_shape, get_conv_args
+from tinygrad.helpers import prod, argsort, get_conv_args
 from tinygrad.ops import UnaryOps, BinaryOps, ReduceOps, MovementOps, ProcessingOps
 from tinygrad.tensor import Function
 
@@ -7,15 +7,6 @@ class Contiguous(Function):
   def backward(self, grad_output): return grad_output
 
 # ************* unary ops *************
-
-class ReLU(Function):
-  def forward(self, x):
-    ret = x.unary_op(UnaryOps.RELU)
-    self.save_for_backward(ret)
-    return ret
-
-  def backward(self, grad_output):
-    return self.saved_tensors[0].unary_op(UnaryOps.GT0).binary_op(BinaryOps.MUL, grad_output)
 
 class Log(Function):
   def forward(self, x):
@@ -34,30 +25,19 @@ class Exp(Function):
   def backward(self, grad_output):
     return self.saved_tensors[0].binary_op(BinaryOps.MUL, grad_output)
 
-class Reciprocal(Function):
-  def forward(self, x):
-    ret = x.unary_op(UnaryOps.RECIPROCAL)
-    self.save_for_backward(ret)
-    return ret
-
-  def backward(self, grad_output):
-    return grad_output.unary_op(UnaryOps.NEG).binary_op(BinaryOps.MUL, self.saved_tensors[0]).binary_op(BinaryOps.MUL, self.saved_tensors[0])
-
-# TODO: add Neg? confirm the optimizer on Sub good enough
-
 # ************* reduce ops *************
 
 class Sum(Function):
-  def forward(self, x, axis=None):
+  def forward(self, x, new_shape):
     self.input_shape = x.shape
-    return x.reduce_op(ReduceOps.SUM, reduce_shape(x.shape, axis))
+    return x.reduce_op(ReduceOps.SUM, new_shape)
 
   def backward(self, grad_output):
     return grad_output.movement_op(MovementOps.EXPAND, self.input_shape)
 
 class Max(Function):
-  def forward(self, x, axis=None):
-    ret = x.reduce_op(ReduceOps.MAX, reduce_shape(x.shape, axis))
+  def forward(self, x, new_shape):
+    ret = x.reduce_op(ReduceOps.MAX, new_shape)
     self.save_for_backward(x, ret)
     return ret
 
@@ -75,6 +55,17 @@ class Max(Function):
     return max_is_amount.binary_op(BinaryOps.MUL, grad_output_expanded)
 
 # ************* binary ops *************
+
+class Maximum(Function):
+  def forward(self, x, y):
+    ret = x.binary_op(BinaryOps.MAX, y)
+    self.save_for_backward(y, ret)
+    return ret
+
+  def backward(self, grad_output):
+    mask = self.saved_tensors[0].binary_op(BinaryOps.CMPEQ, self.saved_tensors[1])
+    return grad_output.binary_op(BinaryOps.MUL, mask.unary_op(UnaryOps.NOT)) if self.needs_input_grad[0] else None, \
+           grad_output.binary_op(BinaryOps.MUL, mask) if self.needs_input_grad[1] else None
 
 class Add(Function):
   def forward(self, x, y):
@@ -109,10 +100,18 @@ class Pow(Function):
 
   def backward(self, grad_output):
     x,y,powxy = self.saved_tensors
-    # grad_x = grad_output * y * (pow(x,y)/x)
-    # grad_y = grad_output * log(x) * pow(x,y)
     return grad_output.binary_op(BinaryOps.MUL, y.binary_op(BinaryOps.MUL, powxy.binary_op(BinaryOps.DIV, x))) if self.needs_input_grad[0] else None, \
            grad_output.binary_op(BinaryOps.MUL, x.unary_op(UnaryOps.LOG).binary_op(BinaryOps.MUL, powxy)) if self.needs_input_grad[1] else None
+
+class Div(Function):
+  def forward(self, x, y):
+    self.save_for_backward(x, y)
+    return x.binary_op(BinaryOps.DIV, y)
+
+  def backward(self, grad_output):
+    x, y = self.saved_tensors
+    return grad_output.binary_op(BinaryOps.DIV, y) if self.needs_input_grad[0] else None, \
+           grad_output.unary_op(UnaryOps.NEG).binary_op(BinaryOps.MUL, x).binary_op(BinaryOps.DIV, y.binary_op(BinaryOps.MUL, y)) if self.needs_input_grad[1] else None
 
 # ************* movement ops *************
 
@@ -127,6 +126,7 @@ class Expand(Function):
 
 class Reshape(Function):
   def forward(self, x, shape):
+    assert len(shape) > 0 and all(x != 0 for x in shape), f"zeros not allowed in shape {shape}"
     self.input_shape = x.shape
     shape = tuple(-prod(x.shape) // prod(shape) if s == -1 else s for s in shape)
     return x.movement_op(MovementOps.RESHAPE, shape)
@@ -142,7 +142,6 @@ class Permute(Function):
   def backward(self, grad_output):
     return grad_output.movement_op(MovementOps.PERMUTE, tuple(argsort(self.input_order)))
 
-# TODO: merge Slice and Flip into Stride with the 3 arguments
 class Slice(Function):
   def forward(self, x, arg=None):
     self.narg = tuple((0-p[0], x.shape[i]-p[0]) for i,p in enumerate(arg))

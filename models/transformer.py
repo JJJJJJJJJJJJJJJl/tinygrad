@@ -8,14 +8,14 @@ class TransformerBlock:
     assert self.head_size * self.num_heads == embed_dim
     self.prenorm, self.act = prenorm, act
 
-    self.query = (Tensor.uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
-    self.key = (Tensor.uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
-    self.value = (Tensor.uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
+    self.query = (Tensor.scaled_uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
+    self.key = (Tensor.scaled_uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
+    self.value = (Tensor.scaled_uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
 
-    self.out = (Tensor.uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
+    self.out = (Tensor.scaled_uniform(embed_dim, embed_dim), Tensor.zeros(embed_dim))
 
-    self.ff1 = (Tensor.uniform(embed_dim, ff_dim), Tensor.zeros(ff_dim))
-    self.ff2 = (Tensor.uniform(ff_dim, embed_dim), Tensor.zeros(embed_dim))
+    self.ff1 = (Tensor.scaled_uniform(embed_dim, ff_dim), Tensor.zeros(ff_dim))
+    self.ff2 = (Tensor.scaled_uniform(ff_dim, embed_dim), Tensor.zeros(embed_dim))
 
     self.ln1 = (Tensor.ones(embed_dim), Tensor.zeros(embed_dim))
     self.ln2 = (Tensor.ones(embed_dim), Tensor.zeros(embed_dim))
@@ -50,15 +50,15 @@ class TransformerBlock:
 class Transformer:
   def __init__(self, syms, maxlen, layers, embed_dim, num_heads, ff_dim):
     self.maxlen, self.syms = maxlen, syms
-    self.embed = Tensor.uniform(maxlen+syms, embed_dim, requires_grad=False)
+    self.embed = Tensor.scaled_uniform(maxlen+syms, embed_dim, requires_grad=False)
     self.tbs = []
     for i in range(layers):
       self.tbs.append(TransformerBlock(embed_dim, num_heads, ff_dim))
-    self.final = Tensor.uniform(embed_dim, syms)
+    self.final = Tensor.scaled_uniform(embed_dim, syms)
 
   def forward(self, x):
     bs = x.shape[0]
-    xnp = x.cpu().data.astype(np.int32)
+    xnp = x.cpu().numpy().astype(np.int32)
     onehot = np.zeros((bs, x.shape[1], self.maxlen+self.syms), dtype=np.float32)
     for i in range(x.shape[1]):
       onehot[range(bs), i, i] = 1
@@ -67,6 +67,6 @@ class Transformer:
 
     x = Tensor(onehot, device=x.device).dot(self.embed).reshape(shape=(bs, x.shape[1], -1))
     x = x.sequential(self.tbs)
-    x = x.reshape(shape=(-1, x.shape[-1])).dot(self.final).logsoftmax()
+    x = x.reshape(shape=(-1, x.shape[-1])).dot(self.final).log_softmax()
     return x.reshape(shape=(bs, -1, x.shape[-1]))
 

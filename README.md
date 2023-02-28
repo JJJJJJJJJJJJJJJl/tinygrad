@@ -18,6 +18,8 @@ Due to its extreme simplicity, it aims to be the easiest framework to add new ac
 
 We are working on support for the Apple Neural Engine and the Google TPU in the `accel/` folder. Eventually, [we will build custom hardware](https://geohot.github.io/blog/jekyll/update/2021/06/13/a-breakdown-of-ai-chip-companies.html) for tinygrad, and it will be blindingly fast. Now, it is slow.
 
+This project is maintained by [tiny corp](https://tinygrad.org/).
+
 ### Installation
 
 ```bash
@@ -80,7 +82,7 @@ class TinyBobNet:
     self.l2 = Tensor.uniform(128, 10)
 
   def forward(self, x):
-    return x.dot(self.l1).relu().dot(self.l2).logsoftmax()
+    return x.dot(self.l1).relu().dot(self.l2).log_softmax()
 
 model = TinyBobNet()
 optim = optim.SGD([model.l1, model.l2], lr=0.001)
@@ -127,14 +129,13 @@ hlops are syntactic sugar around mlops. They support most things torch does.
 
 ### mlops
 
-mlops are mid level ops, there's 15 of them. They understand memory allocation and derivatives
+mlops are mid level ops, there's 15 of them. They understand derivatives. They are very simple.
 
 ```
-Relu, Log, Exp                          # unary ops
+Relu, Log, Exp, Reciprocal              # unary ops
 Sum, Max                                # reduce ops (with axis argument)
 Add, Sub, Mul, Pow                      # binary ops (no broadcasting, use expand)
-Reshape, Permute, Slice, Expand, Flip   # movement ops
-Conv2D(NCHW)                            # processing op (Matmul is also Conv2D)
+Expand, Reshape, Permute, Slice, Flip   # movement ops
 ```
 
 You no longer need to write mlops for a new accelerator
@@ -145,14 +146,12 @@ The autodiff stuff is all in mlops now so you can focus on the raw operations
 
 ```
 Buffer                                                     # class of memory on this device
-unary_op  (RELU, EXP, LOG, NEG, GT0)                       # A -> A
+unary_op  (NOOP, NEG, NOT, EXP, LOG)                       # A -> A
 reduce_op (SUM, MAX)                                       # A -> B (smaller size, B has 1 in shape)
-binary_op (ADD, SUB, MUL, DIV, POW, CMPEQ)                 # A + B -> C (all the same size)
-movement_op (RESHAPE, PERMUTE, PAD, SHRINK, EXPAND, FLIP)  # A -> B (different size)
-processing_op (CONV)                                       # A + B -> C
+binary_op (ADD, SUB, MUL, DIV, POW, CMPEQ, MAX)            # A + A -> A (all the same size)
+movement_op (RESHAPE, PERMUTE, EXPAND, FLIP, PAD, SHRINK)  # A -> B (different size)
+fused_op [[optional]] (MULACC)                             # A * A -> B
 ```
-
-When tinygrad moves to lazy evaluation, optimizations will happen here.
 
 ## ImageNet inference
 

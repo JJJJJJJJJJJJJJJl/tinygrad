@@ -3,8 +3,8 @@ import numpy as np
 import pyopencl as cl  # type: ignore
 from typing import Dict, Optional, Tuple, List, ClassVar, Final
 from collections import defaultdict
-from tinygrad.ops import DEBUG, GlobalCounters
-from tinygrad.helpers import getenv
+from tinygrad.ops import GlobalCounters
+from tinygrad.helpers import getenv, DEBUG
 
 OSX = platform.system() == "Darwin"
 OSX_TIMING_RATIO = (125/3) if OSX else 1.0   # see test/external_osx_profiling.py to determine this ratio. it's in like GPU clocks or something
@@ -62,7 +62,15 @@ class CLImage:
 
 @functools.lru_cache(maxsize=None)
 class CLProgram:
+  kernel_prefix = "__kernel"
+  buffer_prefix = "__global "
+  smem_prefix = "__local "
   kernel_cnt : Final[Dict[str, int]] = defaultdict(int)
+  barrier = "barrier(CLK_LOCAL_MEM_FENCE);"
+  float4 = "(float4)"
+  gid = [f'get_global_id({i})' for i in range(3)]
+  lid = [f'get_local_id({i})' for i in range(3)]
+  extra_args : List[str] = []
   def __init__(self, name:str, prg:str, options:Tuple[str, ...]=tuple(), argdtypes=None, rename=True, binary=False, op_estimate=0, mem_estimate=0):
     self.name = f"{name}{('_N'+str(CLProgram.kernel_cnt[name])) if CLProgram.kernel_cnt[name] else str()}" if rename else name
     self.prg, self.options, self.argdtypes, self.op_estimate, self.mem_estimate = prg.replace(f"{name}(", f"{self.name}(") if rename else prg, options, argdtypes, op_estimate, mem_estimate
@@ -75,11 +83,11 @@ class CLProgram:
     if self.argdtypes is not None:
       self.clprg.set_scalar_arg_dtypes(self.argdtypes)
     CLProgram.kernel_cnt[name] += 1
-  def __call__(self, *args):
+  def __call__(self, *args) -> cl.Event:
     if DEBUG >= 4: print(args[0], args[1], self.prg)
     # print the PTX for NVIDIA. TODO: probably broken for everything else
-    if DEBUG >= 5: print(self.clprogram.get_info(cl.program_info.BINARIES)[0].decode('utf-8'))
-    else: e = self.clprg(CL().cl_queue, *args)
+    if DEBUG >= 5 and not OSX: print(self.clprogram.get_info(cl.program_info.BINARIES)[0].decode('utf-8'))
+    e = self.clprg(CL().cl_queue, *args)
     if DEBUG >= 2:
       assert CL.cl_queue is not None
       CL.cl_queue.finish()

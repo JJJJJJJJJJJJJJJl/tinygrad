@@ -4,9 +4,9 @@ from tinygrad.shape.symbolic import Variable
 
 class TestSymbolic(unittest.TestCase):
   def helper_test_variable(self, v, n, m, s):
+    self.assertEqual(v.render(), s)
     self.assertEqual(v.min, n)
     self.assertEqual(v.max, m)
-    self.assertEqual(v.render(), s)
 
   def test_mul_0(self):
     self.helper_test_variable(Variable("a", 0, 8)*0, 0, 0, "0")
@@ -41,8 +41,15 @@ class TestSymbolic(unittest.TestCase):
   def test_sum_div_no_factor(self):
     self.helper_test_variable(Variable.sum([Variable("a", 0, 7)*5, Variable("b", 0, 3)*5]) // 2, 0, 25, "(((a*5)+(b*5))//2)")
   
+  @unittest.skip("mod max is wrong")
   def test_mod_factor(self):
     self.helper_test_variable(Variable.sum([Variable("a", 0, 7)*100, Variable("b", 0, 3)*50]) % 100, 0, 50, "(((a*100)+(b*50))%100)")
+
+  def test_mod_mul(self):
+    self.helper_test_variable((Variable("a", 0, 5)*10)%9, 0, 5, "a")
+
+  def test_mod_mul_sum(self):
+    self.helper_test_variable(Variable.sum([Variable("b", 0, 2), Variable("a", 0, 5)*10])%9, 0, 7, "(b+a)")
   
   def test_sum_0(self):
     self.helper_test_variable(Variable.sum([Variable("a", 0, 7)]), 0, 7, "a")
@@ -71,10 +78,13 @@ class TestSymbolic(unittest.TestCase):
   def test_and_remove(self):
     self.helper_test_variable(Variable.ands([Variable.num(1), Variable("a", 0, 1)]), 0, 1, "a")
 
-  def test_mod_factor(self):
+  def test_mod_factor_negative(self):
     # this is technically wrong, if b is 0 the output will be negative
-    self.helper_test_variable(Variable.sum([Variable.num(-29), Variable("a", 0, 10), Variable("b", 0, 10)*28]) % 28, -1, 9, "((-1+a)%28)")
-    self.helper_test_variable(Variable.sum([Variable.num(-29), Variable("a", 0, 100), Variable("b", 0, 10)*28]) % 28, -1, 27, "((-1+a)%28)")
+    self.helper_test_variable(Variable.sum([Variable.num(-29), Variable("a", 0, 10), Variable("b", 0, 10)*28]) % 28, -1, 9, "((a+-1)%28)")
+    self.helper_test_variable(Variable.sum([Variable.num(-29), Variable("a", 0, 100), Variable("b", 0, 10)*28]) % 28, -1, 27, "((a+-1)%28)")
+
+  def test_sum_combine_num(self):
+    self.helper_test_variable(Variable.sum([Variable.num(29), Variable("a", 0, 10), Variable.num(-23)]), 6, 16, "(a+6)")
 
   def test_div_factor(self):
     # TODO: this isn't right

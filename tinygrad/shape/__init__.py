@@ -2,11 +2,8 @@
 from __future__ import annotations
 import functools
 from typing import Tuple, Union, List, Optional
-from tinygrad.helpers import prod, getenv
+from tinygrad.helpers import prod, DEBUG
 from tinygrad.shape.symbolic import Variable
-
-# TODO: fix DEBUG import
-DEBUG = getenv("DEBUG", 0)
 
 @functools.lru_cache(maxsize=None)
 def to_shape_strides(shape:Tuple[int, ...], strides:Tuple[int, ...]) -> List[Tuple[int, int]]:
@@ -23,7 +20,7 @@ class View:
   __slots__ = ('shape', 'strides', 'offset', 'shape_strides', 'contiguous')
 
   def __init__(self, shape:Tuple[int, ...], strides:Tuple[int, ...], offset:int=0):
-    self.shape, self.strides, self.offset = shape, strides, offset
+    self.shape, self.strides, self.offset = shape, tuple(stride if shp != 1 else 0 for stride,shp in zip(strides, shape)), offset
     self.shape_strides = to_shape_strides(self.shape, self.strides)
     self.contiguous : bool = self.offset == 0 and all(s1 == s2 or s == 1 for s,s1,s2 in zip(self.shape, self.strides, strides_for_shape(self.shape)))
 
@@ -40,7 +37,7 @@ class View:
 
   # generate an expression if you have a variable or expression for each index
   def expr_idxs(self, idxs, offset=0):
-    return Variable.sum([Variable.num(self.offset+offset)] + [Variable(idxs[i], 0, sh-1)*st for i,(sh,st) in enumerate(zip(self.shape, self.strides)) if sh != 1 and st != 0])
+    return Variable.sum([Variable.num(self.offset+offset)] + [Variable(idx, 0, sh-1)*st for idx,sh,st in zip(idxs, self.shape, self.strides) if sh != 1 and st != 0])
 
 class ZeroView:
   __slots__ = ('old_shape', 'arg', 'shape', 'contiguous', 'strides', 'offset')
@@ -51,6 +48,8 @@ class ZeroView:
     # fake properties
     self.strides, self.contiguous, self.offset = strides_for_shape(self.shape), False, 0
 
+  def __repr__(self): return f"ZeroView({self.old_shape}, {self.arg})"
+
   def expr_node(self, idx=None, valid=None):
     if idx is None: idx = Variable('idx', 0, prod([y-x for x,y in self.arg]))
     expr, acc = [valid] if valid is not None else [], 1
@@ -60,7 +59,7 @@ class ZeroView:
       acc *= ns
     return Variable.ands(expr)
 
-  def __repr__(self): return f"ZeroView({self.old_shape}, {self.arg})"
+  def expr_idxs(self, idxs, offset=0): raise NotImplementedError("ZeroView doesn't support expr_idxs")
 
 ViewTypes = Union[View, ZeroView]
 
