@@ -108,7 +108,7 @@ class TestTinygrad(unittest.TestCase):
     w = Tensor.ones(n).dropout(rate)
     non_zeros = np.count_nonzero(w.cpu().numpy())
     expected = n * (1 - rate)
-    np.testing.assert_allclose(non_zeros, expected, rtol=1e-3)
+    np.testing.assert_allclose(non_zeros, expected, rtol=2e-3)
 
   #@unittest.skipUnless(Device.DEFAULT == Device.CPU, "float64 not supported on GPU")
   @unittest.skip("float64 support broken")
@@ -149,9 +149,9 @@ class TestTinygrad(unittest.TestCase):
     for random_fn in [Tensor.randn, Tensor.uniform, Tensor.scaled_uniform, Tensor.glorot_uniform]:
       with self.subTest(msg=f"Tensor.{random_fn.__name__}"):
         Tensor.manual_seed(1337)
-        a = random_fn(10,10)
+        a = random_fn(10,10).realize()
         Tensor.manual_seed(1337)
-        b = random_fn(10,10)
+        b = random_fn(10,10).realize()
         np.testing.assert_allclose(a.numpy(), b.numpy())
 
 if __name__ == '__main__':

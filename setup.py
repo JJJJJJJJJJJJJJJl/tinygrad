@@ -8,13 +8,13 @@ with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
   long_description = f.read()
 
 setup(name='tinygrad',
-      version='0.4.0',
+      version='0.5.0',
       description='You like pytorch? You like micrograd? You love tinygrad! heart',
       author='George Hotz',
       license='MIT',
       long_description=long_description,
       long_description_content_type='text/markdown',
-      packages = ['tinygrad', 'tinygrad.llops', 'tinygrad.nn', 'tinygrad.runtime', 'tinygrad.shape'],
+      packages = ['tinygrad', 'tinygrad.codegen', 'tinygrad.nn', 'tinygrad.runtime', 'tinygrad.shape'],
       classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License"

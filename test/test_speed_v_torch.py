@@ -1,5 +1,8 @@
 import os
 os.environ["NVIDIA_TF32_OVERRIDE"] = "0"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"
 import unittest
 import torch
 torch.set_num_threads(1)
@@ -12,15 +15,6 @@ from tinygrad.tensor import Tensor
 from tinygrad.nn import Conv2d
 from tinygrad.helpers import colored, getenv, DEBUG
 from tinygrad.jit import TinyJit
-METAL = getenv("METAL")
-try:
-  from tinygrad.runtime.opencl import CL
-  if METAL:
-    from tinygrad.runtime.metal import sync
-  else:
-    def sync(): CL().cl_queue.finish()
-except ImportError:
-  def sync(): pass
 
 IN_CHANS = [int(x) for x in getenv("IN_CHANS", "4,16,64").split(",")]
 
@@ -43,22 +37,19 @@ def helper_test_speed(f1, *args):
   ret = None
   for _ in range(CNT):
     del ret
+    args = [(x+1).realize() if isinstance(x, Tensor) else (None if x is None else (x+1)) for x in args]  # cache defeats
+
+    # force syncing
+    [x.numpy() if isinstance(x, Tensor) or str(torch_device) == "cpu" else x.cpu().numpy() for x in args if x is not None]
+
     GlobalCounters.global_ops = 0
     GlobalCounters.global_mem = 0
-    args = [(x+1).realize() if isinstance(x,Tensor) else (None if x is None else (x+1)) for x in args]  # cache defeats
-
-    # sync all before!
-    sync()
-    torch.zeros(1, device=torch_device).cpu()
-
     if DEBUG >= 4: print("benchmark start")
     st = time.monotonic()
     ret = f1(*args)
-    if isinstance(ret, Tensor) and ret.device in ["GPU"]:
-      sync()
-    if not isinstance(ret, Tensor) and torch_device != "cpu":
-      # TODO: better way to sync?
-      torch.zeros(1, device=torch_device).cpu()
+    # not ideal, it's copying (sometimes). why is this so slow in tinygrad?
+    if isinstance(ret, Tensor) or str(torch_device) == "cpu": ret.numpy()
+    else: ret.cpu().numpy()
     et = (time.monotonic() - st) * 1000
     ets.append(et)
     if DEBUG >= 4: print("benchmark stop")

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union, Tuple
 from tinygrad.tensor import Tensor
 
 class BatchNorm2d:
@@ -39,27 +39,25 @@ class BatchNorm2d:
 
 # TODO: is this good weight init?
 class Conv2d:
-  def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, bias=True):
+  def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True):
     self.kernel_size = (kernel_size, kernel_size) if isinstance(kernel_size, int) else (kernel_size[0], kernel_size[1])
-    self.stride = (stride, stride) if isinstance(stride, int) else (stride[0], stride[1])
-    self.padding = (padding, ) * 4 if isinstance(padding, int) else ((padding[0], padding[0], padding[1], padding[1]) if len(padding) == 2 else padding)
-    # TODO: why is this realize needed? shouldn't it realize on the first run?
-    self.weight = Tensor.glorot_uniform(out_channels, in_channels, self.kernel_size[0], self.kernel_size[1]).realize()
-    self.bias = Tensor.zeros(out_channels).contiguous().realize() if bias else None
+    self.stride, self.padding, self.dilation, self.groups = stride, padding, dilation, groups
+    self.weight = Tensor.glorot_uniform(out_channels, in_channels//groups, self.kernel_size[0], self.kernel_size[1])
+    self.bias = Tensor.zeros(out_channels) if bias else None
 
   def __call__(self, x):
-    return x.conv2d(self.weight, self.bias, padding=self.padding, stride=self.stride)
+    return x.conv2d(self.weight, self.bias, padding=self.padding, stride=self.stride, dilation=self.dilation, groups=self.groups)
 
 class Linear:
   def __init__(self, in_features, out_features, bias=True):
-    self.weight = Tensor.glorot_uniform(out_features, in_features).realize()
-    self.bias = Tensor.zeros(out_features).contiguous().realize() if bias else None
+    self.weight = Tensor.glorot_uniform(out_features, in_features)
+    self.bias = Tensor.zeros(out_features) if bias else None
 
   def __call__(self, x):
     return x.linear(self.weight.transpose(), self.bias)
 
 class GroupNorm:
-  def __init__(self, num_groups, num_channels, eps=1e-5, affine=True):
+  def __init__(self, num_groups:int, num_channels:int, eps:float=1e-5, affine:bool=True):
     self.num_groups, self.num_channels, self.eps = num_groups, num_channels, eps
     self.weight : Optional[Tensor] = Tensor.ones(num_channels) if affine else None
     self.bias : Optional[Tensor] = Tensor.zeros(num_channels) if affine else None
@@ -74,7 +72,7 @@ class GroupNorm:
     return x * self.weight.reshape(1, -1, 1, 1) + self.bias.reshape(1, -1, 1, 1)
 
 class LayerNorm:
-  def __init__(self, normalized_shape, eps=1e-5, elementwise_affine=True):
+  def __init__(self, normalized_shape:Union[int, Tuple[int, ...]], eps:float=1e-5, elementwise_affine:bool=True):
     normalized_shape = (normalized_shape,) if isinstance(normalized_shape, int) else tuple(normalized_shape)
     self.axis, self.eps, self.elementwise_affine = tuple(-1-i for i in range(len(normalized_shape))), eps, elementwise_affine
     self.weight, self.bias = (Tensor.ones(*normalized_shape), Tensor.zeros(*normalized_shape)) if elementwise_affine else (None, None)

@@ -19,7 +19,8 @@ import numpy as np
 import tinygrad.graph as graph
 from tinygrad.ops import GlobalCounters
 
-from tinygrad.runtime.opencl import CL
+import pyopencl as cl
+from tinygrad.runtime.ops_gpu import CL
 from extra.utils import fetch
 from extra.onnx import get_run_onnx
 from tinygrad.tensor import Tensor
@@ -38,8 +39,10 @@ from tinygrad.jit import TinyJit
 @TinyJit
 def model_exec(run_onnx, using_graph, **inputs):
   ret = next(iter(run_onnx(inputs).values()))
+  GlobalCounters.reset()
   GlobalCounters.cache = []  # don't cache pre-realize
   if using_graph: graph.GRAPH = True
+  print("realizing")
   return ret.realize()
 
 def compile(dat, output_fn):
@@ -59,21 +62,22 @@ def compile(dat, output_fn):
   print("kernel count:", len(model_exec.jit_cache))
   assert len(model_exec.jit_cache) <= ALLOWED_KERNEL_COUNT or ALLOWED_KERNEL_COUNT == 0, "too many kernels!"
 
+  # pull out inputs and put them in the jit cache
+  input_rawbuffers = {k:inputs[k].lazydata.realized.raw() for k in inputs.keys()}
+  for (j,i),idx in model_exec.input_replace.items(): model_exec.jit_cache[j][1][i] = input_rawbuffers[idx]
+
   # transform to CL.CACHE
   used_ops = 0
   cl_cache = []
   for prg,args in model_exec.jit_cache:
-    real_clprg = prg.clprg
-    used_ops += real_clprg.op_estimate
-    # replace clprg with a fake program to log to cl_cache
-    prg.clprg = lambda *args: cl_cache.append((real_clprg, args))
-    prg(*args)
+    # pass these to thneed
+    setattr(prg.clprg, 'op_estimate', prg.op_estimate)
+    setattr(prg.clprg, 'prg', prg.prg)
+    cl_cache.append((prg.clprg, [prg.global_size, prg.local_size, *[x._cl for x in args]]))
+    used_ops += prg.op_estimate
 
   from extra.thneed import Thneed
-  t = Thneed(cl_cache, {k:inputs[k].lazydata.realized.cl for k in inputs.keys()})
-
-  if getenv("OPTWG", 0):
-    t.optimize_local_workgroup()
+  t = Thneed(cl_cache, {k:v._cl for k,v in input_rawbuffers.items()})
 
   # save thneed (before run)
   t.save(output_fn)
@@ -84,14 +88,14 @@ def compile(dat, output_fn):
 
   # confirm thneed found the right output
   thneed_out = np.empty((t.outputs[0].size//4,), dtype=np.float32).reshape(tinygrad_out.shape)
-  CL.enqueue_copy(thneed_out, t.outputs[0], is_blocking=True)
+  cl.enqueue_copy(CL.cl_queue, thneed_out, t.outputs[0], is_blocking=True)
   np.testing.assert_allclose(thneed_out, tinygrad_out.numpy())
 
   # testing is float32 only (fix this)
   FLOAT16 = getenv("FLOAT16", 0)
   if FLOAT16 == 0:
     try:
-      from test.test_onnx import run_onnx_torch
+      from test.models.test_onnx import run_onnx_torch
       torch_out = run_onnx_torch(onnx_model, np_inputs).numpy()
       print(thneed_out, torch_out, "mse", np.sum((thneed_out-torch_out)**2), "max err", np.max(np.abs((thneed_out-torch_out))))
       np.testing.assert_allclose(torch_out, thneed_out, atol=1e-4, rtol=1e-2)
@@ -102,11 +106,11 @@ def compile(dat, output_fn):
 
       # try old thneed with a different input
       for k,v in t.inputs.items():
-        CL.enqueue_copy(v, new_np_inputs[k], is_blocking=True)
+        cl.enqueue_copy(CL.cl_queue, v, new_np_inputs[k], is_blocking=True)
 
       t.run()
       old_thneed_out = np.empty((t.outputs[0].size//4,), dtype=np.float32).reshape(tinygrad_out.shape)
-      CL.enqueue_copy(old_thneed_out, t.outputs[0], is_blocking=True)
+      cl.enqueue_copy(CL.cl_queue, old_thneed_out, t.outputs[0], is_blocking=True)
 
       # compare thneed (rerun) with torch
       np.testing.assert_allclose(new_torch_out, old_thneed_out, atol=1e-4, rtol=1e-2)
@@ -119,17 +123,17 @@ def compile(dat, output_fn):
 
       # inputs
       for k,v in nt.inputs.items():
-        CL.enqueue_copy(v, new_np_inputs[k], is_blocking=True)
+        cl.enqueue_copy(CL.cl_queue, v, new_np_inputs[k], is_blocking=True)
 
       nt.run()
       new_thneed_out = np.empty((nt.outputs[0].size//4,), dtype=np.float32).reshape(tinygrad_out.shape)
-      CL.enqueue_copy(new_thneed_out, nt.outputs[0], is_blocking=True)
+      cl.enqueue_copy(CL.cl_queue, new_thneed_out, nt.outputs[0], is_blocking=True)
 
       # compare torch to thneed
       np.testing.assert_allclose(new_torch_out, new_thneed_out, atol=1e-4, rtol=1e-2)
       print("thneed self-test passed!")
-    except ModuleNotFoundError:
-      pass
+    except ModuleNotFoundError as e:
+      print(f"TEST NOT HAPPENING {e}")
 
 
 # UNSAFE_FLOAT4=1 DEBUGCL=1 FLOAT16=1 python3 openpilot/compile.py

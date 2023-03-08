@@ -66,6 +66,19 @@ print(x.grad)  # dz/dx
 print(y.grad)  # dz/dy
 ```
 
+## Is tinygrad fast?
+
+Try a matmul. See how, despite the style, it is fused into one kernel with the power of laziness.
+
+```python
+DEBUG=3 OPTLOCAL=1 GPU=1 python3 -c "from tinygrad.tensor import Tensor;
+N = 1024; a, b = Tensor.randn(N, N), Tensor.randn(N, N);
+c = (a.reshape(N, 1, N) * b.permute(1,0).reshape(1, N, N)).sum(axis=2);
+print((c.numpy() - (a.numpy() @ b.numpy())).mean())"
+```
+
+Change to `DEBUG=4` to see the generated code.
+
 ## Neural networks?
 
 It turns out, a decent autograd tensor library is 90% of what you need for neural networks. Add an optimizer (SGD, RMSprop, and Adam implemented) from tinygrad.nn.optim, write some boilerplate minibatching code, and you have all you need.
@@ -129,13 +142,13 @@ hlops are syntactic sugar around mlops. They support most things torch does.
 
 ### mlops
 
-mlops are mid level ops, there's 15 of them. They understand derivatives. They are very simple.
+mlops are mid level ops. They understand derivatives. They are very simple.
 
 ```
-Relu, Log, Exp, Reciprocal              # unary ops
-Sum, Max                                # reduce ops (with axis argument)
-Add, Sub, Mul, Pow                      # binary ops (no broadcasting, use expand)
-Expand, Reshape, Permute, Slice, Flip   # movement ops
+Log, Exp                                       # unary ops
+Sum, Max                                       # reduce ops (with axis argument)
+Maximum, Add, Sub, Mul, Pow, Div, Equal        # binary ops (no broadcasting, use expand)
+Expand, Reshape, Permute, Pad, Shrink, Flip    # movement ops
 ```
 
 You no longer need to write mlops for a new accelerator
@@ -149,7 +162,7 @@ Buffer                                                     # class of memory on 
 unary_op  (NOOP, NEG, NOT, EXP, LOG)                       # A -> A
 reduce_op (SUM, MAX)                                       # A -> B (smaller size, B has 1 in shape)
 binary_op (ADD, SUB, MUL, DIV, POW, CMPEQ, MAX)            # A + A -> A (all the same size)
-movement_op (RESHAPE, PERMUTE, EXPAND, FLIP, PAD, SHRINK)  # A -> B (different size)
+movement_op (EXPAND, RESHAPE, PERMUTE, PAD, SHRINK, FLIP)  # A -> B (different size)
 fused_op [[optional]] (MULACC)                             # A * A -> B
 ```
 
@@ -220,7 +233,12 @@ GRAPH=1 python3 test/test_mnist.py TestMNIST.test_sgd_onestep
 
 ### Running tests
 
+For more examples on how to run the full test suite please refer to the [CI workflow](.github/workflows/test.yml).
+
 ```bash
+python3 -m pip install -e '.[testing]'
 python3 -m pytest
+python3 -m pytest -v -k TestTrain
+python3 ./test/models/test_train.py TestTrain.test_efficientnet
 ```
 

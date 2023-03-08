@@ -40,7 +40,7 @@ jobs:
     - name: Lint tinygrad with pylint
       run: pylint tinygrad/
     - name: Run mypy
-      run: mypy tinygrad/ --ignore-missing-imports --check-untyped-defs
+      run: mypy tinygrad/ --ignore-missing-imports --check-untyped-defs --explicit-package-bases --warn-unreachable
 
   testcpu:
     name: CPU Tests
@@ -72,7 +72,7 @@ jobs:
     - name: Install Dependencies
       run: pip install -e .
     - name: Compile EfficientNet to C
-      run: CLANG=1 GPU=1 python3 examples/compile_efficientnet.py > recognize.c
+      run: CLANG=1 python3 examples/compile_efficientnet.py > recognize.c
     - name: Compile C to native
       run: clang -O2 recognize.c -lm -o recognize
     - name: Test EfficientNet
@@ -92,7 +92,7 @@ jobs:
     - name: Install Dependencies
       run: pip install -e '.[llvm,testing]' --extra-index-url https://download.pytorch.org/whl/cpu
     - name: Run Pytest
-      run: LLVM=1 python -m pytest -s -v -n=auto
+      run: ENABLE_METHOD_CACHE=1 LLVM=1 python -m pytest -s -v -n=auto
 
   testtorch:
     name: Torch Tests
@@ -131,8 +131,10 @@ jobs:
         python-version: 3.8
     - name: Install Dependencies
       run: pip install -e '.[gpu,testing]' --extra-index-url https://download.pytorch.org/whl/cpu
-    - name: Run Optimizer Test
-      run: GPU=1 python test/external_test_opt.py
+    - name: Run Optimizer Test (OPT 2 and 3)
+      run: |
+        OPT=2 GPU=1 python test/external/external_test_opt.py
+        OPT=3 GPU=1 python test/external/external_test_opt.py
     - name: Run Pytest (default)
       run: GPU=1 python -m pytest -s -v -n=auto
 
@@ -162,7 +164,8 @@ jobs:
     - name: Test openpilot model
       run: |
         ALLOWED_KERNEL_COUNT=197 FLOAT16=1 VALIDHACKS=1 DEBUGCL=1 GPU=1 IMAGE=2 python3 openpilot/compile.py
-        UNSAFE_FLOAT4=1 DEBUGCL=1 GPU=1 IMAGE=2 python3 openpilot/compile.py
+        DEBUGCL=1 GPU=1 IMAGE=2 python3 openpilot/compile.py
+        VALIDHACKS=1 DEBUGCL=1 GPU=1 IMAGE=2 python3 openpilot/compile.py
 
   # disabled, this test is flaky
   testdocker:
