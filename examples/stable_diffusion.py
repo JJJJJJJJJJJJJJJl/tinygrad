@@ -437,18 +437,18 @@ class CLIPEncoder:
 
 class CLIPTextEmbeddings:
   def __init__(self):
-    self.position_ids = Tensor.empty(1, 77)  # what is this?
+    #self.position_ids = Tensor.empty(1, 77)  # what is this?
     self.token_embedding = {"weight": Tensor.empty(49408, 768)}
     self.position_embedding = {"weight": Tensor.empty(77, 768)}
 
   def __call__(self, input_ids, position_ids):
     # TODO: actually support batches
-    inputs = np.zeros((1, len(input_ids), 49408))
-    positions = np.zeros((1, len(position_ids), 77))
+    inputs = np.zeros((1, len(input_ids), 49408), dtype=np.float32)
+    positions = np.zeros((1, len(position_ids), 77), dtype=np.float32)
     for i,x in enumerate(input_ids): inputs[0][i][x] = 1
     for i,x in enumerate(position_ids): positions[0][i][x] = 1
     inputs_embeds = Tensor(inputs, device=self.token_embedding['weight'].device) @ self.token_embedding['weight']
-    position_embeddings = Tensor(positions, device=self.position_embedding['weight'].device) @ self.position_embedding['weight'] 
+    position_embeddings = Tensor(positions, device=self.position_embedding['weight'].device) @ self.position_embedding['weight']
     return inputs_embeds + position_embeddings
 
 class CLIPTextTransformer:
@@ -605,7 +605,7 @@ FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../weights/
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='Run Stable Diffusion', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
   parser.add_argument('--steps', type=int, default=5, help="Number of steps in diffusion")
-  parser.add_argument('--phrase', type=str, default="a horse sized cat eating a bagel", help="Phrase to render")
+  parser.add_argument('--prompt', type=str, default="a horse sized cat eating a bagel", help="Phrase to render")
   parser.add_argument('--out', type=str, default="/tmp/rendered.png", help="Output filename")
   args = parser.parse_args()
 
@@ -619,26 +619,26 @@ if __name__ == "__main__":
     skip_if_exists=True
   )
   dat = fake_torch_load_zipped(open(FILENAME, "rb"))
-  for k,v in tqdm(dat['state_dict'].items()):
+  for k,v in dat['state_dict'].items():
     try:
       w = get_child(model, k)
     except (AttributeError, KeyError, IndexError):
       #traceback.print_exc()
       w = None
-    #print(f"{str(v.shape):30s}", w.shape if w is not None else w, k)
+    #print(f"{str(v.shape):30s}" if v is not None else v, w.shape if w is not None else w, k)
     if w is not None:
-      assert w.shape == v.shape
-      w.assign(v.astype(np.float32))
+      assert w.shape == v.shape and w.dtype == v.dtype, f"shape or dtype mismatch. {w.shape} != {v.shape} or {w.dtype} != {v.dtype}"
+      w.assign(v)
 
   # run through CLIP to get context
 
   tokenizer = ClipTokenizer()
-  phrase = tokenizer.encode(args.phrase)
-  context = model.cond_stage_model.transformer.text_model(phrase).realize()
+  prompt = tokenizer.encode(args.prompt)
+  context = model.cond_stage_model.transformer.text_model(prompt).realize()
   print("got CLIP context", context.shape)
 
-  phrase = tokenizer.encode("")
-  unconditional_context = model.cond_stage_model.transformer.text_model(phrase).realize()
+  prompt = tokenizer.encode("")
+  unconditional_context = model.cond_stage_model.transformer.text_model(prompt).realize()
   print("got unconditional CLIP context", unconditional_context.shape)
 
   # done with clip model
@@ -704,3 +704,5 @@ if __name__ == "__main__":
   im = Image.fromarray(dat)
   print(f"saving {args.out}")
   im.save(args.out)
+  # Open image.
+  im.show()

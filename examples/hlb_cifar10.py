@@ -11,7 +11,6 @@ from tinygrad.nn import optim
 from tinygrad.tensor import Tensor
 from tinygrad.helpers import getenv
 from tinygrad.ops import GlobalCounters
-from extra.utils import get_parameters
 
 num_classes = 10
 
@@ -20,7 +19,7 @@ class ConvGroup:
   def __init__(self, channels_in, channels_out, short, se=True):
     self.short, self.se = short, se and not short
     self.conv = [nn.Conv2d(channels_in if i == 0 else channels_out, channels_out, kernel_size=3, padding=1, bias=False) for i in range(1 if short else 3)]
-    self.norm = [nn.BatchNorm2D(channels_out, track_running_stats=False) for _ in range(1 if short else 3)]
+    self.norm = [nn.BatchNorm2d(channels_out, track_running_stats=False, eps=1e-12, momentum=0.8) for _ in range(1 if short else 3)]
     if self.se: self.se1, self.se2 = nn.Linear(channels_out, channels_out//16), nn.Linear(channels_out//16, channels_out)
 
   def __call__(self, x):
@@ -38,7 +37,7 @@ class SpeedyResNet:
     # TODO: add whitening
     self.net = [
       nn.Conv2d(3, 64, kernel_size=1),
-      nn.BatchNorm2D(64, track_running_stats=False),
+      nn.BatchNorm2d(64, track_running_stats=False, eps=1e-12, momentum=0.8),
       lambda x: x.relu(),
       ConvGroup(64, 128, short=False),
       ConvGroup(128, 256, short=True),
@@ -47,10 +46,10 @@ class SpeedyResNet:
       nn.Linear(512, num_classes, bias=False)
     ]
 
-  # note, pytorch just uses https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html instead of logsoftmax
-  def __call__(self, x): return x.sequential(self.net).logsoftmax()
+  # note, pytorch just uses https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html instead of log_softmax
+  def __call__(self, x): return x.sequential(self.net).log_softmax()
 
-from extra.jit import TinyJit
+from tinygrad.jit import TinyJit
 @TinyJit
 def train_step_jitted(model, optimizer, X, Y):
   out = model(X)
@@ -59,7 +58,9 @@ def train_step_jitted(model, optimizer, X, Y):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
-  return loss
+  #optimizer.lr *= 0.995  # decay LR
+  #optimizer.lr.realize()
+  return loss.realize()
 
 def fetch_batch(X_train, Y_train, BS):
   # fetch a batch
@@ -74,21 +75,21 @@ def train_cifar():
   Tensor.training = True
   BS = getenv("BS", 512)
   if getenv("FAKEDATA"):
-    N = 256
+    N = 2048
     X_train = np.random.default_rng().standard_normal(size=(N, 3, 32, 32), dtype=np.float32)
     Y_train = np.random.randint(0,10,size=(N), dtype=np.int32)
     X_test, Y_test = X_train, Y_train
   else:
     X_train,Y_train = fetch_cifar(train=True)
-    print(X_train.shape, Y_train.shape)
     X_test,Y_test = fetch_cifar(train=False)
+  print(X_train.shape, Y_train.shape)
   Xt, Yt = fetch_batch(X_test, Y_test, BS=BS)
   model = SpeedyResNet()
   if getenv("ADAM"):
-    optimizer = optim.Adam(get_parameters(model), lr=3e-4)
+    optimizer = optim.Adam(optim.get_parameters(model), lr=Tensor([0.001]).realize())
   else:
-    #optimizer = optim.SGD(get_parameters(model), lr=0.001)
-    optimizer = optim.SGD(get_parameters(model), lr=0.001, momentum=0.85, nesterov=True)
+    #optimizer = optim.SGD(optim.get_parameters(model), lr=0.001)
+    optimizer = optim.SGD(optim.get_parameters(model), lr=Tensor([0.003]).realize(), momentum=0.85, nesterov=True)
 
   # 97 steps in 2 seconds = 20ms / step
   # step is 1163.42 GOPS = 56 TFLOPS!!!, 41% of max 136

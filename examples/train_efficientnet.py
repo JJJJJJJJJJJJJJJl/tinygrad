@@ -3,12 +3,11 @@ import time
 from multiprocessing import Process, Queue
 import numpy as np
 from tqdm import trange
-import tinygrad.nn.optim as optim
+from tinygrad.nn import optim
 from tinygrad.helpers import getenv
 from tinygrad.tensor import Tensor
 from datasets import fetch_cifar
 from datasets.imagenet import fetch_batch
-from extra.utils import get_parameters
 from models.efficientnet import EfficientNet
 
 class TinyConvNet:
@@ -39,7 +38,7 @@ if __name__ == "__main__":
   else:
     model = EfficientNet(getenv("NUM", 0), classes, has_se=False)
 
-  parameters = get_parameters(model)
+  parameters = optim.get_parameters(model)
   print("parameter count", len(parameters))
   optimizer = optim.Adam(parameters, lr=0.001)
 
@@ -76,7 +75,7 @@ if __name__ == "__main__":
     y = np.zeros((BS,classes), np.float32)
     y[range(y.shape[0]),Y] = -classes
     y = Tensor(y, requires_grad=False)
-    loss = out.logsoftmax().mul(y).mean()
+    loss = out.log_softmax().mul(y).mean()
 
     optimizer.zero_grad()
 
@@ -89,8 +88,8 @@ if __name__ == "__main__":
     opt_time = (time.time()-st)*1000.0
 
     st = time.time()
-    loss = loss.cpu().data
-    cat = np.argmax(out.cpu().data, axis=1)
+    loss = loss.cpu().numpy()
+    cat = np.argmax(out.cpu().numpy(), axis=1)
     accuracy = (cat == Y).mean()
     finish_time = (time.time()-st)*1000.0
 
