@@ -1,19 +1,20 @@
 import os, time, ctypes, hashlib, subprocess, platform
-import numpy as np
 from collections import defaultdict
 from typing import Final, Dict
-from tinygrad.ops import CompiledBuffer, RawBufferCopyIn
+from tinygrad.helpers import dtypes, DType
+from tinygrad.ops import CompiledBuffer, RawBufferMapped
 from tinygrad.codegen.gpu import GPUCodegen, GPULanguage
 
-class RawMallocBuffer(RawBufferCopyIn):
-  def __init__(self, size): self.size, self._buf = size, (ctypes.c_float * (size//4))()
-  def copyin(self, x:np.ndarray): ctypes.memmove(self._buf, x.ctypes.data, x.size*4)
-  def toCPU(self): return np.ctypeslib.as_array(self._buf)
+class RawMallocBuffer(RawBufferMapped):
+  def __init__(self, size, dtype : DType):
+    super().__init__(size, dtype)
+    self._buf = ({dtypes.float32: ctypes.c_float, dtypes.float16: ctypes.c_int16}[dtype] * size)()
+  def _buffer(self): return memoryview(self._buf)
 
 class ClangProgram:
   kernel_cnt : Final[Dict[str, int]] = defaultdict(int)
   def __init__(self, name:str, prg:str):
-    prg = "#include <math.h>\n#define max(x,y) ((x>y)?x:y)\n" + prg
+    prg = "#include <math.h>\n#define max(x,y) ((x>y)?x:y)\n#define half __fp16\n" + prg
     # TODO: is there a way to not write this to disk?
     fn = f"/tmp/clang_{hashlib.md5(prg.encode('utf-8')).hexdigest()}.{'dylib' if platform.system() == 'Darwin' else 'so'}"
     if not os.path.exists(fn):
@@ -27,7 +28,7 @@ class ClangProgram:
     if wait: return time.monotonic()-st
 
 class ClangCodegen(GPUCodegen):
-  lang = GPULanguage(buffer_suffix="restrict")
+  lang = GPULanguage(buffer_suffix=" restrict")
 
 class ClangBuffer(CompiledBuffer):
   raw_buffer_type, codegen_type, runtime_type = RawMallocBuffer, ClangCodegen, ClangProgram

@@ -110,6 +110,7 @@ class Node:
     nodes.append(NumNode(sum([x.b for x in num_nodes])))
 
     # combine any MulNodes that factorize (big hack sticking the MulNode(x, 1) on things)
+    # TODO: this is slow!
     nodes, mul_nodes = partition(nodes, lambda x: not isinstance(x, MulNode))
     mul_nodes += [MulNode(x, 1) for x in nodes]
     mul_nodes = sorted(mul_nodes, key=lambda x: x.a.render()) # group by equality (ugh, uses render!)
@@ -187,5 +188,5 @@ render_python : Dict[Type, Callable] = {
   GeNode: lambda self,ops,ctx: f"({self.a.render(ops,ctx)}>={self.b})",
   LtNode: lambda self,ops,ctx: f"({self.a.render(ops,ctx)}<{self.b})",
   SumNode: lambda self,ops,ctx: f"({'+'.join(sorted([x.render(ops,ctx) for x in self.nodes]))})",
-  AndNode: lambda self,ops,ctx: f"({'&&'.join(sorted([x.render(ops,ctx) for x in self.nodes]))})"
+  AndNode: lambda self,ops,ctx: f"({' and '.join(sorted([x.render(ops,ctx) for x in self.nodes]))})"
 }

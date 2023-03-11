@@ -3,9 +3,9 @@ from __future__ import annotations
 import math, functools, itertools
 import numpy as np
 from typing import List, Tuple, Callable, Optional, ClassVar, Type, Union, Sequence
-from tinygrad.helpers import prod, argfix, make_pair, getenv, DEBUG, flatten
+from tinygrad.helpers import prod, argfix, make_pair, getenv, DEBUG, flatten, DType, dtypes
 from tinygrad.lazy import Device, LazyBuffer, LazyNumpyArray
-from tinygrad.image import image_conv2d_decorator
+from tinygrad.image import image_conv2d_decorator, image_dot_decorator
 
 # An instantiation of the Function is the Context
 class Function:
@@ -32,18 +32,20 @@ class Tensor:
   __deletable__ = ('_ctx',)
   training : ClassVar[bool] = False
   no_grad : ClassVar[bool] = False
+  default_type : DType = dtypes.float32
 
-  def __init__(self, data, device=Device.DEFAULT, requires_grad:Optional[bool]=None):
+  def __init__(self, data, device=Device.DEFAULT, dtype:Optional[DType]=None, requires_grad:Optional[bool]=None):
     if isinstance(data, list):
-      data = np.array(data, dtype=np.float32)
+      data = np.array(data, dtype=(dtype if dtype is not None else Tensor.default_type).np)
     elif isinstance(data, LazyBuffer) and data.device != device:
       # TODO: this has to realize, it shouldn't have to
       data = data.realize().toCPU()
 
     if isinstance(data, (np.ndarray, LazyNumpyArray)):
       data = data if data.shape else data.reshape((1,))
-      self.lazydata = LazyBuffer.fromCPU(data.astype(np.float32), device)
+      self.lazydata = LazyBuffer.fromCPU(data.astype(dtype.np) if dtype is not None else data, device)
     elif isinstance(data, LazyBuffer):
+      assert dtype is None or dtype == data.dtype, "dtype doesn't match, and casting isn't supported"
       self.lazydata = data
     else:
       raise RuntimeError(f"can't create Tensor from {data}")
@@ -64,12 +66,11 @@ class Tensor:
   @property
   def shape(self) -> Tuple[int, ...]: return self.lazydata.shape
 
-  # dtype handling was very broken. it's always float32 now
-  @property
-  def dtype(self) -> type: return np.float32
-
   @property
   def device(self) -> str: return self.lazydata.device
+
+  @property
+  def dtype(self) -> DType: return self.lazydata.dtype
 
   # ***** data handlers ****
 
@@ -132,11 +133,11 @@ class Tensor:
   def manual_seed(seed=None): Tensor._rng = np.random.default_rng(seed=seed)
 
   @staticmethod
-  def rand(*shape, **kwargs) -> Tensor: return Tensor(LazyNumpyArray(lambda shape: Tensor._rng.random(size=shape, dtype=np.float32), shape), **kwargs)
+  def rand(*shape, **kwargs) -> Tensor: return Tensor(LazyNumpyArray(lambda lna: Tensor._rng.random(size=lna.shape, dtype=lna.dtype), shape, np.float32), **kwargs)
 
   # TODO: replace with a transformation from uniform -> gaussian
   @staticmethod
-  def randn(*shape, **kwargs) -> Tensor: return Tensor(LazyNumpyArray(lambda shape: Tensor._rng.standard_normal(size=shape, dtype=np.float32), shape), **kwargs)
+  def randn(*shape, **kwargs) -> Tensor: return Tensor(LazyNumpyArray(lambda lna: Tensor._rng.standard_normal(size=lna.shape, dtype=lna.dtype), shape, np.float32), **kwargs)
 
   # ***** rng hlops *****
 
@@ -190,7 +191,7 @@ class Tensor:
     return mlops.Reshape.apply(self, shape=tuple(-prod(self.shape) // prod(new_shape) if s == -1 else s for s in new_shape))
   def expand(self, shape, *args) -> Tensor: return mlops.Expand.apply(self, shape=tuple(x if x != -1 else s for s,x in zip(self.shape, argfix(shape, *args))))
   def permute(self, order, *args) -> Tensor: return mlops.Permute.apply(self, order=argfix(order, *args))
-  def flip(self, axis, *args) -> Tensor: return mlops.Flip.apply(self, axis=argfix(axis, *args))
+  def flip(self, axis, *args) -> Tensor: return mlops.Flip.apply(self, axis=[x if x >= 0 else x+len(self.shape) for x in argfix(axis, *args)])
   def pad(self, arg:Tuple[Tuple[int, int], ...]) -> Tensor: return mlops.Pad.apply(self, arg=arg) if any(x != (0,0) for x in arg) else self
   def shrink(self, arg:Tuple[Tuple[int, int], ...]) -> Tensor: return mlops.Shrink.apply(self, arg=arg) if any(x != (0,s) for x,s in zip(arg, self.shape)) else self
 
@@ -252,8 +253,10 @@ class Tensor:
 
   # (padding_left, padding_right, padding_top, padding_bottom)
   def pad2d(self, padding:Tuple[int, ...]): return self.slice(((0,self.shape[0]), (0,self.shape[1]), (-padding[2],self.shape[2]+padding[3]), (-padding[0],self.shape[3]+padding[1])))
-  # TODO: this is totally not transpose
-  def transpose(self, order=(1,0)) -> Tensor: return self.permute(order=order)
+  def transpose(self, ax1=1, ax2=0) -> Tensor:
+    order = list(range(len(self.shape)))
+    order[ax1], order[ax2] = order[ax2], order[ax1]
+    return self.permute(order)
   def flatten(self, start_dim=0): return self.reshape(shape=tuple(list(self.shape[0:start_dim]) + [-1]))
 
   # ***** reduce ops *****
@@ -335,23 +338,11 @@ class Tensor:
     ret = (x * weight.reshape(1, groups, rcout, 1, 1, cin, H, W)).sum((-3, -2, -1)).reshape(bs, cout, oy, ox)
     return ret if bias is None else ret.add(bias.reshape(1, -1, 1, 1))
 
+  @image_dot_decorator
   def dot(self, w:Tensor) -> Tensor:
-    # NOTE: we use a 1x1 conv2d to do the matmul. mxk @ kxn = (1,k,m,1).conv2d(n,k,1,1)
-    bs, groups = prod(self.shape[0:-2]), prod(w.shape[0:-2])
-    cin, cout = w.shape[-2], w.shape[-1]
-    out_shape_t = self.shape[0:-2] + (cout,-1)
-    if len(self.shape) > 1:
-      order = tuple(range(len(self.shape)-2)) + (len(self.shape)-1, len(self.shape)-2)
-    else:
-      order, out_shape_t = (0,), (cout, )
-    worder = tuple(range(len(w.shape)-2)) + (len(w.shape)-1, len(w.shape)-2)
-
-    # NOTE: with NHWC we can remove the transposes
-    # bs x groups*cin x H x W
-    cx = self.transpose(order=order).reshape(shape=(bs//groups, groups*cin, -1, 1))
-    # groups*cout x cin x H, W
-    cw = w.transpose(order=worder).reshape(shape=(groups*cout, cin, 1, 1))
-    return cx.conv2d(cw, groups=groups).reshape(shape=out_shape_t).transpose(order=order)
+    x = self.reshape(*self.shape[0:-1], 1, self.shape[-1])
+    w = w.reshape(*w.shape[0:-2], 1, w.shape[-2], w.shape[-1]).transpose(-1, -2)
+    return (x*w).sum(-1).reshape(*x.shape[0:-2], -1)
 
   # ***** mlops (unary) *****
 
@@ -363,6 +354,7 @@ class Tensor:
 
   def __neg__(self): return 0.0-self
   def sqrt(self): return self.pow(0.5)
+  def rsqrt(self): return self.pow(-0.5)
   def square(self): return self*self
   def clip(self, min_, max_): return ((self-min_).relu()+min_) - (self-max_).relu()
   def abs(self): return self.relu() + (-self).relu()
@@ -451,10 +443,16 @@ class Tensor:
 
   def dropout(self, p=0.5) -> Tensor:
     if not Tensor.training: return self
-    _mask : np.ndarray = np.asarray(Tensor._rng.binomial(1, 1.0-p, size=self.shape), dtype=self.dtype)
+    # TODO: why is this going through numpy?
+    _mask : np.ndarray = np.asarray(Tensor._rng.binomial(1, 1.0-p, size=self.shape), dtype=np.float32)
     return self * Tensor(_mask, requires_grad=False, device=self.device) * (1/(1.0 - p))
 
+  # ***** cast ops *****
+
+  # TODO: this is a hack, but if we add float(0), it will become a float. need real casting support
+  def float(self) -> Tensor: return self.add(Tensor([0], device=self.device, dtype=dtypes.float32, requires_grad=self.requires_grad))
+
 # register functions to move between devices
-for device in [device for device in Device._buffers.keys() if device[0] != "_"]:
+for device in Device._buffers:
   setattr(Tensor, f"{device.lower()}", functools.partialmethod(Tensor.to, device))
   setattr(Tensor, f"{device.lower()}_", functools.partialmethod(Tensor.to_, device))

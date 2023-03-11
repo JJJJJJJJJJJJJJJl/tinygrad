@@ -1,11 +1,10 @@
 # pip3 install pyobjc-framework-Metal pyobjc-framework-Cocoa pyobjc-framework-libdispatch
 import os, subprocess, pathlib, functools
 import Metal, Cocoa, libdispatch # type: ignore
-import numpy as np
 from typing import List, Any
 from tinygrad.codegen.gpu import GPUCodegen, GPULanguage
-from tinygrad.helpers import prod, getenv, DEBUG
-from tinygrad.ops import CompiledBuffer, RawBufferCopyIn
+from tinygrad.helpers import prod, getenv, DEBUG, DType
+from tinygrad.ops import CompiledBuffer, RawBufferMapped
 
 METAL_XCODE = getenv("METAL_XCODE")
 
@@ -19,15 +18,17 @@ class _METAL:
     return METAL.device.newCommandQueue()
 METAL = _METAL()
 
-class RawMetalBuffer(RawBufferCopyIn):
-  def __init__(self, size): self.size, self._cl = size, METAL.device.newBufferWithLength_options_(size, Metal.MTLResourceStorageModeShared)
-  def __del__(self): self._cl.release()
-  def _as_np(self): return np.frombuffer(self._cl.contents().as_buffer(self._cl.length()), dtype=np.float32)
-  def copyin(self, x:np.ndarray): np.copyto(self._as_np(), x.reshape(-1).data)
-  def toCPU(self) -> np.ndarray:
+class RawMetalBuffer(RawBufferMapped):
+  def __init__(self, size:int, dtype:DType):
+    super().__init__(size, dtype)
+    self._cl = METAL.device.newBufferWithLength_options_(size*dtype.itemsize, Metal.MTLResourceStorageModeShared)
+  def __del__(self):
+    self._cl.release()
+    super().__del__()
+  def _buffer(self):
     for cbuf in METAL.mtl_buffers_in_flight: cbuf.waitUntilCompleted()
     METAL.mtl_buffers_in_flight = []
-    return self._as_np()  # no copy!
+    return self._cl.contents().as_buffer(self._cl.length())
 
 def unwrap(x):
   ret, err = x
