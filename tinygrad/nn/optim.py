@@ -59,7 +59,7 @@ class RMSprop(Optimizer):
     self.realize(self.v)
 
 class Adam(Optimizer):
-  def __init__(self, params : List[Tensor], lr=0.001, b1=0.9, b2=0.999, eps=1e-8, realizebool=True):
+  def __init__(self, params : List[Tensor], lr=0.001, b1=0.9, b2=0.999, eps=1e-08, realizebool=True):
     super().__init__(params)
     self.realizebool = realizebool
     # NOTE: self.t is a tensor so Adam can be jitted
@@ -75,13 +75,17 @@ class Adam(Optimizer):
     a = self.lr * ((1.0 - self.b2**self.t)**0.5) / (1.0 - self.b1**self.t)
     for i, t in enumerate(self.params):
       # print("i: ", i, " - t: ", t)
-      print("t.grad: ", t.grad.data)
+      print("1 - t.grad: ", t.grad.data)
+      # print("1 - t: ", t.data)
       assert t.grad is not None
       self.m[i].assign(self.b1 * self.m[i] + (1.0 - self.b1) * t.grad)
       self.v[i].assign(self.b2 * self.v[i] + (1.0 - self.b2) * (t.grad * t.grad))
-      if i== 0: print("MID optim | ", self.realizebool, " | self.m[0].data", self.m[0].data, "self.v[0].data", self.v[0].data)
+      # if i== 0: print("MID optim | ", self.realizebool, " | self.m[0].data", self.m[0].data, "self.v[0].data", self.v[0].data)
       # if i== 0: print("MID optim | ", self.realizebool, " | self.m[0].data", self.m[0].data)
       t.assign(t.detach() - a * self.m[i].div(self.v[i].sqrt() + self.eps))
+      print("2 - t.grad: ", t.grad.data)
+      t.data
+      # print("2 - t: ", t.data)
     # print("AFTER optim | ", self.realizebool, " | self.m[0].data", self.m[0].data)
     print("AFTER optim | ", self.realizebool," | self.m[0].data", self.m[0].data, "self.v[0].data", self.v[0].data)
     if self.realizebool: self.realize([self.t] + self.m + self.v)

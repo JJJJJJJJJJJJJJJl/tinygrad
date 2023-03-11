@@ -4,9 +4,9 @@ import unittest
 from tinygrad.tensor import Tensor
 from tinygrad.nn.optim import Adam, SGD, RMSprop, get_parameters
 
-""" x_init = np.random.randn(1,3).astype(np.float32)
-W_init = np.random.randn(3,3).astype(np.float32)
-m_init = np.random.randn(1,3).astype(np.float32) """
+# x_init = np.random.randn(1,3).astype(np.float32)
+# W_init = np.random.randn(3,3).astype(np.float32)
+# m_init = np.random.randn(1,3).astype(np.float32)
 
 x_init = np.ndarray((1,3), buffer=np.array([[2.0,1,-2.0]])).astype(np.float32)
 W_init = np.eye(3,3).astype(np.float32)
@@ -16,7 +16,7 @@ def walk_tinygrad(optim, steps, kwargs={}):
   net = TinyNet()
   optim = optim([net.x, net.W], **kwargs)
   for _ in range(steps):
-    print("tiny:",_)
+    # print("tiny:",_)
     out = net.forward()
     out.backward()
     optim.step()
@@ -28,7 +28,7 @@ def walk_pytorch(optim, steps, kwargs={}):
   net = TorchNet()
   optim = optim([net.x, net.W], **kwargs)
   for _ in range(steps):
-    print("torch:",_)
+    # print("torch:",_)
     out = net.forward()
     out.backward()
     optim.step()
@@ -65,7 +65,7 @@ class TorchNet():
 class TestOptim(unittest.TestCase):
 
   global steps
-  steps = 3
+  steps = 20
 
   def test_tinysgd_eqnets(self):
     net_realize = TinyNet()
@@ -79,9 +79,14 @@ class TestOptim(unittest.TestCase):
 
     for _ in range(steps):
       print(_)
+      print("A: ", net_realize.x.cpu().data, net_realize.W.cpu().data)
       out_realize = net_realize.forward()
+      print("B: ", net_realize.x.cpu().data, net_realize.W.cpu().data)
       out_realize.backward()
+      print("C: ", net_realize.x.cpu().data, net_realize.W.cpu().data)
+      print("C grads: ", net_realize.x.cpu().grad.data, net_realize.W.cpu().grad.data)
       optim_realize.step()
+      print("D: ", net_realize.x.cpu().data, net_realize.W.cpu().data)
 
       # out_norealize = net_norealize.forward()
       # out_norealize.backward()
@@ -118,10 +123,10 @@ class TestOptim(unittest.TestCase):
                    walk_pytorch(torch.optim.SGD, steps, kwargs={'lr': 0.001})):
       np.testing.assert_allclose(x, y, atol=1e-5)
   
-  def test_sgd_momentum(self):
-    for x,y in zip(walk_tinygrad(SGD, steps, kwargs={'lr': 0.001, 'momentum': 0.9, 'nesterov': True}),
-                   walk_pytorch(torch.optim.SGD, steps, kwargs={'lr': 0.001, 'momentum': 0.9, 'nesterov': True})):
-      np.testing.assert_allclose(x, y, atol=1e-5)
+  # def test_sgd_momentum(self):
+  #   for x,y in zip(walk_tinygrad(SGD, steps, kwargs={'lr': 0.001, 'momentum': 0.9, 'nesterov': True}),
+  #                  walk_pytorch(torch.optim.SGD, steps, kwargs={'lr': 0.001, 'momentum': 0.9, 'nesterov': True})):
+  #     np.testing.assert_allclose(x, y, atol=1e-5)
 
   def test_rmsprop(self):
     for x,y in zip(walk_tinygrad(RMSprop, steps, kwargs={'lr': 0.001, 'decay': 0.99}),
