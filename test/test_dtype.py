@@ -37,5 +37,17 @@ class TestDtype(unittest.TestCase):
     print(c.numpy())
     assert c.dtype == dtypes.float32
 
+  def test_cast_int32_to_f32(self):
+    x = Tensor([1,2,3,4], dtype=dtypes.float32)
+    y = Tensor([1,2,3,4], dtype=dtypes.float32)
+    print("A", x)
+    x.realize()
+    print("B", x)
+    z = x + y
+    print(z)
+    """ y = Tensor([1,2,3,4], dtype=dtypes.float32)
+    z = x + y
+    print(z.numpy()) """
+
 if __name__ == '__main__':
   unittest.main()
