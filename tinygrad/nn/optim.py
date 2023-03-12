@@ -77,7 +77,7 @@ class Adam(Optimizer):
       self.m[i].assign(self.b1 * self.m[i] + (1.0 - self.b1) * g).realize()
       self.v[i].assign(self.b2 * self.v[i] + (1.0 - self.b2) * (g * g)).realize()
       t.assign(t.detach() - a * self.m[i].div(self.v[i].sqrt() + self.eps))
-    #self.realize([self.t] + self.m + self.v)
+    self.realize([self.t] + self.m + self.v)
 
 def get_parameters(obj) -> List[Tensor]:
   parameters: List[Tensor] = []
