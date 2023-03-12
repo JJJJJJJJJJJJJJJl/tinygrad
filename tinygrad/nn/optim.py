@@ -42,7 +42,7 @@ class SGD(Optimizer):
         self.b[i].assign(self.momentum * self.b[i] + g).realize()  # NOTE: self.b[i] is zero on the first run, no if required
         g = (g + self.momentum * self.b[i]) if self.nesterov else self.b[i]
       t.assign(t.detach() - g * self.lr)
-    #self.realize(self.b)
+    self.realize(self.b)
 
 class RMSprop(Optimizer):
   def __init__(self, params: List[Tensor], lr=0.001, alpha=0.99, eps=1e-8):
