@@ -3,7 +3,7 @@ from enum import Enum, auto
 from typing import List, Tuple
 from tinygrad.helpers import prod, dedup, all_same, colored, dtypes
 from tinygrad.ops import LazyOp, MovementOps, get_lazyop_info, get_buffers, ReduceOps, get_lazyops, map_buffers
-from tinygrad.shape import ShapeTracker, View, strides_for_shape
+from tinygrad.shape.shapetracker import ShapeTracker, View, strides_for_shape
 
 def get_first_reduce(shapes):
   for i in range(len(shapes[0])):
@@ -16,7 +16,7 @@ class Token:
   def __init__(self, tok:str, typ:Types, ptr:bool=False):
     assert isinstance(tok, str)
     self.tok, self.typ, self.ptr = tok, typ, ptr
-    self.axis : List[Tuple[int, int, bool]] = []
+    self.axis: List[Tuple[int, int, bool]] = []
   def array(self, length, stride, reduce): self.axis.append((length, stride, reduce))
   def size(self): return prod([x[0] for x in self.axis])
   def offsets(self): return [sum(t) for t in itertools.product(*[[y*x[1] for y in range(x[0])] for x in self.axis[::-1]])] if len(self.axis) else [0]
@@ -73,7 +73,7 @@ class ASTKernel:
     self.earlybufs = dedup(get_buffers(self.reduceop)) if self.reduceop else []
 
     self.buftokens = [Token(f"data{i}", Types.FLOAT, ptr=True) for i in range(len(self.bufs))]
-    self.group_for_reduce : List[int] = []
+    self.group_for_reduce: List[int] = []
 
     # check valid AST kernel
     assert all_same([x.shape for x in self.earlybufs]), "all earlybufs must have the same shape"
@@ -81,10 +81,10 @@ class ASTKernel:
     assert all_same([len(x.shape) for x in self.bufs]), "all bufs must have the same shape size"
 
     # get full shape buf index (earlybufs if there are any, otherwise output)
-    self.full_buf_index : int = self.bufs.index(self.earlybufs[0]) if len(self.earlybufs) > 0 else 0
+    self.full_buf_index: int = self.bufs.index(self.earlybufs[0]) if len(self.earlybufs) > 0 else 0
 
     # process
-    self.sts : List[ShapeTracker] = [x.st.copy() for x in self.bufs]   # create new shapetrackers inside this kernel
+    self.sts: List[ShapeTracker] = [x.st.copy() for x in self.bufs]   # create new shapetrackers inside this kernel
 
     # move all reduce axes to the end
     reduce = list(enumerate(zip(self.full_shape, self.sts[0].shape)))
@@ -131,7 +131,7 @@ class ASTKernel:
   def full_shape(self) -> Tuple[int, ...]: return self.sts[self.full_buf_index].shape
 
   @property
-  def upcast_in_mid_reduce_axes(self): return [j for j in range(self.first_reduce, self.first_reduce+len(self.group_for_reduce)) if self.full_shape[j] == self.sts[0].shape[j]]
+  def upcast_in_mid_reduce_axes(self) -> List[int]: return [j for j in range(self.first_reduce, self.first_reduce+len(self.group_for_reduce)) if self.full_shape[j] == self.sts[0].shape[j]]
 
   def colorshape(self, pad=50) -> str:
     axis = [(f"{rs:4d}", (("green" if i in self.upcast_in_mid_reduce_axes else "cyan") if i < self.first_reduce + len(self.group_for_reduce) else "red") if i >= self.first_reduce else "blue") for i, rs in enumerate(self.full_shape)]

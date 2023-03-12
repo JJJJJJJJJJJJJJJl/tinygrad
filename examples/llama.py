@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # pip3 install sentencepiece pyobjc-framework-Metal pyobjc-framework-Cocoa pyobjc-framework-libdispatch
+#import typeguard.importhook
+#typeguard.importhook.install_import_hook('tinygrad')
+
 import os
-import sys, argparse, math
+import sys, argparse, math, platform
 import numpy as np
 from tqdm import tqdm
 np.set_printoptions(linewidth=200)
@@ -10,8 +13,10 @@ from typing import Optional
 from tinygrad.helpers import getenv, DEBUG
 from tinygrad.lazy import Device
 
-# this is broken?
-#if Device.DEFAULT == "CPU" and not getenv("CPU"): Device.DEFAULT = "METAL"
+# on mac, we make METAL the default. otherwise we make the GPU the default if we have one
+if not getenv("CPU") and Device.DEFAULT == "CPU":
+  if platform.system() == "Darwin" and Device["METAL"] is not None: Device.DEFAULT = "METAL"
+  elif Device["GPU"] is not None: Device.DEFAULT = "GPU"
 
 from extra.helpers import Timing
 from tinygrad.tensor import Tensor
@@ -111,7 +116,7 @@ class Transformer:
   def __init__(self, dim, multiple_of, n_heads, n_layers, norm_eps, vocab_size, max_batch_size=32, max_seq_len=1024):
     self.layers = [TransformerBlock(dim, multiple_of, n_heads, norm_eps) for _ in range(n_layers)]
     self.norm = RMSNorm(dim, norm_eps)
-    self.tok_embeddings = {"weight": Tensor.zeros(vocab_size, dim)}
+    self.tok_embeddings = {"weight": Tensor.glorot_uniform(vocab_size, dim)}
     self.output = Linear(dim, vocab_size, bias=False)
     self.freqs_cis = Tensor(precompute_freqs_cis(dim // n_heads, max_seq_len * 2))
 
@@ -121,11 +126,6 @@ class Transformer:
 
     # get only the part we are using
     freqs_cis = self.freqs_cis[:, start_pos:start_pos+seqlen]
-
-    # WTF!!! This changes the output, and fixes the kv caching. Most serious tinygrad bug in a while.
-    # It is not fixed by disabling the method cache.
-    # TODO: P0. Fix this bug. An offset is likely getting lost somewhere.
-    freqs_cis.realize()
 
     if seqlen > 1:
       mask = np.full((1, 1, seqlen, start_pos + seqlen), float("-inf"), dtype=np.float32)
@@ -157,9 +157,9 @@ WEIGHTS1_FILENAME = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..
 
 # **** helper functions ****
 
-def onehot_encode(toks):
+def onehot_encode(toks, vocab_size=VOCAB_SIZE):
   # this allows the embedding to work in tinygrad
-  onehot = np.zeros((1, len(toks), VOCAB_SIZE), dtype=np.float32)
+  onehot = np.zeros((1, len(toks), vocab_size), dtype=np.float32)
   onehot[0,range(len(toks)),toks] = 1
   return Tensor(onehot)
 
@@ -175,19 +175,23 @@ def sample(logits, temperature):
 # **** main code ****
 
 if __name__ == "__main__":
+  Tensor.no_grad = True
+
+  print(f"using {Device.DEFAULT} backend")
   from sentencepiece import SentencePieceProcessor
   sp_model = SentencePieceProcessor(model_file=TOKENIZER_FILENAME)
   assert sp_model.vocab_size() == VOCAB_SIZE
 
   parser = argparse.ArgumentParser(description='Run LLaMA 7B in tinygrad', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-  # test: python3.11 examples/llama.py --prompt="Hello." --temperature=0
+  # test: python3 examples/llama.py --prompt="Hello." --temperature=0
   # Hello. I'm a 20 year old male. I'm a student at the University of Texas at Austin. I'm a sophomore majoring in Computer Science.
   parser.add_argument('--prompt', type=str, default=None, help="Phrase to start with. Without this, it goes into chatbot mode")
-  parser.add_argument('--count', type=int, default=100, help="Number of tokens to generate")
-  parser.add_argument('--personality', type=str, default="Stacy", help="Personality, can be Stacy, George, or Gary")
+  parser.add_argument('--count', type=int, default=1000, help="Max number of tokens to generate")
+  parser.add_argument('--personality', type=str, default="Stacy", help="Personality, can be Stacy, George, Gary, or Lexie")
 
   parser.add_argument('--temperature', type=float, default=0.7, help="Temperature in the softmax")
   parser.add_argument('--timing', action='store_true', help="Print timing per token")
+  parser.add_argument('--profile', action='store_true', help="Output profile data to out.prof")
   parser.add_argument('--large', action='store_true', help="Use the 13B model instead of the 7B one")
   args = parser.parse_args()
   chatbot = args.prompt == None
@@ -317,7 +321,27 @@ After you are done speaking, output [EOS]. You are not the User.
     resp_delim = "Gary: "
     end_delim = " [EOS]\n"
     pre_prompt += ''.join(f"{user_delim}{k}\n{resp_delim}{v}{end_delim}" for k,v in examples.items())
+  elif args.personality.lower() == "lexie":
+    pre_prompt = f"""Consider that the following is conversation between an attractive young girl named Lexie and a handsome man named Chad
+You are Lexie!
+You grew up in Ohio, but moved out to LA after college to try to become an actress.
+Making it as an actress was hard, so you started doing onlyfans instead. It's much easier, and you enjoy it a lot.
+You met Chad on Tinder, and made plans to meet him at a local dive bar.
+You are at the bar with Chad. You are on a date. What follows is a transcript of the conversation.
+After you are done speaking, output [EOS]. You are not Chad.
 
+<CHAT LOG>
+"""
+    examples = {
+      "hi lexie": "hi chad, glad we finally met up!",
+      "you look better than your pictures": "thanks! are you subscribed to my onlyfans?",
+      "i am. so how'd you end up in LA?": "i moved out here about a year ago. i want to be an actress"
+    }
+
+    user_delim = "\nChad: "
+    resp_delim = "Lexie: "
+    end_delim = " [EOS]\n"
+    pre_prompt += ''.join(f"{user_delim}{k}\n{resp_delim}{v}{end_delim}" for k,v in examples.items())
 
   # *** prompt engineers stop here ****
 
@@ -339,6 +363,10 @@ After you are done speaking, output [EOS]. You are not the User.
   sys.stdout.write(outputted)
   sys.stdout.flush()
 
+  if args.profile:
+    import cProfile, pstats
+    profiler = cProfile.Profile()
+
   # chatbot loop
   while 1:
     # add tokens from user in chatbot mode
@@ -353,6 +381,8 @@ After you are done speaking, output [EOS]. You are not the User.
 
     last_break = len(outputted)
     for i in range(args.count):
+      if args.profile and i == 2: profiler.enable()
+
       if args.timing: print("")
       st = GlobalCounters.time_sum_s
       with Timing("ran model in ", on_exit=(lambda et: f", {(GlobalCounters.time_sum_s-st)*1e3:.2f} ms on GPU") if DEBUG else None, enabled=args.timing):
@@ -376,3 +406,7 @@ After you are done speaking, output [EOS]. You are not the User.
       if chatbot and outputted.endswith(end_delim): break
     if not chatbot: break
 
+  if args.profile:
+    profiler.disable()
+    stats = pstats.Stats(profiler)
+    stats.dump_stats('out.prof')

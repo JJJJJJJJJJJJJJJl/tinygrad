@@ -3,8 +3,8 @@ from __future__ import annotations
 import math, functools, itertools
 import numpy as np
 from typing import List, Tuple, Callable, Optional, ClassVar, Type, Union, Sequence
-from tinygrad.helpers import prod, argfix, make_pair, getenv, DEBUG, flatten, DType, dtypes
-from tinygrad.lazy import Device, LazyBuffer, LazyNumpyArray
+from tinygrad.helpers import prod, argfix, make_pair, getenv, DEBUG, flatten, DType, dtypes, LazyNumpyArray
+from tinygrad.lazy import Device, LazyBuffer
 from tinygrad.image import image_conv2d_decorator, image_dot_decorator
 
 # An instantiation of the Function is the Context
@@ -30,9 +30,9 @@ import tinygrad.mlops as mlops
 
 class Tensor:
   __deletable__ = ('_ctx',)
-  training : ClassVar[bool] = False
-  no_grad : ClassVar[bool] = False
-  default_type : DType = dtypes.float32
+  training: ClassVar[bool] = False
+  no_grad: ClassVar[bool] = False
+  default_type: ClassVar[DType] = dtypes.float32
 
   def __init__(self, data, device=Device.DEFAULT, dtype:Optional[DType]=None, requires_grad:Optional[bool]=None):
     if isinstance(data, list):
@@ -51,17 +51,20 @@ class Tensor:
       raise RuntimeError(f"can't create Tensor from {data}")
 
     # tensors have gradients, buffers do not
-    self.grad : Optional[Tensor] = None
+    self.grad: Optional[Tensor] = None
 
     # NOTE: this can be in three states. False and None: no gradient, True: gradient
     # None (the default) will be updated to True if it's put in an optimizer
-    self.requires_grad : Optional[bool] = requires_grad
+    self.requires_grad: Optional[bool] = requires_grad
 
     # internal variables used for autograd graph construction
-    self._ctx : Optional[Function] = None
+    self._ctx: Optional[Function] = None
 
   def __repr__(self):
     return f"<Tensor {self.lazydata if self.lazydata.realized is None else self.lazydata.realized!r} with grad {(self.grad.lazydata if self.grad else None)!r}>"
+
+  # Python has a non moving GC, so this should be okay
+  def __hash__(self): return id(self)
 
   @property
   def shape(self) -> Tuple[int, ...]: return self.lazydata.shape
@@ -128,7 +131,7 @@ class Tensor:
   # ***** (numpy) rng helper functions *****
   # TODO: move randomness generation out of numpy
 
-  _rng : ClassVar[np.random.Generator] = np.random.default_rng()
+  _rng: ClassVar[np.random.Generator] = np.random.default_rng()
   @staticmethod
   def manual_seed(seed=None): Tensor._rng = np.random.default_rng(seed=seed)
 
@@ -222,7 +225,7 @@ class Tensor:
       if isinstance(s, int) and not (-sz <= s < sz):
         raise IndexError(f"index {s} is out of bounds for dimension {i} with size {sz}")
       new_slice.append((s%sz, s%sz+1) if isinstance(s, int) else (slcfix(s.start, sz, 0), slcfix(s.stop, sz, sz)))
-    for s,sz in zip(val, [self.shape[i-1] for i in itertools.accumulate([s is not None for s in val])]):  # Shape depends on slices + positions of Nones
+    for s,sz in zip(val, [self.shape[i-1] for i in itertools.accumulate([int(s is not None) for s in val])]):  # Shape depends on slices + positions of Nones
       if not isinstance(s, int):
         new_shape.append(1 if s is None else slcfix(s.stop, sz, sz) - slcfix(s.start, sz, 0))
     new_shape += [self.shape[i] for i in range(len(new_slice), len(self.shape))]
@@ -252,7 +255,7 @@ class Tensor:
     return self.reshape(self.shape[:dim] + (1,) + self.shape[dim:])
 
   # (padding_left, padding_right, padding_top, padding_bottom)
-  def pad2d(self, padding:Tuple[int, ...]): return self.slice(((0,self.shape[0]), (0,self.shape[1]), (-padding[2],self.shape[2]+padding[3]), (-padding[0],self.shape[3]+padding[1])))
+  def pad2d(self, padding:Union[List[int], Tuple[int, ...]]): return self.slice(((0,self.shape[0]), (0,self.shape[1]), (-padding[2],self.shape[2]+padding[3]), (-padding[0],self.shape[3]+padding[1])))
   def transpose(self, ax1=1, ax2=0) -> Tensor:
     order = list(range(len(self.shape)))
     order[ax1], order[ax2] = order[ax2], order[ax1]
@@ -262,7 +265,7 @@ class Tensor:
   # ***** reduce ops *****
 
   def _reduce(self, fxn:Type[Function], axis:Optional[Union[int, Tuple[int, ...]]]=None, keepdim=False):
-    axis_ : List[int] = list(range(len(self.shape))) if axis is None else ([axis] if isinstance(axis, int) else list(axis))
+    axis_: List[int] = list(range(len(self.shape))) if axis is None else ([axis] if isinstance(axis, int) else list(axis))
     axis_ = [x if x >= 0 else x+len(self.shape) for x in axis_]
     shape = [self.shape[i] for i in range(len(self.shape)) if i not in axis_]
     ret = fxn.apply(self, new_shape=tuple(1 if i in axis_ else self.shape[i] for i in range(len(self.shape))))
@@ -424,6 +427,7 @@ class Tensor:
   def __le__(self, x) -> Tensor: return self.maximum(x).eq(x)
   def __lt__(self, x) -> Tensor: return 1.0-(self>=x)
   def __gt__(self, x) -> Tensor: return 1.0-(self<=x)
+  def __eq__(self, x) -> Tensor: return self.eq(x)  # type: ignore # mypy things this should be a bool
 
   # ***** functional nn ops *****
 
@@ -444,7 +448,7 @@ class Tensor:
   def dropout(self, p=0.5) -> Tensor:
     if not Tensor.training: return self
     # TODO: why is this going through numpy?
-    _mask : np.ndarray = np.asarray(Tensor._rng.binomial(1, 1.0-p, size=self.shape), dtype=np.float32)
+    _mask: np.ndarray = np.asarray(Tensor._rng.binomial(1, 1.0-p, size=self.shape), dtype=np.float32)
     return self * Tensor(_mask, requires_grad=False, device=self.device) * (1/(1.0 - p))
 
   # ***** cast ops *****

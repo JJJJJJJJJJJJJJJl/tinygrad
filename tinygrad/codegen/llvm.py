@@ -20,7 +20,7 @@ render_llvm = {
 }
 
 class LLVMCodegen(ASTKernel):
-  op_lookup : ClassVar = {
+  op_lookup: ClassVar = {
     UnaryOps.NOOP: lambda builder,x: x,
     UnaryOps.NEG: lambda builder,x: builder.fneg(x, flags=('fast',)),
     UnaryOps.EXP: lambda builder,x: builder.call(builder._block.module.declare_intrinsic('llvm.exp', [ir.FloatType()]), [x], fastmath=('fast',)),
@@ -34,7 +34,7 @@ class LLVMCodegen(ASTKernel):
     BinaryOps.CMPEQ: lambda builder,x,y: builder.uitofp(builder.fcmp_ordered("==", x, y, flags=('fast',)), ir.FloatType()),
     BinaryOps.MAX: lambda builder,x,y: builder.select(builder.fcmp_unordered(">", x, y, flags=('fast',)), x, y, flags=('fast',))
   }
-  start_for_op : ClassVar = {
+  start_for_op: ClassVar = {
     ReduceOps.SUM: ir.Constant(ir.FloatType(), 0),
     ReduceOps.MAX: ir.Constant(ir.FloatType(), -math.inf)
   }
@@ -44,7 +44,7 @@ class LLVMCodegen(ASTKernel):
     if DEBUG >= 3: self.printbufs("old:", DEBUG>=4)
 
     # this stuff can't be hand coded
-    kernel_output_axis : List[int] = []
+    kernel_output_axis: List[int] = []
     """
     CACHE_DIM = 32
     if len(k.shapes[0]) == 2:
@@ -212,4 +212,4 @@ class LLVMCodegen(ASTKernel):
     loop_entry[-1].branch(loop_exit[-1]._block)
     loop_exit[0].ret_void()
 
-    return ASTRunner('exec', str(module), op_estimate=self.info.flops, mem_estimate=sum(4*prod(x._base_shape) for x in self.bufs))
+    return ASTRunner('exec', str(module), op_estimate=self.info.flops, mem_estimate=sum(x.dtype.itemsize*prod(x._base_shape) for x in self.bufs))
