@@ -7,7 +7,7 @@ from tinygrad.helpers import prod, getenv, DEBUG
 from tinygrad.ops import GlobalCounters
 from tinygrad.tensor import Tensor
 from tinygrad.lazy import LazyNumpyArray, Device
-from tinygrad.shape import strides_for_shape
+from tinygrad.shape.shapetracker import strides_for_shape
 
 def fetch(url):
   if url.startswith("/"):
@@ -45,7 +45,7 @@ def my_unpickle(fb0):
         if DEBUG: print(f"unsupported type {storage_type} on {obj_key} with shape {args[2]}")
         ret = None
       else:
-        ret = Tensor(LazyNumpyArray(None, tuple(args[2]), storage_type))
+        ret = Tensor(LazyNumpyArray(lambda lst: np.zeros(lst.shape, dtype=lst.dtype), tuple(args[2]), storage_type))
       key_prelookup[obj_key].append((storage_type, obj_size, ret, args[2], args[3]))
       return ret
 
@@ -84,7 +84,7 @@ def my_unpickle(fb0):
 
   return MyPickle(fb0).load(), key_prelookup
 
-def load_single_weight(t:Tensor, myfile, shape, strides, dtype):
+def load_single_weight(t:Tensor, myfile, shape, strides, dtype, mmap_allowed=False):
   bytes_size = np.dtype(dtype).itemsize
   if t is None:
     myfile.seek(prod(shape) * bytes_size, 1)
@@ -104,18 +104,26 @@ def load_single_weight(t:Tensor, myfile, shape, strides, dtype):
     return
 
   # ["METAL", "CLANG", "LLVM"] support readinto for more speed
+  # ["GPU", "CUDA"] use _mmap since they have to copy in to the GPU anyway
   # this needs real APIs
   if t.device in ["METAL", "CLANG", "LLVM"]:
     del t.lazydata.op
     t.lazydata.realized = t.lazydata.dbuffer(t.shape, dtype=t.dtype)
     myfile.readinto(t.lazydata.realized.raw()._buffer())
   else:
-    lna = t.lazydata.op.arg
-    lna.fxn = lambda lna: np.frombuffer(myfile.read(prod(t.shape) * t.dtype.itemsize), lna.dtype).reshape(lna.shape)
+    def _mmap(lna):
+      assert myfile._compress_type == 0, "compressed data can't be mmaped"
+      return np.memmap(myfile._fileobj._file, dtype=lna.dtype, mode='r', offset=myfile._orig_compress_start, shape=lna.shape)
+    def _read(lna):
+      ret = np.empty(lna.shape, dtype=lna.dtype)
+      myfile.readinto(ret.data)
+      return ret
+    if mmap_allowed and t.device in ["GPU", "CUDA"]: t.lazydata.op.arg.fxn = _mmap
+    else: t.lazydata.op.arg.fxn = _read
     t.realize()
 
 def fake_torch_load_zipped(fb0, load_weights=True, base_name="archive", multithreaded=True):
-  if Device.DEFAULT in ["TORCH", "CUDA"]: multithreaded = False  # multithreaded doesn't work with CUDA or TORCH
+  if Device.DEFAULT in ["TORCH", "GPU", "CUDA"]: multithreaded = False  # multithreaded doesn't work with CUDA or TORCH. for GPU it's a wash with _mmap
 
   import zipfile
   with zipfile.ZipFile(fb0, 'r') as myzip:
@@ -125,7 +133,7 @@ def fake_torch_load_zipped(fb0, load_weights=True, base_name="archive", multithr
       def load_weight(k, vv):
         with myzip.open(f'{base_name}/data/{k}') as myfile:
           for v in vv:
-            load_single_weight(v[2], myfile, v[3], v[4], v[0])
+            load_single_weight(v[2], myfile, v[3], v[4], v[0], mmap_allowed=True)
       if multithreaded:
         import concurrent.futures
         # 2 seems fastest

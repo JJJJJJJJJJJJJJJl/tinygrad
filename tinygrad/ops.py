@@ -2,9 +2,9 @@ from __future__ import annotations
 import functools, itertools, operator, random
 import numpy as np
 from enum import Enum, auto
-from typing import Union, Type, NamedTuple, Tuple, Any, List, ClassVar, Optional, Callable, Dict, TypeVar, Set
+from typing import Union, Type, NamedTuple, Tuple, Any, List, ClassVar, Optional, Callable, Dict, TypeVar, Set, Final
 from tinygrad.helpers import prod, DEBUG, getenv, DType, dtypes
-from tinygrad.shape import ShapeTracker, MovementOps
+from tinygrad.shape.shapetracker import ShapeTracker, MovementOps
 
 # these are the llops your accelerator must implement, along with toCpu
 # the Enum class doesn't work with mypy, this is static. sorry it's ugly
@@ -39,9 +39,9 @@ class Copyable:
 
 class RawBuffer(Copyable):  # pylint: disable=abstract-method
   def __init__(self, size:int, dtype:DType):
-    self.size : int = size
-    self.dtype : DType = dtype
-    self._memsz : int = size*dtype.itemsize
+    self.size: int = size
+    self.dtype: DType = dtype
+    self._memsz: int = size*dtype.itemsize
     GlobalCounters.mem_used += self._memsz
   def __del__(self): GlobalCounters.mem_used -= self._memsz
 
@@ -81,7 +81,7 @@ class GenericShape:
   def consume_flops(self):
     self.flops, ret = 0, self.flops
     return ret
-shape_fxn_for_op : Dict[Op, Callable] = {
+shape_fxn_for_op: Dict[Op, Callable] = {
   **{op:lambda self: GenericShape(self.shape, self.dtype, self.consume_flops() + prod(self.shape)) for op in UnaryOps},
   **{op:lambda self,y: GenericShape(self.shape, max(self.dtype, y.dtype), self.consume_flops() + y.consume_flops() + prod(self.shape)) for op in BinaryOps},
   **{op:lambda self,new_shape: GenericShape(new_shape, self.dtype, self.consume_flops() + prod(self.shape)) for op in ReduceOps},
@@ -90,10 +90,15 @@ def get_lazyop_info(ast:LazyOp): return InterpretedBuffer.exec_ast(map_buffers({
 
 # used in CPUBuffer and TorchBuffer
 class InterpretedBuffer(DeviceBuffer):  # pylint: disable=abstract-method
-  fxn_for_op : ClassVar = shape_fxn_for_op
+  fxn_for_op: ClassVar = shape_fxn_for_op
   def __init__(self, lbuf:Any):
-    self._buf, self.shape, self.dtype = lbuf, tuple(lbuf.shape), self.to_tinygrad_dtype(lbuf) if hasattr(self, 'to_tinygrad_dtype') else lbuf.dtype
-    print("arg lbuf: ", lbuf) 
+    self._buf: Any = lbuf
+    self.shape: Tuple[int, ...] = tuple(lbuf.shape)
+    self.dtype: DType = self.to_tinygrad_dtype(lbuf) if hasattr(self, 'to_tinygrad_dtype') else lbuf.dtype
+    # NOTE: this is overcounting the memory used, as reshapes and stuff are aliases
+    self._memsz = (prod(self.shape) * self.dtype.itemsize) if not isinstance(lbuf, GenericShape) else 0
+    GlobalCounters.mem_used += self._memsz
+  def __del__(self): GlobalCounters.mem_used -= self._memsz
   def contiguous(self): return type(self).exec_ast(LazyOp(op=UnaryOps.NOOP, src=(self,)))
   def movement_op(self, op:MovementOps, arg=None): return type(self)(self.fxn_for_op[op](self._buf, arg)) if op in self.fxn_for_op else type(self)(getattr(self._buf, op.name.lower())(arg))
   @classmethod
@@ -101,14 +106,16 @@ class InterpretedBuffer(DeviceBuffer):  # pylint: disable=abstract-method
     k = cls.codegen_type(ast, output_buffer)
     if FusedOps.MULACC in cls.fxn_for_op and ast.op == ReduceOps.SUM and isinstance(ast.src[0], LazyOp) and ast.src[0].op == BinaryOps.MUL:
       ast = LazyOp(FusedOps.MULACC, ast.src[0].src, ast.arg)
+    created_context = context is None
     if context is None: context = dict()
     if ast in context: return context[ast]
     srcs = [cls.exec_ast(x, context=context) if isinstance(x, LazyOp) else x for x in ast.src]
-    if DEBUG >= 4 or (not isinstance(srcs[0]._buf, GenericShape) and DEBUG >= 3): print("exec_ast", ast.op, [x.shape for x in srcs], ast.arg)
     if ast.op in BinaryOps: assert srcs[0].shape == srcs[1].shape, f"BinaryOps shape mismatch {srcs[0].shape} != {srcs[1].shape}"
     if ast.op in ReduceOps: assert all(r == n or n == 1 for r,n in zip(srcs[0].shape, ast.arg)), f"ReduceOps can't reduce {srcs[0].shape} -> {ast.arg}"
     if ast.op in MovementOps: ret = srcs[0].movement_op(ast.op, ast.arg)
     else: ret = cls(cls.fxn_for_op[ast.op](*([x._buf for x in srcs] + ([ast.arg] if ast.arg else []))))
+    if DEBUG >= 4 or (not isinstance(srcs[0]._buf, GenericShape) and DEBUG >= 3):
+      print(f"*** {'exec' if created_context else '    '} {GlobalCounters.mem_used/1e9:5.2f} GB op: {ast.op:20s} out({ret.dtype.name}): {str(ret.shape):30s} in({len(srcs)}):", list(set(x.shape for x in srcs)), ast.arg if ast.arg is not None else "")
     context[ast] = ret
     if getenv("PRINT_AST", "") == prg.name or getenv("PRINT_AST", "") == "1":
       k.print()
@@ -129,7 +136,7 @@ class ASTRunner:
     self.clprg = runtime(self.name, self.prg)
     return self
 
-  def exec(self, bufs:List[CompiledBuffer]) -> Optional[float]:
+  def exec(self, bufs:List[Optional[CompiledBuffer]]) -> Optional[float]:
     rawbufs = [x.raw() for i,x in enumerate(bufs) if x is not None and i not in self.bufs_to_delete]
     if getenv("OPTLOCAL") and self.global_size is not None and self.local_size is None: self.local_size = self.optimize_local_size(rawbufs)
     if GlobalCounters.cache is not None: GlobalCounters.cache.append((self, rawbufs))
@@ -168,15 +175,15 @@ class CompiledBuffer(DeviceBuffer):  # pylint: disable=abstract-method
     self.shape = self.st.shape
     self.dtype = dtype
     assert hostbuf is None or hostbuf.dtype == dtype, f"hostbuf dtype {hostbuf.dtype} != {dtype}"
-    self._base_shape : Tuple[int, ...] = hostbuf._base_shape if hostbuf is not None else self.shape
+    self._base_shape: Tuple[int, ...] = hostbuf._base_shape if hostbuf is not None else self.shape
     self._buf = hostbuf._buf if hostbuf is not None else None
-    self._backing : Optional[np.ndarray] = hostbuf._backing if hostbuf is not None else backing
+    self._backing: Optional[np.ndarray] = hostbuf._backing if hostbuf is not None else backing
     assert self._backing is None or dtypes.from_np(self._backing) == dtype, f"backing dtype {dtypes.from_np(self._backing)} != {dtype}"
     if (self._backing is not None and self._backing.shape != (1,)) or force_create: self.raw()
 
   def __repr__(self): return f"{type(self).__name__}(shape={self.st}, hostbuf={type(self).__name__}(shape={self._base_shape}" + (f", backing=np.array({self._backing}, dtype=np.{self.dtype.np.__name__}), dtype={self.dtype}), dtype={self.dtype})" if self._backing is not None else f", force_create=True, dtype={self.dtype}), dtype={self.dtype})")
 
-  raw_buffer_type : Type[RawBuffer]
+  raw_buffer_type: ClassVar[Type[RawBuffer]]
   @classmethod
   def create_raw_buffer(cls, shape:Tuple[int, ...], backing:Optional[np.ndarray], dtype:DType) -> RawBuffer:
     assert backing is None or prod(shape) == prod(backing.shape), "backing has the wrong shape"
@@ -197,13 +204,14 @@ class CompiledBuffer(DeviceBuffer):  # pylint: disable=abstract-method
     if DEBUG >= 3: print(f"**** copy out {self.shape}")
     return self.contiguous().raw().toCPU().reshape(self.shape)
 
-  codegen_type : Any
-  runtime_type : Type
-  method_cache : Dict[str, ASTRunner] = {}
+  codegen_type: ClassVar[Any]
+  runtime_type: ClassVar[Type]
+
+  method_cache: Final[Dict[str, ASTRunner]] = {}
   @classmethod
   def exec_ast(cls, ast:LazyOp, output_buffer:Optional[CompiledBuffer]=None):
     k = cls.codegen_type(ast, output_buffer)
-    if getenv("ENABLE_METHOD_CACHE"):   # TODO: this breaks the ops test!
+    if getenv("ENABLE_METHOD_CACHE", 1):  # this is the default now
       if k.key not in cls.method_cache: cls.method_cache[k.key] = k.codegen().build(cls.runtime_type)
       elif DEBUG >= 4: print(f"method cache hit : {k.key}")
       prg = cls.method_cache[k.key]
@@ -220,11 +228,11 @@ class CompiledBuffer(DeviceBuffer):  # pylint: disable=abstract-method
   def movement_op(self, op:MovementOps, arg): return type(self)(ShapeTracker(self.st).movement_op(op, arg), hostbuf=self, dtype=self.dtype)
 
 class GlobalCounters:
-  global_ops : ClassVar[int] = 0
-  global_mem : ClassVar[int] = 0
-  time_sum_s : ClassVar[float] = 0.0
-  kernel_count : ClassVar[int] = 0
-  mem_used : ClassVar[int] = 0   # NOTE: this is not reset
-  cache : ClassVar[Optional[List[Tuple[Callable, Any]]]] = None
+  global_ops: ClassVar[int] = 0
+  global_mem: ClassVar[int] = 0
+  time_sum_s: ClassVar[float] = 0.0
+  kernel_count: ClassVar[int] = 0
+  mem_used: ClassVar[int] = 0   # NOTE: this is not reset
+  cache: ClassVar[Optional[List[Tuple[Callable, Any]]]] = None
   @staticmethod
   def reset(): GlobalCounters.global_ops, GlobalCounters.global_mem, GlobalCounters.time_sum_s, GlobalCounters.kernel_count, GlobalCounters.cache = 0,0,0.0,0,None

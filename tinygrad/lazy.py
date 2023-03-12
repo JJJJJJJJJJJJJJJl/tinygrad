@@ -2,8 +2,8 @@ from __future__ import annotations
 from typing import Optional, Tuple, Union, List, Dict, Any, ClassVar, Type
 import os, sys, weakref, importlib, inspect, functools
 from weakref import WeakValueDictionary
-from tinygrad.helpers import prod, getenv, DType, dtypes
-from tinygrad.shape import ShapeTracker, get_contraction
+from tinygrad.helpers import prod, getenv, DType, dtypes, LazyNumpyArray
+from tinygrad.shape.shapetracker import ShapeTracker, get_contraction
 from tinygrad.ops import InterpretedBuffer, DeviceBuffer, UnaryOps, BinaryOps, ReduceOps, MovementOps, LoadOps, OpType, LazyOp, get_buffers, get_lazyops, map_buffers
 from tinygrad.graph import log_op
 
@@ -16,7 +16,7 @@ LAZY = getenv("LAZY", 1)
 class _Device:
   def __init__(self) -> None:
     self._buffers = {y.upper():y for y in [os.path.splitext(x)[0][len("ops_"):] for x in sorted(os.listdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "runtime"))) if x.startswith("ops_")]}
-    self.DEFAULT : str = functools.reduce(lambda val, ele: ele if getenv(ele) == 1 else val, self._buffers, "CPU")
+    self.DEFAULT: str = functools.reduce(lambda val, ele: ele if getenv(ele) == 1 else val, self._buffers, "CPU")
   @functools.lru_cache(maxsize=None)  # this class is a singleton, pylint: disable=method-cache-max-size-none
   def __getitem__(self, x:str) -> Type[DeviceBuffer]: return [cls for cname, cls in inspect.getmembers(importlib.import_module(f'tinygrad.runtime.ops_{self._buffers[x]}'), inspect.isclass) if (cname.lower() == self._buffers[x] + "buffer")][0]
 Device = _Device()
@@ -37,10 +37,10 @@ def _ast_reduceops(self:LazyBuffer) -> LazyOp:
 
 # this supports late merging an upstream Reduce op and even an Elementwise op above that
 def _ast_binaryops(self:LazyBuffer) -> LazyOp:
-  real_srcs : Dict[LazyBuffer, Union[None, LazyOp, LazyBuffer]] = {x:None for x in get_buffers(self.op)}
+  real_srcs: Dict[LazyBuffer, Union[None, LazyOp, LazyBuffer]] = {x:None for x in get_buffers(self.op)}
   # NOTE: contiguous does not always mean the same size with SHRINK. this is still mergeable but requires more thought how
-  psrcs : List[Tuple[LazyBuffer, LazyBuffer]] = [(k,x) for k,x in zip(real_srcs.keys(), map(get_movementroot_contiguous, real_srcs.keys())) if x.optype == ReduceOps and x.realized is None and prod(k.shape) == prod(x.shape) and len(x.children) <= 1 and len(k.children) <= 1]
-  intermediate_shape : Tuple[int, ...] = self.shape
+  psrcs: List[Tuple[LazyBuffer, LazyBuffer]] = [(k,x) for k,x in zip(real_srcs.keys(), map(get_movementroot_contiguous, real_srcs.keys())) if x.optype == ReduceOps and x.realized is None and prod(k.shape) == prod(x.shape) and len(x.children) <= 1 and len(k.children) <= 1]
+  intermediate_shape: Tuple[int, ...] = self.shape
   if len(psrcs) == 1 and MERGE_ONE_REDUCE_INTO_ELEMENTWISE:
     if psrcs[0][1].optype == ReduceOps:
       top = _ast_reduceops(psrcs[0][1])
@@ -71,18 +71,11 @@ def replace_with_movement_op(y:Union[LazyOp, LazyBuffer], op:MovementOps, arg:Tu
   assert y.op in BinaryOps or y.op in UnaryOps
   return elementwise_op(y.op, *[replace_with_movement_op(z, op, arg) for z in y.src])   # type: ignore
 
-class LazyNumpyArray:
-  def __init__(self, fxn, shape, dtype): self.fxn, self.shape, self.dtype = fxn, shape, dtype
-  def __call__(self): return self.fxn(self)
-  def reshape(self, new_shape): return LazyNumpyArray(self.fxn, new_shape, self.dtype)
-  def copy(self): return self
-  def astype(self, typ): return self
-
 def support_weakref(x): return x
 @support_weakref  # needed for mypyc, this prevents LazyBuffer from becoming a native class
 class LazyBuffer:
   __deletable__ = ('op',)
-  lazycache : ClassVar[WeakValueDictionary[Tuple[str, DType, OpType, LazyOp], LazyBuffer]] = WeakValueDictionary()
+  lazycache: ClassVar[WeakValueDictionary[Tuple[str, DType, OpType, LazyOp], LazyBuffer]] = WeakValueDictionary()
   def __new__(cls, device:str, shape:Union[ShapeTracker, Tuple[int, ...]], optype:OpType, op:LazyOp, dtype:DType):
     # fromcpu aren't cached
     if optype == LoadOps and op.op == LoadOps.FROMCPU:
@@ -98,11 +91,11 @@ class LazyBuffer:
       return  # cache hit, we return and don't reinit
     self.st = shape if isinstance(shape, ShapeTracker) else ShapeTracker(tuple(shape))
     self.shape, self.optype, self.op, self.dtype = self.st.shape, optype, op, dtype
-    self.realized : Optional[DeviceBuffer] = None
-    self.output_buffer : Optional[DeviceBuffer] = None
+    self.realized: Optional[DeviceBuffer] = None
+    self.output_buffer: Optional[DeviceBuffer] = None
     self.device, self.dbuffer = device, Device[device]
     # TODO: does children have to be a ref count instead of a set? can a Buffer be a double child?
-    self.children : weakref.WeakSet[LazyBuffer] = weakref.WeakSet()
+    self.children: weakref.WeakSet[LazyBuffer] = weakref.WeakSet()
     # NOTE: op should be read only after construction of LazyBuffer
     for x in get_buffers(op): x.children.add(self)
     if not LAZY: self.realize()
@@ -155,13 +148,15 @@ class LazyBuffer:
     assert self.realized.dtype == self.dtype, f"dtype mismatch on realize got {self.realized.dtype} expected {self.dtype}"
     return self.realized
 
-  # NOTE: we have to make a copy of the numpy array here in case the user changes it. expose this?
+  # NOTE: we have to make a copy of the numpy array here in case the user changes it. expose this? LazyNumpyArray doesn't have this problem
   @staticmethod
   def fromCPU(x, device) -> LazyBuffer: return LazyBuffer(device, x.shape, LoadOps, LazyOp(LoadOps.FROMCPU, tuple(), x.copy()), dtypes.from_np(x))
+
+  # NOTE: we also have to copy the numpy array on the way out...otherwise the underlying Tensor could be freed and use after free. improve this?
   def toCPU(self):
     ret = self.realize().toCPU()
     log_op(InterpretedBuffer(ret), LazyOp(LoadOps.TOCPU, (self.realized,), None))
-    return ret
+    return ret.copy()
 
   def unary_op(self:LazyBuffer, op:UnaryOps) -> LazyBuffer: return elementwise_op(op, self)
   def binary_op(self:LazyBuffer, op:BinaryOps, y:LazyBuffer) -> LazyBuffer: return elementwise_op(op, self, y)
@@ -185,7 +180,8 @@ class LazyBuffer:
     if self.realized is None and self.op.op == op:
       # TODO: why is deleting self from children needed? shouldn't GC do it?
       self.op.src[0].children.discard(self)
-      if op in [MovementOps.RESHAPE, MovementOps.EXPAND, MovementOps.SHRINK]: return self.op.src[0].movement_op(op, arg)
+      if op in [MovementOps.RESHAPE, MovementOps.EXPAND]: return self.op.src[0].movement_op(op, arg)
+      if op == MovementOps.SHRINK: return self.op.src[0].movement_op(op, tuple((b1+b2, b1+e2) for (b1,e1),(b2,e2) in zip(self.op.arg, arg)))
       if op == MovementOps.PERMUTE: return self.op.src[0].movement_op(op, tuple(self.op.arg[i] for i in arg))
       if op == MovementOps.PAD: return self.op.src[0].movement_op(op, tuple((b1+b2, e1+e2) for (b1,e1),(b2,e2) in zip(self.op.arg, arg)))
       if op == MovementOps.STRIDE: return self.op.src[0].movement_op(op, tuple(i*j for i,j in zip(arg, self.op.arg)))
@@ -210,7 +206,7 @@ class LazyBuffer:
     # move permutes before reshapes if we can
     if op == MovementOps.PERMUTE and PUSH_PERMUTES and self.realized is None and self.op.op == MovementOps.RESHAPE and isinstance(self.op.src[0], LazyBuffer):
       if shape_idx_groups := get_contraction(self.op.src[0].shape, self.shape):
-        new_arg : List[int] = functools.reduce(lambda r, x: r + shape_idx_groups[x], arg, [])
+        new_arg: List[int] = functools.reduce(lambda r, x: r + shape_idx_groups[x], arg, [])
         self.op.src[0].children.discard(self)   # this changes nothing?
         return self.op.src[0].movement_op(MovementOps.PERMUTE, tuple(new_arg)) \
           .movement_op(MovementOps.RESHAPE, ShapeTracker(self.st).movement_op(op, arg).shape)

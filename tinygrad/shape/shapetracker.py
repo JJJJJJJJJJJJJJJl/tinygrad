@@ -20,11 +20,14 @@ def to_shape_strides(shape:Tuple[int, ...], strides:Tuple[int, ...]) -> List[Tup
       ret.append((shape[i], strides[i]))
   return ret
 
+@functools.lru_cache(maxsize=None)
+def is_contiguous(shape:Tuple[int, ...], strides:Tuple[int, ...]) -> bool: return all(s1 == s2 or s == 1 for s,s1,s2 in zip(shape, strides, strides_for_shape(shape)))
+
 class View:
   def __init__(self, shape:Tuple[int, ...], strides:Tuple[int, ...], offset:int=0):
     self.shape, self.strides, self.offset = shape, tuple(stride if shp != 1 else 0 for stride,shp in zip(strides, shape)), offset
     self.shape_strides = to_shape_strides(self.shape, self.strides)
-    self.contiguous : bool = self.offset == 0 and all(s1 == s2 or s == 1 for s,s1,s2 in zip(self.shape, self.strides, strides_for_shape(self.shape)))
+    self.contiguous: bool = self.offset == 0 and is_contiguous(self.shape, self.strides)
 
   def __repr__(self): return f"View({self.shape}, {self.strides}, {self.offset})"
 
@@ -44,7 +47,7 @@ class View:
 class ZeroView:
   def __init__(self, old_shape:Tuple[int, ...], arg):
     self.old_shape, self.arg = old_shape, arg
-    self.shape : Tuple[int, ...] = tuple([y-x for x,y in self.arg])
+    self.shape: Tuple[int, ...] = tuple([y-x for x,y in self.arg])
     # fake properties
     self.strides, self.contiguous, self.offset = strides_for_shape(self.shape), False, 0
 
@@ -94,10 +97,8 @@ def merge_views(vm2:View, vm1:View) -> Optional[View]:
   return View(vm1.shape, tuple(new_strides), new_offset.b) if len(new_strides) == len(vm1.strides) else None
 
 class ShapeTracker:
-  dispatch : Dict[MovementOps, Callable]
-
   def __init__(self, shape:Union[ShapeTracker, Tuple[int, ...]], views:Optional[List[ViewTypes]]=None):
-    self.views : List[ViewTypes] = views if views is not None else (shape.views[:] if isinstance(shape, ShapeTracker) else [view_from_shape(shape)])
+    self.views: List[ViewTypes] = views if views is not None else (shape.views[:] if isinstance(shape, ShapeTracker) else [view_from_shape(shape)])
   def __repr__(self): return f"ShapeTracker(shape={self.shape}, views={self.views})"
   def copy(self) -> ShapeTracker: return ShapeTracker(self.shape, self.views[:])
 
@@ -144,11 +145,11 @@ class ShapeTracker:
 
   # *** under this line are the movement ops ***
 
-  def __unsafe_resize(self, arg : Tuple[Tuple[int, int], ...]):
+  def __unsafe_resize(self, arg: Tuple[Tuple[int, int], ...]):
     offset = sum([self.strides[i]*x for i,(x,_) in enumerate(arg)])
     self.views[-1] = View(tuple(y-x for x,y in arg), self.strides, self.offset+offset)
 
-  def _pad(self, arg : Tuple[Tuple[int, int], ...]):
+  def _pad(self, arg: Tuple[Tuple[int, int], ...]):
     assert all((b>=0 and e>=0) for b,e in arg) and len(arg) == len(self.shape)
     if all(b==0 and e==0 for b,e in arg): return self   # ZeroView is expensive if we don't need it
     zvarg = tuple((-b,s+e) for s,(b,e) in zip(self.shape, arg))
@@ -157,17 +158,15 @@ class ShapeTracker:
     # if we add a ZeroView, we add another (stock) view also for modding
     self.views += [zeroview, View(self.shape, strides_for_shape(self.shape))]
 
-  def _shrink(self, arg : Tuple[Tuple[int, int], ...]):
+  def _shrink(self, arg: Tuple[Tuple[int, int], ...]):
     assert all((b>=0 and e<=s) for s,(b,e) in zip(self.shape,arg)) and len(arg) == len(self.shape)
     self.__unsafe_resize(arg)
 
-  def _expand(self, new_shape : Tuple[int, ...]):
-    assert all(isinstance(x, int) for x in new_shape), f"non ints for expand in {new_shape}"
-    assert all(x == y or x == 1 for x,y in zip(self.shape, new_shape)), f"can't expand {self.shape} into {new_shape}"
-    strides : Tuple[int, ...] = tuple(s if x == y else 0 for s,(x,y) in zip(self.strides, zip(self.shape, new_shape)))
-    self.views[-1] = View(new_shape, strides, self.offset)
+  def _expand(self, new_shape: Tuple[int, ...]):
+    assert all(isinstance(x, int) and (s == x or (s == 1 and st == 0)) for s,x,st in zip(self.shape, new_shape, self.strides)), f"can't expand {self.shape} into {new_shape}"
+    self.views[-1] = View(new_shape, self.strides, self.offset)
 
-  def _reshape(self, new_shape : Tuple[int, ...]):
+  def _reshape(self, new_shape: Tuple[int, ...]):
     if self.shape == new_shape: return self
     assert all(isinstance(x, int) and x != 0 for x in new_shape), f"shape must be ints and can't contain 0 {new_shape}"
     assert prod(self.shape) == prod(new_shape), f"can't reshape {self.shape} -> {new_shape}"
@@ -187,14 +186,14 @@ class ShapeTracker:
       if (merged_view := merge_views(cast(View, self.views[-1]), view)) is not None: self.views[-1] = merged_view
       else: self.views.append(view)
 
-  def _permute(self, axis : Tuple[int, ...]):
+  def _permute(self, axis: Tuple[int, ...]):
     assert all(isinstance(x, int) and x >= 0 and x < len(self.shape) for x in axis), f"invalid permute {axis} for {self.shape}"
     assert len(set(axis)) == len(axis) and len(axis) == len(self.shape), f"can't permute {self.shape} with {axis}"
     self.views[-1] = View(tuple(self.shape[a] for a in axis), tuple(self.strides[a] for a in axis), self.offset)
 
   # except for the negative case, you can build this from the others. invertible in the negative case
-  def _stride(self, mul : Tuple[int, ...]):
-    assert all(isinstance(x, int) for x in mul)
+  def _stride(self, mul: Tuple[int, ...]):
+    assert all(isinstance(x, int) and x != 0 for x in mul), f"invalid stride {mul} for {self.shape}"
     strides = tuple(z*m for z,m in zip(self.strides, mul))
     new_shape = tuple((s+(abs(m)-1))//abs(m) for s,m in zip(self.shape, mul))
     offset = sum([(s-1)*z for s,z,m in zip(self.shape, self.strides, mul) if m < 0])
@@ -204,19 +203,19 @@ class ShapeTracker:
 
   def movement_op(self, op, arg:Union[Tuple[int, ...], Tuple[Tuple[int, int], ...]]) -> ShapeTracker:
     assert isinstance(arg, tuple) and (len(arg) == len(self.shape) or op == MovementOps.RESHAPE), f"arg {arg} for {op} doesn't match dim of shape {self.shape}"
-    ShapeTracker.dispatch[op](self, arg)
+    dispatch[op](self, arg)
     return self
 
-# populate dispatch
-ShapeTracker.dispatch = {op:getattr(ShapeTracker, "_"+str(op).split(".")[1].lower()) for op in MovementOps}
+dispatch: Dict[MovementOps, Callable] = {MovementOps.RESHAPE: ShapeTracker._reshape, MovementOps.EXPAND: ShapeTracker._expand, MovementOps.PAD: ShapeTracker._pad,
+                                         MovementOps.SHRINK: ShapeTracker._shrink, MovementOps.PERMUTE: ShapeTracker._permute, MovementOps.STRIDE: ShapeTracker._stride}
 
 # returns the axes to create new_shape if new_shape can be created by combining axis from old_shape
 def get_contraction(old_shape:Tuple[int, ...], new_shape:Tuple[int, ...]):
   # Pre-allocate all groups.
-  axis_groups : List[List[int]] = [[] for _ in range(len(new_shape))]
+  axis_groups: List[List[int]] = [[] for _ in range(len(new_shape))]
   # Index for new_shape and axis_groups.
-  i : int = 0
-  old_shape_i : int = 0
+  i: int = 0
+  old_shape_i: int = 0
   while old_shape_i < len(old_shape):
     # 1s exist in new_shape only will lead to empty axes group creations.
     if new_shape[i] == 1 and old_shape[old_shape_i] != 1:
